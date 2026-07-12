@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "homepage": "https://raiihann5.github.io/portofolio-raihan/",
+  "homepage": "https://raiihann5.github.io/portofolio-raihan/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
