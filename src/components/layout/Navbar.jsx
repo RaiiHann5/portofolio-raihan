@@ -99,6 +99,8 @@ export default function Navbar() {
           </span>
           Raihan
         </a>
+        
+        document.querySelector('#lab')   
 
         <ul className="hidden items-center gap-1 md:flex">
           {links.map((link) => {

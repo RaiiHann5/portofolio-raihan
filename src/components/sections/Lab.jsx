@@ -6,44 +6,6 @@ import { useSpotify } from "../../hooks/useSpotify";
 import SectionHeading from "../ui/SectionHeading";
 import { beyondCode } from "../../data/beyondCode";
 
-/**
- * DESIGN CONCEPT — "the desk, not the resume"
- * ------------------------------------------------------------
- * Everywhere else on this site is a clean grid of cards. This section is the
- * one place allowed to look like an actual desk: a turntable that spins
- * (and can now actually be YOUR Spotify), game cartridges pulled off a
- * shelf, movie ticket stubs from a marquee, hobbies pinned up like
- * polaroids with tape. Nothing here is a generic "feature card" — every
- * shape is doing an impression of a physical object.
- *
- * data/beyondCode.js shape (superset of the original — new fields are all
- * optional and fall back gracefully):
- *
- * export const nowPlaying = {
- *   track: "Are You Bored Yet?", artist: "Wallows, Clairo",
- *   progress: 0.42, duration: "3:24", queue: [ ... ],
- * }; // used only while Spotify isn't connected
- *
- * export const games = [
- *   { id, title, status: "Playing"|"Backlog"|"Completed", hours, cover: "#hex",
- *     genre, lastPlayed, note, completion },
- * ];
- *
- * export const movies = [
- *   { id, title, year, status: "Watching"|"Watchlist"|"Watched", poster: "#hex",
- *     rating: 0-5, note },
- * ]; // optional — a small sample is used if you haven't added this yet
- *
- * export const hobbies = [
- *   { id, icon: "📷", label, blurb, color, facts: ["...", "..."] },
- * ];
- *
- * SPOTIFY: drop useSpotify.js into src/hooks/, set VITE_SPOTIFY_CLIENT_ID in
- * .env, and the turntable's tape-tag will read "connect spotify" — tap it
- * to pull in whatever's actually playing on your account. Without it, the
- * turntable just spins the static nowPlaying data above, same as before.
- */
-
 const ACCENTS = ["#e8836a", "#f0c14b", "#6ea8c9", "#a58bd6", "#7fb88a"];
 const seededRotation = (id, spread = 3) => (((id * 37) % (spread * 2 + 1)) - spread);
 const clamp = (n, min = 0, max = 1) => Math.max(min, Math.min(max, n));
