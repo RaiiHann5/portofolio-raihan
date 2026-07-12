@@ -8,7 +8,7 @@ const links = [
   { label: "Skills", href: "#skills" },
   { label: "Work", href: "#work" },
   { label: "Journey", href: "#journey" },
-  { label: "Beyond Code", href: "#lab" },
+  { label: "Beyond Code", href: "#beyond-code" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -98,9 +98,7 @@ export default function Navbar() {
             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--accent-1)]" />
           </span>
           Raihan
-        </a>
-        
-        document.querySelector('#lab')   
+        </a>   
 
         <ul className="hidden items-center gap-1 md:flex">
           {links.map((link) => {
