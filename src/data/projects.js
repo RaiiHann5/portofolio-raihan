@@ -1,5 +1,4 @@
 import Englishpath from "../assets/Englishpath2.png";
-import HumanRespitory from "../assets/Human-respitory.png";
 import Webtera from "../assets/Webtera.png";
 import Mathlabs from "../assets/Mathlabs2.png";
 import Coffeecon from "../assets/Coffecon.png";
@@ -18,17 +17,6 @@ export const projects = [
   },
   {
     id: "p02",
-    title: "Human Respiratory System Learning App",
-    description:
-      "A web application that provides an interactive learning experience about the human respiratory",
-    stack: ["PHP", "Laravel", "Tailwind CSS", "JavaScript"],
-    year: "2026",
-    demo: "https://sistempernapasan.my.id/",
-    image: HumanRespitory,
-    gradient: "linear-gradient(135deg, #26203a, #0a0a0b)",
-  },
-  {
-    id: "p03",
     title: "Coffee-con",
     description:
       "A web for A modern cafe that provides an immersive culinary experience highlighting specialty coffee and artisanal pastries.",
@@ -39,7 +27,7 @@ export const projects = [
     gradient: "linear-gradient(135deg, #143232, #0a0a0b)",
   },
   {
-    id: "p04",
+    id: "p03",
     title: "Math labs",
     description:
       "A digital education website providing comprehensive materials, practice exercises, and step-by-step math solutions to help you achieve your best grades.",
