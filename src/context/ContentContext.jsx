@@ -9,6 +9,15 @@ import { brands } from "../data/brands";
 
 const ContentContext = createContext(null);
 
+function toSlug(text) {
+  return String(text ?? "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
+
 /**
  * Ubah baris `links` dari database jadi bentuk yang dipakai AccountCard.
  * Ikon bisa datang dari dua arah: tersimpan langsung di baris (icon_path),
@@ -36,7 +45,7 @@ function normalizeLink(row) {
 function normalizeProject(row) {
   return {
     id: row.id,
-    slug: row.slug,
+    slug: toSlug(row.slug) || row.id,
     title: row.title,
     description: row.description || "",
     overview: row.overview || "",
@@ -69,7 +78,7 @@ function normalizeCertificate(row) {
 function normalizeTemplate(row) {
   return {
     id: row.id,
-    slug: row.slug,
+    slug: toSlug(row.slug) || row.id,
     title: row.title,
     description: row.description || "",
     overview: row.overview || "",
