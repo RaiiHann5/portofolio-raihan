@@ -154,7 +154,7 @@ function SkillCard({ group, index }) {
       />
 
       <span className="pointer-events-none absolute bottom-6 right-6 z-10 text-[11px] text-[var(--text-faint)] opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-active:opacity-100 sm:bottom-10 sm:right-10 sm:text-xs">
-        {group.skills.length} tools
+        {group.skills.length} {group.skills.length === 1 ? "tool" : "tools"}
       </span>
     </div>
   );

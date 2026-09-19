@@ -32,6 +32,8 @@ export const SKILL_COLORS = {
   "Swift": ["#F05138", "#FFAC45"],
   "Android": ["#3DDC84", "#0F9D58"],
   "Firebase": ["#FFCA28", "#DD2C00"],
+  "TypeScript": ["#3178C6", "#235A97"],
+  "Python": ["#3776AB", "#FFD43B"],
 };
 
 // Fallback kalau ada skill baru yang belum didaftarin di atas
@@ -41,7 +43,7 @@ export const skillGroups = [
   {
     label: "Frontend",
     note: "Core craft",
-    skills: ["React", "JavaScript", "CSS3", "Tailwind CSS"],
+    skills: ["React", "JavaScript", "TypeScript", "CSS3", "Tailwind CSS"],
   },
   {
     label: "Mobile",
@@ -61,7 +63,7 @@ export const skillGroups = [
   {
     label: "Backend",
     note: "Server & data",
-    skills: ["Node.js","PHP", "Laravel","MongoDB"],
+    skills: ["Node.js", "PHP", "Laravel", "Python", "MongoDB"],
   },
   {
     label: "Design",
