@@ -213,8 +213,8 @@ export const translations = {
       id: "Satu basis kode untuk iOS dan Android, atau native kalau memang perlu.",
     },
     mobileDetail: {
-      en: "Built with React Native or Flutter so the app ships to both app stores from a single codebase, with Firebase handling auth, push notifications, and realtime data. For apps where native performance matters — heavy animation, camera work, background processing — I build natively in Kotlin or Swift instead.",
-      id: "Dibangun dengan React Native atau Flutter supaya aplikasinya rilis ke dua app store sekaligus dari satu basis kode, dengan Firebase yang mengurus autentikasi, notifikasi push, dan data realtime. Untuk aplikasi yang butuh performa native — animasi berat, kerja kamera, proses di background — saya bangun native pakai Kotlin atau Swift.",
+      en: "Built with Flutter so the app ships to both app stores from a single codebase, with Firebase handling auth, push notifications, and realtime data. For apps where native performance matters — heavy animation, camera work, background processing — I build natively in Kotlin for Android instead.",
+      id: "Dibangun dengan Flutter supaya aplikasinya rilis ke dua app store sekaligus dari satu basis kode, dengan Firebase yang mengurus autentikasi, notifikasi push, dan data realtime. Untuk aplikasi yang butuh performa native — animasi berat, kerja kamera, proses di background — saya bangun native di Android pakai Kotlin.",
     },
 
     motionTitle: { en: "Interface & motion work", id: "Interface & motion" },

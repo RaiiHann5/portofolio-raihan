@@ -15,21 +15,21 @@ export const services = [
     titleKey: "services.webappTitle",
     leadKey: "services.webappLead",
     detailKey: "services.webappDetail",
-    stack: ["React", "Laravel", "Node.js", "PostgreSQL", "Supabase"],
+    stack: ["React", "Laravel", "PostgreSQL", "Supabase"],
   },
   {
     id: "mobile",
     titleKey: "services.mobileTitle",
     leadKey: "services.mobileLead",
     detailKey: "services.mobileDetail",
-    stack: ["React Native", "Flutter", "Firebase"],
+    stack: ["Flutter", "Firebase"],
   },
   {
     id: "motion",
     titleKey: "services.motionTitle",
     leadKey: "services.motionLead",
     detailKey: "services.motionDetail",
-    stack: ["React", "Figma", "Framer"],
+    stack: ["React", "Figma"],
   },
   {
     id: "rebuild",
@@ -44,22 +44,20 @@ export const services = [
 // dikelompokkan per kategori pas jalan.
 export const marqueeStack = [
   "React",
-  "React Native",
   "Tailwind CSS",
   "Flutter",
   "Laravel",
   "Figma",
-  "Node.js",
   "Kotlin",
   "PostgreSQL",
   "JavaScript",
   "Supabase",
-  "Swift",
   "PHP",
   "Firebase",
   "Git",
   "MongoDB",
-  "Framer",
+  "MySql",
+  "GitHub",
 ];
 
 // Tahapan kerja. Ini memang urutan, jadi penomoran 01–04 relevan.

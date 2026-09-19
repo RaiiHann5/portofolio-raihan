@@ -1,36 +1,21 @@
 // Tiap skill punya warna brand-nya sendiri, dipakai buat glow/border pas hover.
-// Skill dengan array warna (Figma, Canva) = ikonnya emang multicolor,
+// Skill dengan array warna (Figma) = ikonnya emang multicolor,
 // dipakai buat efek conic-gradient dot di pill.
 export const SKILL_COLORS = {
   React: ["#00C4CC", "#1B4EF5"],
   JavaScript: ["#FBC02D", "#FF8F00"],
-  CSS3: ["#2C5EAD", "#1591DC"],
   "Tailwind CSS": ["#792CA2", "#1B4EF5"],
   "MySql": ["#00758F", "#F29111"],
   "MongoDB": ["#328E6E", "#67AE6E"],
   "PostgreSQL": ["#336791", "#4DB6AC"],
   "Figma": ["#F24E1E", "#FF7262", "#A259FF", "#1ABCFE", "#0ACF83"],
-  "Canva": ["#00C4CC", "#7D2AE8"],
-  "ChatGPT": ["#2E4540", "#0B0909"],
-  "Claude": ["#FF9A00", "#FF6B35"],
   "Git": ["#F05033"],
-  "VS Code": ["#2C5EAD", "#1591DC"],
-  "Node.js": ["#22C55E", "#15803D"],
   "Supabase": ["#3ECF8E", "#249361"],
-  "DeepSeek": ["#61DAFB", "#3B82F6"],
-  "Perplexity": ["#1B3C53", "#061E29"],
   "PHP": ["#4647AE", "#8494FF"],
   "Laravel": ["#D6336C", "#D62828"],
-  "Framer": ["#1A05A2", "#8F0177"],
-  "CorelDRAW": ["#F15A24", "#FBB03B"],
-  "XAMPP": ["#FF6C37", "#FF9E3D"],
-  "Laragon": ["#1E90FF", "#00CED1"],
   "Github": ["#4E56C0", "#9B5DE0"],
-  "React Native": ["#61DAFB", "#0FBCF9"],
   "Flutter": ["#02569B", "#54C5F8"],
   "Kotlin": ["#7F52FF", "#B924E8"],
-  "Swift": ["#F05138", "#FFAC45"],
-  "Android": ["#3DDC84", "#0F9D58"],
   "Firebase": ["#FFCA28", "#DD2C00"],
   "TypeScript": ["#3178C6", "#235A97"],
   "Python": ["#3776AB", "#FFD43B"],
@@ -43,12 +28,16 @@ export const skillGroups = [
   {
     label: "Frontend",
     note: "Core craft",
+<<<<<<< HEAD
     skills: ["React", "JavaScript", "TypeScript", "CSS3", "Tailwind CSS"],
+=======
+    skills: ["React", "JavaScript", "TypeScript", "Tailwind CSS"],
+>>>>>>> dd1fa677561ae6d02c11ccbb590ecc07ae586495
   },
   {
     label: "Mobile",
-    note: "iOS, Android & cross-platform",
-    skills: ["React Native", "Flutter", "Kotlin", "Swift", "Firebase"],
+    note: "Android & cross-platform",
+    skills: ["Flutter", "Kotlin", "Firebase"],
   },
   {
     label: "Database",
@@ -56,23 +45,22 @@ export const skillGroups = [
     skills: ["MySql", "MongoDB", "PostgreSQL", "Supabase"],
   },
   {
-    label: "AI Tools",
-    note: "Depth & dimension",
-    skills: ["ChatGPT", "Claude", "DeepSeek", "Perplexity"],
-  },
-  {
     label: "Backend",
     note: "Server & data",
+<<<<<<< HEAD
     skills: ["Node.js", "PHP", "Laravel", "Python", "MongoDB"],
+=======
+    skills: ["PHP", "Laravel", "Python", "MongoDB"],
+>>>>>>> dd1fa677561ae6d02c11ccbb590ecc07ae586495
   },
   {
     label: "Design",
     note: "Visual & prototyping",
-    skills: ["Figma", "Canva","Framer","CorelDRAW"],
+    skills: ["Figma"],
   },
   {
     label: "Tools",
     note: "Daily drivers",
-    skills: ["Git", "VS Code","Github", "XAMPP", "Laragon"],
+    skills: ["Git", "Github"],
   },
 ];
