@@ -1,23 +1,25 @@
 import { useEffect, useRef, useState } from "react";
+import { NavLink } from "react-router-dom";
 import gsap from "gsap";
 import ThemeToggle from "./ThemeToggle";
+import LanguageToggle from "./LanguageToggle";
 import { useCursor } from "../../context/CursorContext";
+import { useLanguage } from "../../context/LanguageContext";
 
 const links = [
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Work", href: "#work" },
-  { label: "Journey", href: "#journey" },
-  { label: "Beyond Code", href: "#beyond-code" },
-  { label: "Contact", href: "#contact" },
+  { key: "nav.home", to: "/" },
+  { key: "nav.about", to: "/about" },
+  { key: "nav.project", to: "/project" },
+  { key: "nav.marketplace", to: "/marketplace" },
+  { key: "nav.findMe", to: "/find-me" },
 ];
 
 export default function Navbar() {
   const navRef = useRef(null);
   const mobilePanelRef = useRef(null);
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("#top");
   const { setCursor, clearCursor } = useCursor();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const el = navRef.current;
@@ -39,29 +41,6 @@ export default function Navbar() {
     );
   }, []);
 
-  // Scroll-spy: light up the link for whichever section is currently
-  // dominating the viewport, so the nav reflects where you actually are.
-  useEffect(() => {
-    const sectionIds = ["#top", ...links.map((l) => l.href)];
-    const sections = sectionIds
-      .map((id) => document.querySelector(id))
-      .filter(Boolean);
-    if (!sections.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(`#${entry.target.id}`);
-          }
-        });
-      },
-      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
-    );
-    sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
-  }, []);
-
   useEffect(() => {
     const panel = mobilePanelRef.current;
     if (!panel) return;
@@ -74,11 +53,10 @@ export default function Navbar() {
     }
   }, [open]);
 
-  function handleNavClick(e, href) {
-    e.preventDefault();
-    setOpen(false);
-    const target = document.querySelector(href);
-    target?.scrollIntoView({ behavior: "smooth", block: "start" });
+  function navLinkClass({ isActive }) {
+    return `nav-link focus-ring relative px-3 py-2 text-sm transition-colors ${
+      isActive ? "text-white" : "text-[var(--text-muted)] hover:text-white"
+    }`;
   }
 
   return (
@@ -87,9 +65,9 @@ export default function Navbar() {
       className="nav-glass fixed inset-x-0 top-0 z-50 transition-all duration-500"
     >
       <nav className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 sm:px-10">
-        <a
-          href="#top"
-          onClick={(e) => handleNavClick(e, "#top")}
+        <NavLink
+          to="/"
+          onClick={() => setOpen(false)}
           className="focus-ring group flex items-center gap-2 font-display text-lg font-semibold tracking-tight"
           onMouseEnter={() => setCursor("", "default")}
         >
@@ -98,53 +76,42 @@ export default function Navbar() {
             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--accent-1)]" />
           </span>
           Raihan
-        </a>   
+        </NavLink>
 
         <ul className="hidden items-center gap-1 md:flex">
-          {links.map((link) => {
-            const isActive = active === link.href;
-            return (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  onMouseEnter={() => setCursor("", "default")}
-                  onMouseLeave={clearCursor}
-                  aria-current={isActive ? "true" : undefined}
-                  className={`nav-link focus-ring relative px-3 py-2 text-sm transition-colors ${
-                    isActive
-                      ? "text-white"
-                      : "text-[var(--text-muted)] hover:text-white"
-                  }`}
-                >
-                  {link.label}
-                  <span
-                    className="nav-link-dot absolute -bottom-0.5 left-1/2 h-[3px] w-[3px] -translate-x-1/2 rounded-full bg-[var(--accent-1)] transition-all duration-300"
-                    style={{
-                      opacity: isActive ? 1 : 0,
-                      boxShadow: isActive
-                        ? "0 0 8px 2px var(--accent-1)"
-                        : "none",
-                    }}
-                  />
-                </a>
-              </li>
-            );
-          })}
+          {links.map((link) => (
+            <li key={link.to}>
+              <NavLink
+                to={link.to}
+                end={link.to === "/"}
+                onMouseEnter={() => setCursor("", "default")}
+                onMouseLeave={clearCursor}
+                className={navLinkClass}
+              >
+                {({ isActive }) => (
+                  <>
+                    {t(link.key)}
+                    <span
+                      className="nav-link-dot absolute -bottom-0.5 left-1/2 h-[3px] w-[3px] -translate-x-1/2 rounded-full bg-[var(--accent-1)] transition-all duration-300"
+                      style={{
+                        opacity: isActive ? 1 : 0,
+                        boxShadow: isActive ? "0 0 8px 2px var(--accent-1)" : "none",
+                      }}
+                    />
+                  </>
+                )}
+              </NavLink>
+            </li>
+          ))}
         </ul>
 
-        <div className="hidden items-center gap-5 md:flex">
+        <div className="hidden items-center gap-3 md:flex">
+          <LanguageToggle />
           <ThemeToggle />
-          <a
-            href="#contact"
-            onClick={(e) => handleNavClick(e, "#contact")}
-            className="nav-cta focus-ring rounded-full px-5 py-2 text-sm text-white transition-all"
-          >
-            Let's talk
-          </a>
         </div>
 
-        <div className="flex items-center gap-4 md:hidden">
+        <div className="flex items-center gap-3 md:hidden">
+          <LanguageToggle />
           <ThemeToggle />
           <button
             type="button"
@@ -176,22 +143,27 @@ export default function Navbar() {
         >
           <ul className="flex flex-col gap-1">
             {links.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className={`focus-ring flex items-center gap-2 py-3 text-lg transition-colors ${
-                    active === link.href
-                      ? "text-white"
-                      : "text-[var(--text-muted)] hover:text-white"
-                  }`}
+              <li key={link.to}>
+                <NavLink
+                  to={link.to}
+                  end={link.to === "/"}
+                  onClick={() => setOpen(false)}
+                  className={({ isActive }) =>
+                    `focus-ring flex items-center gap-2 py-3 text-lg transition-colors ${
+                      isActive ? "text-white" : "text-[var(--text-muted)] hover:text-white"
+                    }`
+                  }
                 >
-                  <span
-                    className="h-1 w-1 rounded-full bg-[var(--accent-1)] transition-opacity"
-                    style={{ opacity: active === link.href ? 1 : 0 }}
-                  />
-                  {link.label}
-                </a>
+                  {({ isActive }) => (
+                    <>
+                      <span
+                        className="h-1 w-1 rounded-full bg-[var(--accent-1)] transition-opacity"
+                        style={{ opacity: isActive ? 1 : 0 }}
+                      />
+                      {t(link.key)}
+                    </>
+                  )}
+                </NavLink>
               </li>
             ))}
           </ul>
@@ -220,15 +192,6 @@ export default function Navbar() {
           background: color-mix(in srgb, #05060f 68%, transparent);
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);
           box-shadow: 0 8px 32px -12px rgba(0, 0, 0, 0.6);
-        }
-        .nav-link-dot { }
-        .nav-cta {
-          background: color-mix(in srgb, var(--accent-1) 18%, transparent);
-          border: 1px solid color-mix(in srgb, var(--accent-1) 55%, transparent);
-        }
-        .nav-cta:hover {
-          background: color-mix(in srgb, var(--accent-1) 32%, transparent);
-          box-shadow: 0 0 20px -4px var(--accent-1);
         }
         .nav-mobile-panel {
           background: color-mix(in srgb, #05060f 70%, transparent);

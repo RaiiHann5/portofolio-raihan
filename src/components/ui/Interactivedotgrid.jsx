@@ -60,15 +60,12 @@ const PALETTES = {
 function detectDark() {
   if (typeof document === "undefined") return true;
   const root = document.documentElement;
-  if (root.classList.contains("dark")) return true;
-  if (root.classList.contains("light")) return false;
-  const attr = root.getAttribute("data-theme");
-  if (attr === "dark") return true;
-  if (attr === "light") return false;
-  return (
-    typeof window !== "undefined" &&
-    window.matchMedia?.("(prefers-color-scheme: dark)").matches
-  );
+  // ThemeContext hanya pernah menambah/menghapus class "light" pada <html>
+  // (dark = default/tanpa class). Deteksi harus mengikuti strategi yang
+  // sama persis, kalau tidak dot-grid bisa "nyangkut" di palette yang
+  // salah setelah user toggle tema (misalnya balik ke dark tapi grid
+  // tetap pakai palette light karena sempat fallback ke OS preference).
+  return !root.classList.contains("light");
 }
 
 function readAccentColor(fallbackRgb) {

@@ -465,7 +465,7 @@ export default function BeyondCode({ theme, onThemeToggle }) {
       <div className="mx-auto max-w-[1400px]">
         <div data-reveal className="flex flex-wrap items-start justify-between gap-6">
           <SectionHeading
-            index="05"
+            index="06"
             label="Beyond code"
             title="Life outside the editor."
             description="Playlists on loop, games half-finished, movies queued up, and whatever else keeps the other half of my brain occupied."

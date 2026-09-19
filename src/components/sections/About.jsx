@@ -1,25 +1,8 @@
 import { useRef, useState } from "react";
 import { useScrollReveal } from "../../hooks/useScrollReveal";
+import { useLanguage } from "../../context/LanguageContext";
 import SectionHeading from "../ui/SectionHeading";
 import Raihan3 from "../../assets/Raihan3.jpg";
-
-const focusItems = [
-  {
-    title: "User Centric Approach",
-    body: "Developing interfaces where every layout, button, and interaction serves a clear, intuitive purpose for the user.",
-    detail: "Prioritizing clear navigation, readable typography, and logical user journeys that make complex tasks feel effortless.",
-  },
-  {
-    title: "Responsive & Accessible",
-    body: "Ensuring that every user, regardless of their device or ability, gets a flawless and inclusive web experience.",
-    detail: "Implementing fluid layouts that adapt gracefully to any screen size, alongside strict adherence to WCAG standards and semantic HTML.",
-  },
-  {
-    title: "Seamless Integration",
-    body: "Connecting beautiful front-end interfaces with robust back-end systems to create dynamic, data-driven sites.",
-    detail: "Efficiently managing API data fetching and global state to ensure real-time information flows smoothly without breaking the UI.",
-  }
-];
 
 // Foto diimport langsung dari src/assets (bukan string path biasa),
 // supaya ikut di-bundle & dioptimasi oleh Vite/webpack.
@@ -27,6 +10,13 @@ const PROFILE_IMAGE_SRC = Raihan3;
 
 export default function About() {
   const containerRef = useScrollReveal();
+  const { t } = useLanguage();
+
+  const focusItems = [
+    { title: t("about.focus1Title"), body: t("about.focus1Body"), detail: t("about.focus1Detail") },
+    { title: t("about.focus2Title"), body: t("about.focus2Body"), detail: t("about.focus2Detail") },
+    { title: t("about.focus3Title"), body: t("about.focus3Body"), detail: t("about.focus3Detail") },
+  ];
   const [activeIndex, setActiveIndex] = useState(null);
   const imageRef = useRef(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
@@ -49,7 +39,7 @@ export default function About() {
     <section id="about" ref={containerRef} className="relative px-6 py-28 sm:px-10 sm:py-36">
       <div className="mx-auto max-w-[1400px]">
         <div data-reveal>
-          <SectionHeading index="01" label="About" title="A developer who thinks like a designer." />
+          <SectionHeading index="01" label={t("about.label")} title={t("about.title")} />
         </div>
 
         <div className="mt-16 grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-10">
@@ -132,7 +122,7 @@ export default function About() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
                 </span>
-                <span className="text-xs text-white/80">Available for work</span>
+                <span className="text-xs text-white/80">{t("about.badgeAvailable")}</span>
               </div>
             </div>
           </div>
@@ -140,13 +130,10 @@ export default function About() {
           {/* Bio */}
           <div data-reveal className="lg:col-span-8">
             <p className="text-xl leading-relaxed text-[var(--text-muted)] sm:text-2xl">
-              Hey there, I'm Raihan Rezki Ramadhan. What started as a fun experiment with code has grown into a genuine passion for building digital experiences. I specialize in creating interfaces for teams who believe that how a product feels is just as important as how it functions under the hood.
+              {t("about.bio1")}
             </p>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--text-faint)]">
-              My current focus is on motion-driven interfaces — the kind of
-              detail that turns a good product into a memorable one. When
-              I'm not building, I'm usually reverse-engineering interactions
-              from sites I admire, or sketching new ones of my own.
+              {t("about.bio2")}
             </p>
 
             {/* Interactive focus list */}

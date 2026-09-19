@@ -26,6 +26,12 @@ export const SKILL_COLORS = {
   "XAMPP": ["#FF6C37", "#FF9E3D"],
   "Laragon": ["#1E90FF", "#00CED1"],
   "Github": ["#4E56C0", "#9B5DE0"],
+  "React Native": ["#61DAFB", "#0FBCF9"],
+  "Flutter": ["#02569B", "#54C5F8"],
+  "Kotlin": ["#7F52FF", "#B924E8"],
+  "Swift": ["#F05138", "#FFAC45"],
+  "Android": ["#3DDC84", "#0F9D58"],
+  "Firebase": ["#FFCA28", "#DD2C00"],
 };
 
 // Fallback kalau ada skill baru yang belum didaftarin di atas
@@ -36,6 +42,11 @@ export const skillGroups = [
     label: "Frontend",
     note: "Core craft",
     skills: ["React", "JavaScript", "CSS3", "Tailwind CSS"],
+  },
+  {
+    label: "Mobile",
+    note: "iOS, Android & cross-platform",
+    skills: ["React Native", "Flutter", "Kotlin", "Swift", "Firebase"],
   },
   {
     label: "Database",

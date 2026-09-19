@@ -1,76 +1,18 @@
-import { useEffect, useRef, useState } from "react";
-import { Mail, ArrowUpRight, Check, Copy } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "../ui/BrandIcons";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, Check, Copy } from "lucide-react";
 import { useScrollReveal } from "../../hooks/useScrollReveal";
 import { useCursor } from "../../context/CursorContext";
+import { useLanguage } from "../../context/LanguageContext";
 import MagneticButton from "../ui/MagneticButton";
 import GradientOrb from "../ui/GradientOrb";
+import ContactForm from "../contact/ContactForm";
+import AccountCard from "../contact/AccountCard";
+import { useContent } from "../../context/ContentContext";
+import { site } from "../../data/site";
 
-const EMAIL = "rezkiraihan123@gmail.com";
-
-const socials = [
-  { label: "Email", href: `mailto:${EMAIL}`, icon: Mail, value: EMAIL },
-  { label: "GitHub", href: "https://github.com/RaiiHann5", icon: GithubIcon, value: "@RaiiHann5" },
-  { label: "LinkedIn", href: "https://linkedin.com", icon: LinkedinIcon, value: "in/raihan" },
-];
-
-// Kartu sosial dengan spotlight yang mengikuti kursor
-function SocialCard({ label, href, icon: Icon, value, index }) {
-  const cardRef = useRef(null);
-  const { setCursor, clearCursor } = useCursor();
-
-  const handleMove = (e) => {
-    const card = cardRef.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    card.style.setProperty("--x", `${e.clientX - rect.left}px`);
-    card.style.setProperty("--y", `${e.clientY - rect.top}px`);
-  };
-
-  return (
-    <a
-      ref={cardRef}
-      key={label}
-      href={href}
-      data-reveal
-      style={{ transitionDelay: `${index * 70}ms` }}
-      onMouseMove={handleMove}
-      onMouseEnter={() => setCursor("Open", "label")}
-      onMouseLeave={clearCursor}
-      className="focus-ring group relative flex flex-col gap-3 overflow-hidden rounded-xl border border-[var(--border)] p-5 transition-colors duration-300 hover:border-[var(--border-strong)]"
-    >
-      {/* Spotlight layer */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        style={{
-          background:
-            "radial-gradient(180px circle at var(--x, 50%) var(--y, 50%), color-mix(in srgb, var(--accent-1) 14%, transparent), transparent 70%)",
-        }}
-      />
-
-      <div className="relative z-10 flex items-center justify-between">
-        <Icon
-          size={18}
-          className="text-[var(--text-faint)] transition-colors duration-300 group-hover:text-[var(--accent-1)]"
-        />
-        <ArrowUpRight
-          size={14}
-          strokeWidth={2.2}
-          className="text-[var(--text-faint)] opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
-        />
-      </div>
-
-      <div className="relative z-10">
-        <p className="text-xs text-[var(--text-faint)]">{label}</p>
-        <p className="mt-0.5 text-sm">{value}</p>
-      </div>
-    </a>
-  );
-}
-
-// Jam lokal live, biar terasa ada orang sungguhan di baliknya
+// Jam lokal live, biar terasa ada orang sungguhan di baliknya.
 function LiveStatus() {
+  const { t } = useLanguage();
   const [time, setTime] = useState("");
 
   useEffect(() => {
@@ -79,7 +21,7 @@ function LiveStatus() {
         new Intl.DateTimeFormat("en-US", {
           hour: "numeric",
           minute: "2-digit",
-          timeZone: "Asia/Makassar",
+          timeZone: site.timezone,
         }).format(new Date())
       );
     update();
@@ -93,24 +35,49 @@ function LiveStatus() {
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--accent-1)] opacity-60" />
         <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--accent-1)]" />
       </span>
-      Available for work · {time || "--:--"} local
+      {t("contact.available")} · {time || "--:--"} {t("contact.localTime")}
+    </div>
+  );
+}
+
+function AccountGroup({ titleKey, descriptionKey, accounts }) {
+  const { t } = useLanguage();
+  if (!accounts.length) return null;
+
+  return (
+    <div data-reveal className="flex flex-col gap-6">
+      <div className="flex flex-col gap-2">
+        <h3 className="font-display text-xl font-medium tracking-tight">
+          {t(titleKey)}
+        </h3>
+        <p className="max-w-[52ch] text-sm leading-relaxed text-[var(--text-muted)]">
+          {t(descriptionKey)}
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        {accounts.map((account) => (
+          <AccountCard key={account.brand} account={account} />
+        ))}
+      </div>
     </div>
   );
 }
 
 export default function Contact() {
-  const containerRef = useScrollReveal({ y: 36 });
+  const containerRef = useScrollReveal({ y: 28, stagger: 0.07 });
+  const { links } = useContent();
   const { setCursor, clearCursor } = useCursor();
+  const { t } = useLanguage();
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = async (e) => {
-    e.preventDefault();
+  const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(EMAIL);
+      await navigator.clipboard.writeText(site.email);
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {
-      window.location.href = `mailto:${EMAIL}`;
+      window.location.href = `mailto:${site.email}`;
     }
   };
 
@@ -118,67 +85,139 @@ export default function Contact() {
     <section
       id="contact"
       ref={containerRef}
-      className="relative overflow-hidden px-6 py-32 sm:px-10 sm:py-44"
+      className="relative overflow-hidden px-6 pb-28 pt-32 sm:px-10 sm:pt-40"
     >
-      <GradientOrb className="left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2" />
+      <GradientOrb className="left-1/2 top-0 h-[600px] w-[600px] -translate-x-1/2" />
 
-      <div className="relative z-10 mx-auto flex max-w-[1400px] flex-col items-start gap-16">
-        <div data-reveal className="flex items-center gap-3">
-          <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-1)]" />
-          <span className="eyebrow">06 — Contact</span>
-        </div>
+      <div className="relative z-10 mx-auto flex max-w-[1400px] flex-col gap-24">
+        <header className="flex flex-col items-start gap-8">
+          <p data-reveal className="eyebrow">
+            {t("contact.label")}
+          </p>
 
-        <h2
-          data-reveal
-          className="font-display max-w-4xl text-4xl font-medium leading-[1.05] sm:text-6xl lg:text-7xl"
-        >
-          Have a project in mind?
-          <br />
-          Let's create something{" "}
-          <span className="text-gradient">meaningful</span>.
-        </h2>
-
-        <div data-reveal className="flex flex-wrap items-center gap-4">
-          <MagneticButton
-            as="button"
-            onClick={handleCopy}
-            variant="solid"
-            cursorLabel={copied ? "Copied" : "Copy email"}
-            className="text-base"
+          <h1
+            data-reveal
+            className="font-display max-w-4xl text-4xl font-medium leading-[1.05] sm:text-6xl lg:text-7xl"
           >
-            {EMAIL}
-            {copied ? (
-              <Check size={18} strokeWidth={2.4} className="text-[var(--accent-1)]" />
-            ) : (
-              <Copy size={16} strokeWidth={2.2} className="opacity-70 transition-opacity group-hover:opacity-100" />
-            )}
-          </MagneticButton>
+            {t("contact.title")}
+          </h1>
 
-          <a
-            href={`mailto:${EMAIL}`}
-            onMouseEnter={() => setCursor("Send", "label")}
-            onMouseLeave={clearCursor}
-            className="focus-ring group flex items-center gap-1.5 text-sm text-[var(--text-faint)] transition-colors duration-300 hover:text-[var(--accent-1)]"
+          <p
+            data-reveal
+            className="max-w-[56ch] text-base leading-relaxed text-[var(--text-muted)] sm:text-lg"
           >
-            or open your mail app
-            <ArrowUpRight
-              size={14}
-              strokeWidth={2.2}
-              className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-            />
-          </a>
+            {t("contact.description")}
+          </p>
+
+          <div data-reveal>
+            <LiveStatus />
+          </div>
+        </header>
+
+        {/* Form di kiri, kontak langsung di kanan. Sebagian orang lebih
+            percaya ngirim email sendiri daripada ngisi form, jadi dua-duanya
+            disediakan berdampingan, bukan salah satu. */}
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-20">
+          <div data-reveal className="lg:col-span-7">
+            <h2 className="font-display mb-8 text-2xl font-medium tracking-tight">
+              {t("form.title")}
+            </h2>
+            <ContactForm />
+          </div>
+
+          <div data-reveal className="flex flex-col gap-6 lg:col-span-4 lg:col-start-9">
+            <h2 className="font-display text-2xl font-medium tracking-tight">
+              {t("contact.directTitle")}
+            </h2>
+            <p className="text-sm leading-relaxed text-[var(--text-muted)]">
+              {t("contact.directBody")}
+            </p>
+
+            <MagneticButton
+              as="button"
+              type="button"
+              onClick={handleCopy}
+              variant="outline"
+              cursorLabel={copied ? "Copied" : "Copy"}
+              className="w-fit"
+            >
+              {site.email}
+              {copied ? (
+                <Check size={16} strokeWidth={2.4} className="text-[var(--accent-1)]" />
+              ) : (
+                <Copy size={15} strokeWidth={2.2} className="opacity-70" />
+              )}
+            </MagneticButton>
+
+            <a
+              href={`mailto:${site.email}`}
+              onMouseEnter={() => setCursor("Send", "label")}
+              onMouseLeave={clearCursor}
+              className="focus-ring group inline-flex w-fit items-center gap-1.5 text-sm text-[var(--text-faint)] transition-colors duration-300 hover:text-[var(--accent-1)]"
+            >
+              {t("contact.openMailApp")}
+              <ArrowUpRight
+                size={14}
+                strokeWidth={2.2}
+                className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
+            </a>
+          </div>
         </div>
 
-        <div data-reveal>
-          <LiveStatus />
-        </div>
-
-        <div className="grid w-full max-w-2xl grid-cols-1 gap-3 border-t border-[var(--border)] pt-10 sm:grid-cols-3">
-          {socials.map((social, i) => (
-            <SocialCard key={social.label} index={i} {...social} />
-          ))}
+        {/* Dua kelompok akun sengaja dipisah: satu buat ngikutin, satu buat
+            transaksi. Orang yang datang buat nge-hire gak perlu nyaring
+            akun sosmed dulu. */}
+        <div className="flex flex-col gap-16 border-t border-[var(--border)] pt-20">
+          <AccountGroup
+            titleKey="accounts.hireTitle"
+            descriptionKey="accounts.hireDescription"
+            accounts={links.hire || []}
+          />
+          <AccountGroup
+            titleKey="accounts.socialTitle"
+            descriptionKey="accounts.socialDescription"
+            accounts={links.social || []}
+          />
         </div>
       </div>
+
+      {/* Dicetak sekali di sini, bukan di tiap AccountCard. */}
+      <style>{`
+        .account-wash {
+          background: var(--brand);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        .account-card:hover,
+        .account-card:focus-visible {
+          border-color: var(--brand);
+        }
+        .account-card:hover .account-wash,
+        .account-card:focus-visible .account-wash {
+          /* Sangat tipis — cukup buat ngasih rona, bukan ngeblok teks. */
+          opacity: 0.07;
+        }
+        .account-card:hover .account-icon,
+        .account-card:focus-visible .account-icon {
+          color: var(--brand);
+          border-color: color-mix(in srgb, var(--brand) 45%, transparent);
+          box-shadow: 0 0 22px -6px var(--brand);
+        }
+        .account-card:hover .account-title,
+        .account-card:focus-visible .account-title {
+          color: var(--brand);
+        }
+        .account-card:hover .account-arrow,
+        .account-card:focus-visible .account-arrow {
+          color: var(--brand);
+          transform: translate(2px, -2px);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .account-card:hover .account-arrow,
+          .account-card:focus-visible .account-arrow { transform: none; }
+        }
+      `}</style>
     </section>
   );
 }

@@ -1,10 +1,11 @@
 import { useScrollReveal } from "../../hooks/useScrollReveal";
 import SectionHeading from "../ui/SectionHeading";
 import ProjectCard from "./ProjectCard";
-import { projects } from "../../data/projects";
+import { useContent } from "../../context/ContentContext";
 
 export default function Projects() {
   const containerRef = useScrollReveal({ y: 36 });
+  const { projects } = useContent();
 
   return (
     <section id="work" ref={containerRef} className="relative px-6 py-28 sm:px-10 sm:py-36">

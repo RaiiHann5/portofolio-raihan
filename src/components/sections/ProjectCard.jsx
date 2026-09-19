@@ -1,12 +1,15 @@
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { useCursor } from "../../context/CursorContext";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function ProjectCard({ project, index }) {
   const cardRef = useRef(null);
   const imgRef = useRef(null);
   const { setCursor, clearCursor } = useCursor();
+  const { t } = useLanguage();
 
   function handleMove(e) {
     const card = cardRef.current;
@@ -41,12 +44,13 @@ export default function ProjectCard({ project, index }) {
       className="group border-b border-[var(--border)] py-14 first:pt-0 last:border-b-0"
     >
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
-        <div
+        <Link
+          to={`/project/${project.slug}`}
           ref={cardRef}
           onMouseMove={handleMove}
           onMouseLeave={handleLeave}
           onMouseEnter={() => setCursor("View", "view")}
-          className="relative order-1 aspect-[4/3] overflow-hidden rounded-2xl lg:order-2 lg:col-span-6"
+          className="focus-ring relative order-1 block aspect-[4/3] overflow-hidden rounded-2xl lg:order-2 lg:col-span-6"
           style={{ transformStyle: "preserve-3d" }}
         >
           <div
@@ -70,14 +74,23 @@ export default function ProjectCard({ project, index }) {
             )}
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
-        </div>
+        </Link>
 
         <div className="order-2 flex flex-col justify-center lg:order-1 lg:col-span-6">
           <div className="mb-4 flex items-center gap-4">
             <span className="eyebrow">{String(index + 1).padStart(2, "0")}</span>
             <span className="eyebrow text-[var(--text-faint)]">{project.year}</span>
           </div>
-          <h3 className="text-3xl font-medium tracking-tight sm:text-4xl">{project.title}</h3>
+          <h3 className="text-3xl font-medium tracking-tight sm:text-4xl">
+            <Link
+              to={`/project/${project.slug}`}
+              onMouseEnter={() => setCursor("View", "view")}
+              onMouseLeave={clearCursor}
+              className="focus-ring transition-colors duration-300 hover:text-[var(--accent-1)]"
+            >
+              {project.title}
+            </Link>
+          </h3>
           <p className="mt-4 max-w-md text-base leading-relaxed text-[var(--text-muted)]">
             {project.description}
           </p>
@@ -93,15 +106,34 @@ export default function ProjectCard({ project, index }) {
             ))}
           </div>
 
-          <div className="mt-8 flex items-center gap-6">
-            <a
-              href={project.demo}
-              onMouseEnter={() => setCursor("Open", "label")}
+          <div className="mt-8 flex flex-wrap items-center gap-6">
+            <Link
+              to={`/project/${project.slug}`}
+              onMouseEnter={() => setCursor("View", "view")}
               onMouseLeave={clearCursor}
-              className="focus-ring inline-flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-[var(--accent-1)]"
+              className="focus-ring group/link inline-flex items-center gap-1.5 text-sm font-medium"
             >
-              Live demo <ArrowUpRight size={15} />
-            </a>
+              <span className="relative">
+                {t("detail.viewCaseStudy")}
+                <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-[var(--accent-1)] transition-all duration-300 group-hover/link:w-full" />
+              </span>
+              <ArrowRight size={15} strokeWidth={2.2} />
+            </Link>
+
+            {/* Link demo cuma dirender kalau URL-nya beneran ada — beberapa
+                proyek belum punya versi live yang bisa dibuka. */}
+            {project.demo && (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                onMouseEnter={() => setCursor("Open", "label")}
+                onMouseLeave={clearCursor}
+                className="focus-ring inline-flex items-center gap-1.5 text-sm text-[var(--text-faint)] transition-colors hover:text-[var(--accent-1)]"
+              >
+                {t("detail.liveDemo")} <ArrowUpRight size={14} />
+              </a>
+            )}
           </div>
         </div>
       </div>
