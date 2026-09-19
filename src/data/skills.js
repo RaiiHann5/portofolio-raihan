@@ -28,11 +28,7 @@ export const skillGroups = [
   {
     label: "Frontend",
     note: "Core craft",
-<<<<<<< HEAD
     skills: ["React", "JavaScript", "TypeScript", "CSS3", "Tailwind CSS"],
-=======
-    skills: ["React", "JavaScript", "TypeScript", "Tailwind CSS"],
->>>>>>> dd1fa677561ae6d02c11ccbb590ecc07ae586495
   },
   {
     label: "Mobile",
@@ -47,11 +43,7 @@ export const skillGroups = [
   {
     label: "Backend",
     note: "Server & data",
-<<<<<<< HEAD
     skills: ["Node.js", "PHP", "Laravel", "Python", "MongoDB"],
-=======
-    skills: ["PHP", "Laravel", "Python", "MongoDB"],
->>>>>>> dd1fa677561ae6d02c11ccbb590ecc07ae586495
   },
   {
     label: "Design",
