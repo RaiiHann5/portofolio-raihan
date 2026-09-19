@@ -5,8 +5,49 @@
     <link rel="icon" type="image/svg+xml" href="/portofolio-raihan/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark light" />
-    <meta name="description" content="Portfolio of a frontend & creative developer building interactive, high-craft web experiences." />
-    <title>Raihan - Creative Developer</title>
+    <meta name="theme-color" content="#0a0a0b" />
+
+    <!-- ================================================================
+         GANTI https://your-domain.vercel.app di SEMUA baris di bawah ini
+         (canonical, og:url, twitter:url, JSON-LD) dengan domain asli
+         setelah deploy. Juga di public/robots.txt dan public/sitemap.xml.
+         Canonical yang salah lebih merugikan daripada gak ada canonical.
+         ================================================================ -->
+    <link rel="canonical" href="https://your-domain.vercel.app/" />
+
+    <title>Raihan — Fullstack Developer | Web, Mobile & App Development</title>
+    <meta
+      name="description"
+      content="Raihan Rezki Ramadhan, fullstack developer di Indonesia. Jasa pembuatan landing page, web app, dashboard, dan aplikasi mobile dengan React, Flutter, dan Laravel."
+    />
+    <meta name="author" content="Raihan Rezki Ramadhan" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+
+    <!-- Open Graph — dipakai WhatsApp, LinkedIn, Facebook, Discord -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://your-domain.vercel.app/" />
+    <meta property="og:site_name" content="Raihan — Fullstack Developer" />
+    <meta
+      property="og:title"
+      content="Raihan — Fullstack Developer"
+    />
+    <meta
+      property="og:description"
+      content="Saya bikin landing page, web app, dashboard, dan aplikasi mobile yang cepat, responsif, dan enak dipakai. Lihat karya dan mulai proyek Anda."
+    />
+    <meta property="og:image" content="https://your-domain.vercel.app/Raihan3.jpg" />
+    <meta property="og:image:alt" content="Raihan Rezki Ramadhan" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Raihan — Fullstack Developer" />
+    <meta
+      name="twitter:description"
+      content="Saya bikin landing page, web app, dashboard, dan aplikasi mobile yang cepat, responsif, dan enak dipakai."
+    />
+    <meta name="twitter:image" content="https://your-domain.vercel.app/Raihan3.jpg" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,10 +55,83 @@
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="/portofolio-raihan/assets/index-qimHRJeT.js"></script>
-    <link rel="stylesheet" crossorigin href="/portofolio-raihan/assets/index-DdUZTth5.css">
+
+    <!-- Structured data: bikin Google ngerti ini orang + jasa apa yang
+         ditawarkan, bukan cuma sekumpulan teks. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Raihan Rezki Ramadhan",
+        "alternateName": "Raihan",
+        "url": "https://your-domain.vercel.app/",
+        "image": "https://your-domain.vercel.app/Raihan3.jpg",
+        "jobTitle": "Fullstack Developer",
+        "email": "mailto:rezkiraihan123@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Banjarbaru",
+          "addressRegion": "Kalimantan Selatan",
+          "addressCountry": "ID"
+        },
+        "sameAs": ["https://github.com/RaiiHann5"],
+        "knowsAbout": [
+          "React",
+          "Flutter",
+          "JavaScript",
+          "Kotlin",
+          "Tailwind CSS",
+          "Laravel",
+          "PHP",
+          "PostgreSQL",
+          "Supabase",
+          "Firebase",
+          "UI Design",
+          "Web Accessibility"
+        ],
+        "makesOffer": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Landing page & company profile development"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Web application & admin dashboard development"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Mobile app development (iOS & Android)"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Interface & motion design"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Website rebuild & performance optimisation"
+            }
+          }
+        ]
+      }
+    </script>
+    <script type="module" crossorigin src="/portofolio-raihan/assets/index-BN2-jDGy.js"></script>
+    <link rel="stylesheet" crossorigin href="/portofolio-raihan/assets/index-CanKvfHi.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"></div>
   </body>
 </html>
