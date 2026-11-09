@@ -12,7 +12,13 @@ export default function AdminLogin() {
   const [error, setError] = useState(null);
   const [busy, setBusy] = useState(false);
 
-  if (loading) return null;
+  if (loading) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <p className="font-mono text-xs text-[var(--text-faint)]">Memeriksa sesi…</p>
+      </div>
+    );
+  }
   if (session) return <Navigate to={location.state?.from || "/admin/projects"} replace />;
 
   // Tanpa kredensial Supabase, form login tidak akan pernah bisa berhasil.

@@ -9,20 +9,38 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     if (!supabase) return undefined;
+    let active = true;
 
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      setLoading(false);
-    });
+    // Jaring pengaman: kalau Supabase tidak merespons, jangan kunci UI selamanya.
+    const timeout = setTimeout(() => {
+      if (active) setLoading(false);
+    }, 6000);
+
+    supabase.auth
+      .getSession()
+      .then(({ data }) => {
+        if (active) setSession(data.session);
+      })
+      .catch(() => {
+        if (active) setSession(null);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
 
     // Sesi bisa berubah di tab lain atau kedaluwarsa sendiri; ikuti
     // perubahannya daripada mengandalkan satu kali pengecekan saja.
     const { data: sub } = supabase.auth.onAuthStateChange((_event, next) => {
+      if (!active) return;
       setSession(next);
       setLoading(false);
     });
 
-    return () => sub.subscription.unsubscribe();
+    return () => {
+      active = false;
+      clearTimeout(timeout);
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
   const value = useMemo(
