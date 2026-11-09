@@ -4,8 +4,9 @@ import { useScrollReveal } from "../hooks/useScrollReveal";
 import SectionHeading from "../components/ui/SectionHeading";
 import TemplateCard from "../components/marketplace/TemplateCard";
 import { useContent } from "../context/ContentContext";
+import SectionGate from "../components/sections/SectionGate";
 
-export default function Marketplace() {
+function MarketplaceSection() {
   const { t } = useLanguage();
   const containerRef = useScrollReveal({ y: 24 });
   const { templates } = useContent();
@@ -71,5 +72,13 @@ export default function Marketplace() {
         )}
       </div>
     </section>
+  );
+}
+
+export default function Marketplace() {
+  return (
+    <SectionGate id="marketplace">
+      <MarketplaceSection />
+    </SectionGate>
   );
 }

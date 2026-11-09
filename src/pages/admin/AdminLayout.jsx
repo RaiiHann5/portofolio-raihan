@@ -6,6 +6,7 @@ import {
   Link2,
   Type,
   LayoutTemplate,
+  Eye,
   Settings as SettingsIcon,
   LogOut,
   ExternalLink,
@@ -19,6 +20,7 @@ const navItems = [
   { to: "/admin/links", label: "Link & akun", Icon: Link2 },
   { to: "/admin/text", label: "Teks halaman", Icon: Type },
   { to: "/admin/sections", label: "Section tambahan", Icon: LayoutTemplate },
+  { to: "/admin/visibility", label: "Visibilitas section", Icon: Eye },
   { to: "/admin/settings", label: "Pengaturan", Icon: SettingsIcon },
 ];
 

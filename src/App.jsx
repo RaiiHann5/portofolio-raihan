@@ -29,6 +29,7 @@ const AdminLinks = lazy(() => import("./pages/admin/AdminLinks"));
 const AdminText = lazy(() => import("./pages/admin/AdminText"));
 const AdminSections = lazy(() => import("./pages/admin/AdminSections"));
 const AdminSettings = lazy(() => import("./pages/admin/AdminSettings"));
+const AdminVisibility = lazy(() => import("./pages/admin/AdminVisibility"));
 
 function AdminFallback() {
   return (
@@ -70,6 +71,7 @@ function App() {
                           <Route path="links" element={<AdminLinks />} />
                           <Route path="text" element={<AdminText />} />
                           <Route path="sections" element={<AdminSections />} />
+                          <Route path="visibility" element={<AdminVisibility />} />
                           <Route path="settings" element={<AdminSettings />} />
                         </Route>
                       </Routes>

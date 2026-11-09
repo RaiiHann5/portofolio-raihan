@@ -6,6 +6,7 @@ import { templates as staticTemplates } from "../data/templates";
 import { certificates as staticCertificates } from "../data/certificates";
 import { socials as staticSocials, hirePlatforms as staticHire } from "../data/platforms";
 import { brands } from "../data/brands";
+import { HIDDEN_SECTIONS_KEY, parseHidden } from "../data/sectionRegistry";
 
 const ContentContext = createContext(null);
 
@@ -177,6 +178,8 @@ export function ContentProvider({ children }) {
       settings,
       loading,
       reload: load,
+      /** false kalau section bawaan ini dimatikan lewat admin (Visibilitas). */
+      isSectionVisible: (id) => !parseHidden(settings[HIDDEN_SECTIONS_KEY]).includes(id),
       /** Section tambahan milik satu halaman, sudah urut. */
       sectionsFor: (page) => sections.filter((s) => s.page === page),
       getProject: (slug) => projects.find((p) => p.slug === slug),
