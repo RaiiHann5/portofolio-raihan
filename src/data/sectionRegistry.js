@@ -12,6 +12,7 @@ export const sectionGroups = [
     path: "/",
     sections: [
       { id: "hero", label: "Hero", hint: "Judul utama dan tombol di paling atas." },
+      { id: "home-profile", label: "Profil", hint: "Foto dan deskripsi singkat, tepat di bawah hero." },
       { id: "tech-marquee", label: "Tools yang dipakai", hint: "Deretan logo teknologi berjalan." },
       { id: "services", label: "Layanan" },
       { id: "featured-work", label: "Karya pilihan" },

@@ -1,4 +1,5 @@
 import Hero from "../components/sections/Hero";
+import About from "../components/sections/About";
 import TechMarquee from "../components/sections/TechMarquee";
 import Services from "../components/sections/Services";
 import FeaturedWork from "../components/sections/FeaturedWork";
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <>
       <SectionGate id="hero"><Hero /></SectionGate>
+      <SectionGate id="home-profile"><About /></SectionGate>
       <SectionGate id="tech-marquee"><TechMarquee /></SectionGate>
       <SectionGate id="services"><Services /></SectionGate>
       <SectionGate id="featured-work"><FeaturedWork /></SectionGate>
