@@ -174,7 +174,7 @@ export default function Hero() {
               <MagneticButton
                 as="a"
                 variant="solid"
-                cursorLabel="CV"
+                cursorLabel={t("hero.ctaCv")}
                 href={cvHref}
                 {...(cvIsExternal
                   ? { target: "_blank", rel: "noopener noreferrer" }

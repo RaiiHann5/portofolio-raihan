@@ -59,6 +59,25 @@ export const translations = {
     next: { en: "Next image", id: "Gambar berikutnya" },
     previous: { en: "Previous image", id: "Gambar sebelumnya" },
     noImages: { en: "Screenshots coming soon", id: "Tangkapan layar menyusul" },
+    problem: { en: "The problem", id: "Masalahnya" },
+    goal: { en: "The goal", id: "Tujuannya" },
+    docs: { en: "Documentation", id: "Dokumentasi" },
+  },
+  filters: {
+    all: { en: "All", id: "Semua" },
+    searchProjects: { en: "Search projects…", id: "Cari proyek…" },
+    searchCerts: { en: "Search certificates…", id: "Cari sertifikat…" },
+    clear: { en: "Clear search", id: "Hapus pencarian" },
+    emptyProjects: {
+      en: "No projects match your search.",
+      id: "Tidak ada proyek yang cocok dengan pencarianmu.",
+    },
+    emptyCerts: {
+      en: "No certificates match your search.",
+      id: "Tidak ada sertifikat yang cocok dengan pencarianmu.",
+    },
+    certLomba: { en: "Competitions & awards", id: "Lomba & penghargaan" },
+    certPelatihan: { en: "Training", id: "Pelatihan" },
   },
   contact: {
     label: { en: "Contact", id: "Kontak" },

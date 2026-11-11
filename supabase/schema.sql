@@ -26,11 +26,14 @@ create table if not exists public.projects (
   title       text not null,
   description text default '',
   overview    text default '',
+  problem     text default '',          -- masalah yang diselesaikan
+  goal        text default '',          -- tujuan proyek
   role        text default '',
   type        text default '',
   year        text default '',
   demo        text default '',
   repo        text default '',
+  docs_url    text default '',           -- link dokumentasi
   image       text default '',           -- URL gambar sampul
   gallery     jsonb default '[]'::jsonb, -- array URL gambar
   stack       jsonb default '[]'::jsonb, -- array nama teknologi
@@ -78,6 +81,7 @@ create table if not exists public.certificates (
   credential_url text default '',
   image          text default '',           -- URL gambar lencana/sertifikat
   skills         jsonb default '[]'::jsonb, -- array nama teknologi terkait
+  category       text default 'pelatihan',  -- 'lomba' | 'pelatihan'
   position       int  default 0,
   published      boolean default true,
   created_at     timestamptz default now()

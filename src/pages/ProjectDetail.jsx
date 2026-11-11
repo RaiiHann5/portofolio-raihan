@@ -101,7 +101,7 @@ export default function ProjectDetail() {
             {project.description}
           </p>
 
-          {(project.demo || project.repo) && (
+          {(project.demo || project.repo || project.docsUrl) && (
             <div data-reveal className="mt-2 flex flex-wrap items-center gap-4">
               {project.demo && (
                 <MagneticButton
@@ -129,6 +129,19 @@ export default function ProjectDetail() {
                   <ArrowUpRight size={16} strokeWidth={2.2} />
                 </MagneticButton>
               )}
+              {project.docsUrl && (
+                <MagneticButton
+                  as="a"
+                  href={project.docsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="outline"
+                  cursorLabel="Docs"
+                >
+                  {t("detail.docs")}
+                  <ArrowUpRight size={16} strokeWidth={2.2} />
+                </MagneticButton>
+              )}
             </div>
           )}
         </header>
@@ -151,6 +164,31 @@ export default function ProjectDetail() {
                 {project.overview}
               </p>
             </section>
+
+            {(project.problem || project.goal) && (
+              <div className="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-2">
+                {project.problem && (
+                  <section data-reveal>
+                    <h2 className="font-display text-2xl font-medium tracking-tight">
+                      {t("detail.problem")}
+                    </h2>
+                    <p className="mt-5 text-base leading-relaxed text-[var(--text-muted)]">
+                      {project.problem}
+                    </p>
+                  </section>
+                )}
+                {project.goal && (
+                  <section data-reveal>
+                    <h2 className="font-display text-2xl font-medium tracking-tight">
+                      {t("detail.goal")}
+                    </h2>
+                    <p className="mt-5 text-base leading-relaxed text-[var(--text-muted)]">
+                      {project.goal}
+                    </p>
+                  </section>
+                )}
+              </div>
+            )}
 
             {project.features?.length > 0 && (
               <section data-reveal className="mt-16">

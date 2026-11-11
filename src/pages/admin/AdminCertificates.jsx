@@ -1,6 +1,7 @@
 import CollectionManager from "../../components/admin/CollectionManager";
 import {
   TextInput,
+  SelectInput,
   ImageInput,
   StringListInput,
   Toggle,
@@ -9,6 +10,7 @@ import {
 const empty = {
   title: "",
   issuer: "",
+  category: "pelatihan",
   date: new Date().getFullYear().toString(),
   credential_id: "",
   credential_url: "",
@@ -49,6 +51,17 @@ export default function AdminCertificates() {
             placeholder="React — Advanced Concepts"
             value={draft.title}
             onChange={(v) => set({ title: v })}
+          />
+
+          <SelectInput
+            label="Kategori"
+            hint="Dipakai untuk filter di halaman About Me."
+            value={draft.category}
+            onChange={(v) => set({ category: v })}
+            options={[
+              { value: "pelatihan", label: "Pelatihan (mis. Codingcamp, kursus)" },
+              { value: "lomba", label: "Penghargaan / partisipasi lomba" },
+            ]}
           />
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">

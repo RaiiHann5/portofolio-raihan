@@ -1,10 +1,13 @@
 import { ExternalLink, Award, Copy, Check } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useScrollReveal } from "../../hooks/useScrollReveal";
 import { useMagnetic } from "../../hooks/useMagnetic";
 import { useCursor } from "../../context/CursorContext";
 import { useContent } from "../../context/ContentContext";
 import SectionHeading from "../ui/SectionHeading";
+import SearchInput from "../ui/SearchInput";
+import FilterChips from "../ui/FilterChips";
+import { useLanguage } from "../../context/LanguageContext";
 import BrandGlyph from "../ui/BrandGlyph";
 import { brands } from "../../data/brands";
 
@@ -146,6 +149,29 @@ function CertificateCard({ cert }) {
 export default function Certificates() {
   const containerRef = useScrollReveal();
   const { certificates } = useContent();
+  const { t } = useLanguage();
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("all");
+
+  const categoryOptions = [
+    { value: "all", label: t("filters.all") },
+    { value: "lomba", label: t("filters.certLomba") },
+    { value: "pelatihan", label: t("filters.certPelatihan") },
+  ];
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return (certificates || []).filter((cert) => {
+      // Data statis/lama tanpa kategori dianggap pelatihan.
+      const cat = cert.category || "pelatihan";
+      if (category !== "all" && cat !== category) return false;
+      if (!q) return true;
+      const haystack = [cert.title, cert.issuer, cert.date, ...(cert.skills || [])]
+        .join(" ")
+        .toLowerCase();
+      return haystack.includes(q);
+    });
+  }, [certificates, query, category]);
 
   // Section kosong tidak perlu menampilkan judul dan ruang kosong — ini
   // bisa terjadi kalau admin menghapus semua sertifikat dari database.
@@ -163,11 +189,24 @@ export default function Certificates() {
           />
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
-          {certificates.map((cert) => (
-            <CertificateCard key={cert.id} cert={cert} />
-          ))}
+        <div data-reveal className="mt-10 flex flex-col gap-5">
+          <SearchInput
+            value={query}
+            onChange={setQuery}
+            placeholder={t("filters.searchCerts")}
+          />
+          <FilterChips options={categoryOptions} value={category} onChange={setCategory} />
         </div>
+
+        {filtered.length > 0 ? (
+          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {filtered.map((cert) => (
+              <CertificateCard key={cert.id} cert={cert} />
+            ))}
+          </div>
+        ) : (
+          <p className="mt-10 text-sm text-[var(--text-muted)]">{t("filters.emptyCerts")}</p>
+        )}
       </div>
     </section>
   );

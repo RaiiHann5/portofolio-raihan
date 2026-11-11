@@ -23,11 +23,14 @@ const empty = {
   title: "",
   description: "",
   overview: "",
+  problem: "",
+  goal: "",
   role: "",
   type: "",
   year: new Date().getFullYear().toString(),
   demo: "",
   repo: "",
+  docs_url: "",
   image: "",
   gallery: [],
   stack: [],
@@ -97,6 +100,22 @@ export default function AdminProjects() {
             onChange={(v) => set({ overview: v })}
           />
 
+          <TextArea
+            label="Masalah (problem)"
+            hint="Masalah apa yang mau diselesaikan proyek ini. Muncul di halaman detail."
+            rows={3}
+            value={draft.problem}
+            onChange={(v) => set({ problem: v })}
+          />
+
+          <TextArea
+            label="Tujuan (goal)"
+            hint="Hasil yang ingin dicapai. Muncul di halaman detail."
+            rows={3}
+            value={draft.goal}
+            onChange={(v) => set({ goal: v })}
+          />
+
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
             <TextInput label="Peran" placeholder="Design & frontend" value={draft.role} onChange={(v) => set({ role: v })} />
             <TextInput label="Jenis" placeholder="Landing page" value={draft.type} onChange={(v) => set({ type: v })} />
@@ -118,6 +137,14 @@ export default function AdminProjects() {
               onChange={(v) => set({ repo: v })}
             />
           </div>
+
+          <TextInput
+            label="Link dokumentasi"
+            hint="Opsional. Kosongkan kalau belum ada. Tombol Dokumentasi otomatis disembunyikan."
+            placeholder="https://"
+            value={draft.docs_url}
+            onChange={(v) => set({ docs_url: v })}
+          />
 
           <ImageInput
             label="Gambar sampul"
