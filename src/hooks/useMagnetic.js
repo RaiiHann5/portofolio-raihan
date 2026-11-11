@@ -19,8 +19,13 @@ export function useMagnetic(strength = 0.35) {
 
     function handleMove(e) {
       const rect = el.getBoundingClientRect();
-      const relX = e.clientX - (rect.left + rect.width / 2);
-      const relY = e.clientY - (rect.top + rect.height / 2);
+      // rect sudah ikut bergeser oleh efek ini sendiri. Kurangi pergeseran
+      // saat ini supaya jarak dihitung dari titik diam tombol; kalau tidak,
+      // targetnya terus berubah selagi tombol bergerak dan jadi bergetar.
+      const baseX = rect.left + rect.width / 2 - gsap.getProperty(el, "x");
+      const baseY = rect.top + rect.height / 2 - gsap.getProperty(el, "y");
+      const relX = e.clientX - baseX;
+      const relY = e.clientY - baseY;
       xTo(relX * strength);
       yTo(relY * strength);
     }
