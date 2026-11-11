@@ -1,17 +1,23 @@
 import { Quote } from "lucide-react";
 import { useScrollReveal } from "../../hooks/useScrollReveal";
 import { useContent } from "../../context/ContentContext";
+import SpotlightCard from "../ui/SpotlightCard";
 import { useLanguage } from "../../context/LanguageContext";
 
 function Avatar({ name, photo }) {
   if (photo) {
     return (
+      <span
+        className="shrink-0 rounded-full p-[2px]"
+        style={{ background: "linear-gradient(135deg, var(--accent-1), var(--accent-2))" }}
+      >
       <img
         src={photo}
         alt={name}
         loading="lazy"
-        className="h-11 w-11 shrink-0 rounded-full border border-[var(--border)] object-cover"
+        className="h-11 w-11 rounded-full border-2 border-[var(--card-bg)] object-cover"
       />
+      </span>
     );
   }
   return (
@@ -47,14 +53,23 @@ function TestimonialList({ items }) {
 
         <ul className="mt-12 grid list-none grid-cols-1 gap-5 p-0 sm:mt-16 md:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => (
-            <li
+            <SpotlightCard
+              as="li"
               key={item.id}
               data-reveal
-              className="flex flex-col gap-6 rounded-2xl border border-[var(--border)] p-6"
+              className="flex flex-col gap-6 rounded-2xl border border-[var(--border)] p-6 transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-[var(--border-strong)] sm:p-7"
               style={{ background: "var(--card-bg)" }}
             >
-              <Quote size={20} aria-hidden className="text-[var(--accent-1)]" />
-              <p className="flex-1 text-base leading-relaxed text-[var(--text-muted)]">
+              <Quote
+                size={88}
+                strokeWidth={1.2}
+                aria-hidden
+                className="pointer-events-none absolute -right-3 -top-3 text-[var(--accent-1)] opacity-[0.07] transition-opacity duration-300 group-hover/spot:opacity-[0.14]"
+              />
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-[var(--border)] text-[var(--accent-1)]">
+                <Quote size={16} aria-hidden />
+              </span>
+              <p className="flex-1 text-base leading-relaxed text-[var(--text)]">
                 {item.message}
               </p>
               <div className="flex items-center gap-3 border-t border-[var(--border)] pt-5">
@@ -66,7 +81,7 @@ function TestimonialList({ items }) {
                   )}
                 </div>
               </div>
-            </li>
+            </SpotlightCard>
           ))}
         </ul>
       </div>
