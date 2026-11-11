@@ -54,7 +54,7 @@ export default function Experience() {
     <section id="journey" ref={sectionRef} className="relative px-6 py-28 sm:px-10 sm:py-36">
       <div className="mx-auto max-w-[1400px]">
         <SectionHeading
-          index="04"
+          index="05"
           label="Journey"
           title="How I got here."
           description="A short, honest timeline — no shortcuts, just consistent work."

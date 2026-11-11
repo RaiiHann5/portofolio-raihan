@@ -163,6 +163,7 @@ export const translations = {
     },
     ctaWork: { en: "See my work", id: "Lihat karya saya" },
     ctaContact: { en: "Get in touch", id: "Hubungi saya" },
+    ctaCv: { en: "Download CV", id: "Unduh CV" },
     scrollHint: { en: "Scroll to explore", id: "Scroll untuk jelajahi" },
     availability: {
       en: "Based in Indonesia — Available worldwide, click the grid ✦",
@@ -288,6 +289,84 @@ export const translations = {
       en: "Hi Raihan, I'd like to discuss a project.",
       id: "Halo Raihan, saya mau diskusi soal sebuah proyek.",
     },
+  },
+  profile: {
+    // Isi pribadi di bawah ini yang diawali tanda kurung siku [ ... ] masih
+    // contoh. Ganti lewat /admin/text (tanpa ubah kode) atau langsung di sini.
+    bioClass: { en: "[Grade XI]", id: "[Kelas XI]" },
+    bioProgram: { en: "[Study program]", id: "[Kompetensi keahlian]" },
+    bioSchool: { en: "[School name]", id: "[Nama sekolah]" },
+
+    bioLabel: { en: "Biodata", id: "Biodata" },
+    bioTitle: { en: "Quick facts.", id: "Biodata singkat." },
+    fName: { en: "Full name", id: "Nama lengkap" },
+    fClass: { en: "Class", id: "Kelas" },
+    fProgram: { en: "Competency", id: "Kompetensi keahlian" },
+    fSchool: { en: "School", id: "Sekolah" },
+    fLocation: { en: "Location", id: "Domisili" },
+    fEmail: { en: "Email", id: "Email" },
+
+    interestTitle: { en: "What I'm into", id: "Yang saya minati" },
+    interestBody: {
+      en: "I'm drawn to the whole path from interface to system: how something looks, how it moves, and the code and data that keep it running.",
+      id: "Saya tertarik pada seluruh alurnya, dari tampilan sampai sistem: bagaimana sesuatu terlihat, bergerak, dan kode serta data yang menjalankannya.",
+    },
+    interestAreas: { en: "Technology areas", id: "Bidang teknologi" },
+
+    eduLabel: { en: "Education", id: "Pendidikan" },
+    eduTitle: { en: "Where I've studied.", id: "Tempat saya belajar." },
+    edu1Title: { en: "[Vocational school name]", id: "[Nama SMK]" },
+    edu1Meta: { en: "[Year] – Present · [Study program]", id: "[Tahun] – sekarang · [Kompetensi keahlian]" },
+    edu1Body: {
+      en: "[Short note: focus subjects, achievements, or activities.]",
+      id: "[Catatan singkat: mata pelajaran fokus, prestasi, atau kegiatan.]",
+    },
+    edu2Title: { en: "[Junior high school name]", id: "[Nama SMP]" },
+    edu2Meta: { en: "[Year] – [Year]", id: "[Tahun] – [Tahun]" },
+    edu2Body: { en: "", id: "" },
+
+    orgLabel: { en: "Organization", id: "Organisasi" },
+    orgTitle: { en: "Teams I've been part of.", id: "Organisasi yang saya ikuti." },
+    org1Title: { en: "[Organization name]", id: "[Nama organisasi]" },
+    org1Meta: { en: "[Role] · [Year] – [Year]", id: "[Jabatan] · [Tahun] – [Tahun]" },
+    org1Body: {
+      en: "[What you did: programs you organised, responsibilities, results.]",
+      id: "[Yang Anda kerjakan: program yang diselenggarakan, tanggung jawab, hasil.]",
+    },
+    org2Title: { en: "[Organization name]", id: "[Nama organisasi]" },
+    org2Meta: { en: "[Role] · [Year] – [Year]", id: "[Jabatan] · [Tahun] – [Tahun]" },
+    org2Body: { en: "", id: "" },
+
+    plkLabel: { en: "Work placement", id: "PLK" },
+    plkTitle: { en: "Learning on the job.", id: "Belajar langsung di lapangan." },
+    plk1Title: { en: "[Company / institution name]", id: "[Nama perusahaan / instansi]" },
+    plk1Meta: { en: "[Position] · [Start] – [End]", id: "[Posisi] · [Mulai] – [Selesai]" },
+    plk1Body: {
+      en: "[What you worked on, the tools you used, and what you learned.]",
+      id: "[Yang Anda kerjakan, tools yang dipakai, dan yang Anda pelajari.]",
+    },
+
+    careerLabel: { en: "Career goals", id: "Cita-cita" },
+    careerTitle: { en: "Where I'm headed.", id: "Arah yang saya tuju." },
+    goalShortTitle: { en: "Next few years", id: "Beberapa tahun ke depan" },
+    goalShortBody: {
+      en: "Deepen React, Laravel, and mobile development through real projects, and keep growing Webtera with my team.",
+      id: "Memperdalam React, Laravel, dan pengembangan mobile lewat proyek nyata, sambil terus mengembangkan Webtera bersama tim.",
+    },
+    goalLongTitle: { en: "Long term", id: "Jangka panjang" },
+    goalLongBody: {
+      en: "Become a professional fullstack developer who builds products that are fast, accessible, and a pleasure to use.",
+      id: "Menjadi fullstack developer profesional yang membuat produk cepat, accessible, dan nyaman dipakai.",
+    },
+
+    skillTech: { en: "Technical", id: "Teknis" },
+    skillSoft: { en: "Non-technical", id: "Non-teknis" },
+    skillNote: { en: "Self-assessed proficiency", id: "Penilaian diri sendiri" },
+    soft1: { en: "Communication", id: "Komunikasi" },
+    soft2: { en: "Teamwork", id: "Kerja tim" },
+    soft3: { en: "Problem solving", id: "Pemecahan masalah" },
+    soft4: { en: "Time management", id: "Manajemen waktu" },
+    soft5: { en: "Self-directed learning", id: "Belajar mandiri" },
   },
   footer: {
     tagline: { en: "Building interfaces that feel alive.", id: "Bikin interface yang terasa hidup." },

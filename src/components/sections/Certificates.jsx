@@ -156,7 +156,7 @@ export default function Certificates() {
       <div className="mx-auto max-w-[1400px]">
         <div data-reveal>
           <SectionHeading
-            index="05"
+            index="09"
             label="Certificates"
             title="Skills, verified."
             description="A short list of the courses and certifications behind the tools I use — click a card to check the credential."

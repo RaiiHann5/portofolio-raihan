@@ -3,6 +3,7 @@ import { useScrollReveal } from "../../hooks/useScrollReveal";
 import { useLanguage } from "../../context/LanguageContext";
 import SectionHeading from "../ui/SectionHeading";
 import Raihan3 from "../../assets/Raihan3.jpg";
+import { site } from "../../data/site";
 
 // Foto diimport langsung dari src/assets (bukan string path biasa),
 // supaya ikut di-bundle & dioptimasi oleh Vite/webpack.
@@ -129,6 +130,14 @@ export default function About() {
 
           {/* Bio */}
           <div data-reveal className="lg:col-span-8">
+            <div className="mb-8 flex flex-col gap-2">
+              <h3 className="font-display text-2xl font-medium tracking-tight sm:text-3xl">
+                {site.name}
+              </h3>
+              <p className="eyebrow text-[var(--text-faint)]">
+                {t("profile.bioClass")} · {t("profile.bioProgram")}
+              </p>
+            </div>
             <p className="text-xl leading-relaxed text-[var(--text-muted)] sm:text-2xl">
               {t("about.bio1")}
             </p>

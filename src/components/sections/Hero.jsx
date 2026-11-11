@@ -8,6 +8,7 @@ import RoleCycle from "./RoleCycle";
 import { GithubIcon, LinkedinIcon } from "../ui/BrandIcons";
 import { useCursor } from "../../context/CursorContext";
 import { useLanguage } from "../../context/LanguageContext";
+import { useContent } from "../../context/ContentContext";
 import { site, hasWhatsapp, contactLink } from "../../data/site";
 
 // Instagram sengaja difilter: kalau URL-nya masih kosong di data/site.js,
@@ -25,6 +26,12 @@ export default function Hero() {
   const { setCursor, clearCursor } = useCursor();
   const { t } = useLanguage();
   const navigate = useNavigate();
+  const { settings } = useContent();
+
+  // URL CV bisa diganti dari /admin/settings. Atribut `download` hanya
+  // berlaku untuk file satu domain, jadi link eksternal dibuka di tab baru.
+  const cvHref = settings.cvUrl || site.cvUrl;
+  const cvIsExternal = /^https?:\/\//i.test(cvHref) && !cvHref.startsWith(window.location.origin);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -138,6 +145,9 @@ export default function Hero() {
         </h1>
 
         <div className="hero-fade mt-10 flex max-w-xl flex-col gap-8 sm:mt-12">
+          <p className="eyebrow text-[var(--text-faint)]">
+            {site.name} · {t("profile.bioClass")} · {t("profile.bioProgram")}
+          </p>
           <p className="text-base leading-relaxed text-[var(--text-muted)] sm:text-lg">
             {t("hero.intro")}
           </p>
@@ -160,6 +170,20 @@ export default function Hero() {
             >
               {t("hero.ctaContact")}
             </MagneticButton>
+            {cvHref && (
+              <MagneticButton
+                as="a"
+                variant="solid"
+                cursorLabel="CV"
+                href={cvHref}
+                {...(cvIsExternal
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : { download: true })}
+              >
+                {t("hero.ctaCv")}
+                <ArrowDownRight size={16} strokeWidth={2.2} />
+              </MagneticButton>
+            )}
           </div>
 
           {/* Jalur kontak langsung. Di situs jasa, satu klik ke chat jauh

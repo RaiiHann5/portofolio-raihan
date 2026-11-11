@@ -3,6 +3,7 @@ import { useMagnetic } from "../../hooks/useMagnetic";
 import { useScrollReveal } from "../../hooks/useScrollReveal";
 import SectionHeading from "../ui/SectionHeading";
 import SkillPill from "./SkillPill";
+import SkillMeters from "./SkillMeters";
 import { skillGroups } from "../../data/skills";
 
 const ACCENTS = [
@@ -176,7 +177,7 @@ export default function Skills() {
       <div className="mx-auto max-w-[1400px]">
         <div data-reveal>
           <SectionHeading
-            index="02"
+            index="03"
             label="Skills"
             title="Tools I reach for."
             description="A focused set of technologies I use daily to design and build interactive products."
@@ -191,6 +192,10 @@ export default function Skills() {
               <SkillCard group={group} index={i} />
             </div>
           ))}
+        </div>
+
+        <div data-reveal>
+          <SkillMeters />
         </div>
       </div>
     </section>

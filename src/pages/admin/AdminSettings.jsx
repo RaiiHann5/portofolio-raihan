@@ -25,6 +25,12 @@ const fields = [
     hint: "Contoh: https://formspree.io/f/xxxxxxxx. Kosongkan untuk memakai mode mailto.",
     fallback: site.formEndpoint,
   },
+  {
+    key: "cvUrl",
+    label: "Link file CV",
+    hint: "URL PDF untuk tombol Download CV. Upload PDF-nya ke Supabase Storage (bucket media) lalu tempel link publiknya di sini. Kosongkan untuk memakai file public/cv/ bawaan.",
+    fallback: site.cvUrl,
+  },
   { key: "location", label: "Lokasi", hint: "Tampil di footer.", fallback: site.location },
   { key: "url", label: "Alamat situs", hint: "Dipakai di sitemap dan tag berbagi.", fallback: site.url },
   {

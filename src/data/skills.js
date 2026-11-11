@@ -56,3 +56,26 @@ export const skillGroups = [
     skills: ["Git", "Github"],
   },
 ];
+
+// Persentase = penilaian diri sendiri, bukan hasil tes. Isi dengan jujur
+// supaya cocok dengan kemampuan sebenarnya saat ditanya. Angka 0–100.
+export const technicalLevels = [
+  { name: "HTML", level: 90 },
+  { name: "CSS", level: 88 },
+  { name: "JavaScript", level: 80 },
+  { name: "React", level: 80 },
+  { name: "Tailwind CSS", level: 85 },
+  { name: "PHP & Laravel", level: 70 },
+  { name: "UI Design (Figma)", level: 75 },
+  { name: "Git & GitHub", level: 70 },
+];
+
+// `key` merujuk ke teks di translations.js (profile.soft1 dst.) supaya
+// namanya ikut dua bahasa dan bisa diubah dari /admin/text.
+export const softLevels = [
+  { key: "profile.soft1", level: 80 },
+  { key: "profile.soft2", level: 85 },
+  { key: "profile.soft3", level: 80 },
+  { key: "profile.soft4", level: 70 },
+  { key: "profile.soft5", level: 85 },
+];

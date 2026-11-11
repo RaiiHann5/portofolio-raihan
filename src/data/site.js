@@ -20,6 +20,11 @@ export const site = {
 
   email: "rezkiraihan123@gmail.com",
 
+  // File CV yang diunduh lewat tombol "Download CV" di Hero. Ganti isi
+  // public/cv/Raihan-Rezki-Ramadhan-CV.pdf dengan CV final Anda (nama file
+  // boleh sama), atau isi URL lain di /admin/settings tanpa ubah kode.
+  cvUrl: `${import.meta.env.BASE_URL}cv/Raihan-Rezki-Ramadhan-CV.pdf`,
+
   // Format internasional tanpa "+" dan tanpa spasi, contoh: "6281234567890".
   // Selama masih ada huruf X, tombol "Chat WhatsApp" otomatis
   // fallback ke email — jadi gak akan pernah ada link mati.
