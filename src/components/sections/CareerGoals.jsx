@@ -16,7 +16,7 @@ export default function CareerGoals() {
     <section id="career" ref={containerRef} className="relative px-6 py-24 sm:px-10 sm:py-32">
       <div className="mx-auto max-w-[1400px]">
         <div data-reveal>
-          <SectionHeading index="10" label={t("profile.careerLabel")} title={t("profile.careerTitle")} />
+          <SectionHeading index="09" label={t("profile.careerLabel")} title={t("profile.careerTitle")} />
         </div>
 
         <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">

@@ -109,7 +109,7 @@ export default function GithubActivity() {
       <div className="mx-auto max-w-[1400px]">
         <div data-reveal className="flex flex-wrap items-end justify-between gap-6">
           <SectionHeading
-            index="08"
+            index="07"
             label="GitHub"
             title="Code, committed daily."
             description="A live look at what I've been building — pulled straight from GitHub, not a screenshot."

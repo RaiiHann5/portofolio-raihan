@@ -6,7 +6,7 @@ export const site = {
   name: "Raihan Rezki Ramadhan",
   shortName: "Raihan",
   role: "Fullstack Developer",
-  location: "Banjarbaru, Indonesia",
+  location: "Banjarmasin, Indonesia",
   timezone: "Asia/Makassar",
 
   // Dipakai section GitHub Activity di About Me. Diambil manual dari URL

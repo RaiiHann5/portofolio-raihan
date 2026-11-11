@@ -20,11 +20,8 @@ export default function AboutMe() {
         <ProfileList sectionId="education" index="04" prefix="edu" items={["edu1", "edu2"]} />
       </SectionGate>
       <SectionGate id="experience"><Experience /></SectionGate>
-      <SectionGate id="organization">
-        <ProfileList sectionId="organization" index="06" prefix="org" items={["org1", "org2"]} />
-      </SectionGate>
       <SectionGate id="plk">
-        <ProfileList sectionId="plk" index="07" prefix="plk" items={["plk1"]} />
+        <ProfileList sectionId="plk" index="06" prefix="plk" items={["plk1", "plk2"]} />
       </SectionGate>
       <SectionGate id="github-activity"><GithubActivity /></SectionGate>
       <SectionGate id="certificates"><Certificates /></SectionGate>

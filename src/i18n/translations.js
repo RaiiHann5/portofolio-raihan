@@ -293,9 +293,9 @@ export const translations = {
   profile: {
     // Isi pribadi di bawah ini yang diawali tanda kurung siku [ ... ] masih
     // contoh. Ganti lewat /admin/text (tanpa ubah kode) atau langsung di sini.
-    bioClass: { en: "[Grade XI]", id: "[Kelas XI]" },
-    bioProgram: { en: "[Study program]", id: "[Kompetensi keahlian]" },
-    bioSchool: { en: "[School name]", id: "[Nama sekolah]" },
+    bioClass: { en: "Grade XII", id: "Kelas XII" },
+    bioProgram: { en: "Software and Game Development", id: "Pengembangan Perangkat Lunak dan Gim" },
+    bioSchool: { en: "SMKN 2 Banjarmasin", id: "SMKN 2 Banjarmasin" },
 
     bioLabel: { en: "Biodata", id: "Biodata" },
     bioTitle: { en: "Quick facts.", id: "Biodata singkat." },
@@ -315,36 +315,24 @@ export const translations = {
 
     eduLabel: { en: "Education", id: "Pendidikan" },
     eduTitle: { en: "Where I've studied.", id: "Tempat saya belajar." },
-    edu1Title: { en: "[Vocational school name]", id: "[Nama SMK]" },
-    edu1Meta: { en: "[Year] – Present · [Study program]", id: "[Tahun] – sekarang · [Kompetensi keahlian]" },
+    edu1Title: { en: "SMKN 2 Banjarmasin", id: "SMKN 2 Banjarmasin" },
+    edu1Meta: { en: "2024 – Present · Software and Game Development", id: "2024 – sekarang · Pengembangan Perangkat Lunak dan Gim" },
     edu1Body: {
       en: "[Short note: focus subjects, achievements, or activities.]",
       id: "[Catatan singkat: mata pelajaran fokus, prestasi, atau kegiatan.]",
     },
-    edu2Title: { en: "[Junior high school name]", id: "[Nama SMP]" },
-    edu2Meta: { en: "[Year] – [Year]", id: "[Tahun] – [Tahun]" },
+    edu2Title: { en: "MTs Alhamid", id: "MTs Alhamid" },
+    edu2Meta: { en: "2021 – 2024", id: "2021 – 2024" },
     edu2Body: { en: "", id: "" },
 
-    orgLabel: { en: "Organization", id: "Organisasi" },
-    orgTitle: { en: "Teams I've been part of.", id: "Organisasi yang saya ikuti." },
-    org1Title: { en: "[Organization name]", id: "[Nama organisasi]" },
-    org1Meta: { en: "[Role] · [Year] – [Year]", id: "[Jabatan] · [Tahun] – [Tahun]" },
-    org1Body: {
-      en: "[What you did: programs you organised, responsibilities, results.]",
-      id: "[Yang Anda kerjakan: program yang diselenggarakan, tanggung jawab, hasil.]",
-    },
-    org2Title: { en: "[Organization name]", id: "[Nama organisasi]" },
-    org2Meta: { en: "[Role] · [Year] – [Year]", id: "[Jabatan] · [Tahun] – [Tahun]" },
-    org2Body: { en: "", id: "" },
-
-    plkLabel: { en: "Work placement", id: "PLK" },
-    plkTitle: { en: "Learning on the job.", id: "Belajar langsung di lapangan." },
-    plk1Title: { en: "[Company / institution name]", id: "[Nama perusahaan / instansi]" },
-    plk1Meta: { en: "[Position] · [Start] – [End]", id: "[Posisi] · [Mulai] – [Selesai]" },
-    plk1Body: {
-      en: "[What you worked on, the tools you used, and what you learned.]",
-      id: "[Yang Anda kerjakan, tools yang dipakai, dan yang Anda pelajari.]",
-    },
+    plkLabel: { en: "Experience", id: "Pengalaman" },
+    plkTitle: { en: "Where I've worked.", id: "Tempat saya magang." },
+    plk1Title: { en: "PT Inovasi Informatik Sinergi", id: "PT Inovasi Informatik Sinergi" },
+    plk1Meta: { en: "Frontend Developer Intern", id: "Frontend Developer Intern" },
+    plk1Body: { en: "", id: "" },
+    plk2Title: { en: "Anjir Muara District Office", id: "Kantor Kecamatan Anjir Muara" },
+    plk2Meta: { en: "Fullstack Developer Intern", id: "Fullstack Developer Intern" },
+    plk2Body: { en: "", id: "" },
 
     careerLabel: { en: "Career goals", id: "Cita-cita" },
     careerTitle: { en: "Where I'm headed.", id: "Arah yang saya tuju." },
