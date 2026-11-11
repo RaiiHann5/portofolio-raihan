@@ -24,13 +24,16 @@ export default function Hero() {
   const headlineRef = useRef(null);
   const contentRef = useRef(null);
   const { setCursor, clearCursor } = useCursor();
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const navigate = useNavigate();
   const { settings } = useContent();
 
   // URL CV bisa diganti dari /admin/settings. Atribut `download` hanya
   // berlaku untuk file satu domain, jadi link eksternal dibuka di tab baru.
   const cvHref = settings.cvUrl || site.cvUrl;
+  // Label ditulis langsung di sini (tidak lewat teks admin) supaya tombol
+  // selalu terbaca jelas: "Unduh CV" untuk ID, "Download CV" untuk EN.
+  const cvLabel = lang === "id" ? "Unduh CV" : "Download CV";
   const cvIsExternal = /^https?:\/\//i.test(cvHref) && !cvHref.startsWith(window.location.origin);
 
   useEffect(() => {
@@ -173,15 +176,14 @@ export default function Hero() {
             {cvHref && (
               <MagneticButton
                 as="a"
-                variant="solid"
-                cursorLabel={t("hero.ctaCv")}
+                variant="outline"
+                cursorLabel={lang === "id" ? "Unduh" : "Download"}
                 href={cvHref}
                 {...(cvIsExternal
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : { download: true })}
               >
-                {t("hero.ctaCv")}
-                <ArrowDownRight size={16} strokeWidth={2.2} />
+                {cvLabel}
               </MagneticButton>
             )}
           </div>
