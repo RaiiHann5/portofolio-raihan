@@ -17,6 +17,7 @@ export const sectionGroups = [
       { id: "services", label: "Layanan" },
       { id: "featured-work", label: "Karya pilihan" },
       { id: "process", label: "Proses kerja" },
+      { id: "testimonials", label: "Testimoni", hint: "Muncul otomatis kalau sudah ada testimoni di admin." },
     ],
   },
   {

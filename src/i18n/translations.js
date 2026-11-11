@@ -266,6 +266,13 @@ export const translations = {
     },
     viewAll: { en: "See all projects", id: "Lihat semua proyek" },
   },
+  testimonials: {
+    label: { en: "Testimonials", id: "Testimoni" },
+    title: {
+      en: "Kind words from people I've worked with.",
+      id: "Kata mereka yang pernah bekerja sama.",
+    },
+  },
   process: {
     label: { en: "How it works", id: "Cara kerjanya" },
     title: { en: "Four steps, no surprises.", id: "Empat langkah, tanpa kejutan." },

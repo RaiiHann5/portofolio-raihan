@@ -25,6 +25,7 @@ const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
 const AdminProjects = lazy(() => import("./pages/admin/AdminProjects"));
 const AdminTemplates = lazy(() => import("./pages/admin/AdminTemplates"));
 const AdminCertificates = lazy(() => import("./pages/admin/AdminCertificates"));
+const AdminTestimonials = lazy(() => import("./pages/admin/AdminTestimonials"));
 const AdminLinks = lazy(() => import("./pages/admin/AdminLinks"));
 const AdminText = lazy(() => import("./pages/admin/AdminText"));
 const AdminSections = lazy(() => import("./pages/admin/AdminSections"));
@@ -68,6 +69,7 @@ function App() {
                           <Route path="projects" element={<AdminProjects />} />
                           <Route path="templates" element={<AdminTemplates />} />
                           <Route path="certificates" element={<AdminCertificates />} />
+                          <Route path="testimonials" element={<AdminTestimonials />} />
                           <Route path="links" element={<AdminLinks />} />
                           <Route path="text" element={<AdminText />} />
                           <Route path="sections" element={<AdminSections />} />

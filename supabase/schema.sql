@@ -88,6 +88,20 @@ create table if not exists public.certificates (
 );
 
 -- ---------------------------------------------------------------------
+-- TESTIMONI
+-- ---------------------------------------------------------------------
+create table if not exists public.testimonials (
+  id         uuid primary key default gen_random_uuid(),
+  name       text not null,
+  role       text default '',
+  message    text not null,
+  photo      text default '',           -- URL foto pemberi testimoni
+  position   int  default 0,
+  published  boolean default true,
+  created_at timestamptz default now()
+);
+
+-- ---------------------------------------------------------------------
 -- LINK / AKUN (sosmed, platform kerja, apa pun)
 --
 -- icon_path & icon_hex disimpan langsung di sini, bukan cuma nama brand.
@@ -161,6 +175,7 @@ create table if not exists public.settings (
 alter table public.projects     enable row level security;
 alter table public.templates    enable row level security;
 alter table public.certificates enable row level security;
+alter table public.testimonials enable row level security;
 alter table public.links        enable row level security;
 alter table public.site_text    enable row level security;
 alter table public.sections     enable row level security;
@@ -170,6 +185,7 @@ alter table public.settings     enable row level security;
 create policy "public read projects"     on public.projects     for select using (published);
 create policy "public read templates"    on public.templates    for select using (published);
 create policy "public read certificates" on public.certificates for select using (published);
+create policy "public read testimonials" on public.testimonials for select using (published);
 create policy "public read links"        on public.links        for select using (published);
 create policy "public read sections"     on public.sections     for select using (published);
 create policy "public read site_text"    on public.site_text    for select using (true);
@@ -181,6 +197,7 @@ create policy "public read settings"     on public.settings     for select using
 create policy "admin all projects"     on public.projects     for all to authenticated using (true) with check (true);
 create policy "admin all templates"    on public.templates    for all to authenticated using (true) with check (true);
 create policy "admin all certificates" on public.certificates for all to authenticated using (true) with check (true);
+create policy "admin all testimonials" on public.testimonials for all to authenticated using (true) with check (true);
 create policy "admin all links"        on public.links        for all to authenticated using (true) with check (true);
 create policy "admin all site_text"    on public.site_text    for all to authenticated using (true) with check (true);
 create policy "admin all sections"     on public.sections     for all to authenticated using (true) with check (true);
@@ -215,5 +232,6 @@ create policy "admin delete media"
 create index if not exists projects_position_idx     on public.projects (position);
 create index if not exists templates_position_idx    on public.templates (position);
 create index if not exists certificates_position_idx  on public.certificates (position);
+create index if not exists testimonials_position_idx  on public.testimonials (position);
 create index if not exists links_group_idx           on public.links ("group", position);
 create index if not exists sections_page_idx         on public.sections (page, position);

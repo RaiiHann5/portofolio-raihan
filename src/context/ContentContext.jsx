@@ -80,6 +80,16 @@ function normalizeCertificate(row) {
   };
 }
 
+function normalizeTestimonial(row) {
+  return {
+    id: row.id,
+    name: row.name,
+    role: row.role || "",
+    message: row.message || "",
+    photo: row.photo || "",
+  };
+}
+
 function normalizeTemplate(row) {
   return {
     id: row.id,
@@ -107,6 +117,7 @@ export function ContentProvider({ children }) {
   const [projects, setProjects] = useState(staticProjects);
   const [templates, setTemplates] = useState(staticTemplates);
   const [certificates, setCertificates] = useState(staticCertificates);
+  const [testimonials, setTestimonials] = useState([]);
   const [links, setLinks] = useState({
     social: staticSocials.map((s) => ({ ...s, icon: brands[s.brand] })),
     hire: staticHire.map((s) => ({ ...s, icon: brands[s.brand] })),
@@ -119,11 +130,12 @@ export function ContentProvider({ children }) {
     if (!supabase) return;
 
     try {
-      const [projectRes, templateRes, certRes, linkRes, textRes, sectionRes, settingRes] =
+      const [projectRes, templateRes, certRes, testimonialRes, linkRes, textRes, sectionRes, settingRes] =
         await Promise.all([
           supabase.from("projects").select("*").eq("published", true).order("position"),
           supabase.from("templates").select("*").eq("published", true).order("position"),
           supabase.from("certificates").select("*").eq("published", true).order("position"),
+          supabase.from("testimonials").select("*").eq("published", true).order("position"),
           supabase.from("links").select("*").eq("published", true).order("position"),
           supabase.from("site_text").select("*"),
           supabase.from("sections").select("*").eq("published", true).order("position"),
@@ -136,6 +148,8 @@ export function ContentProvider({ children }) {
       if (projectRes.data?.length) setProjects(projectRes.data.map(normalizeProject));
       if (templateRes.data?.length) setTemplates(templateRes.data.map(normalizeTemplate));
       if (certRes.data?.length) setCertificates(certRes.data.map(normalizeCertificate));
+      // Tabel testimoni tidak punya data statis; kosong = section tersembunyi.
+      if (testimonialRes.data) setTestimonials(testimonialRes.data.map(normalizeTestimonial));
 
       if (linkRes.data?.length) {
         const grouped = {};
@@ -177,6 +191,7 @@ export function ContentProvider({ children }) {
       projects,
       templates,
       certificates,
+      testimonials,
       links,
       sections,
       settings,
@@ -193,7 +208,7 @@ export function ContentProvider({ children }) {
         return i === -1 ? null : projects[(i + 1) % projects.length];
       },
     }),
-    [projects, templates, certificates, links, sections, settings, loading, load]
+    [projects, templates, certificates, testimonials, links, sections, settings, loading, load]
   );
 
   return <ContentContext.Provider value={value}>{children}</ContentContext.Provider>;
