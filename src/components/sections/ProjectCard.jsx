@@ -9,7 +9,7 @@ export default function ProjectCard({ project, index }) {
   const cardRef = useRef(null);
   const imgRef = useRef(null);
   const { setCursor, clearCursor } = useCursor();
-  const { t } = useLanguage();
+  const { t, tx } = useLanguage();
 
   function handleMove(e) {
     const card = cardRef.current;
@@ -49,7 +49,7 @@ export default function ProjectCard({ project, index }) {
           ref={cardRef}
           onMouseMove={handleMove}
           onMouseLeave={handleLeave}
-          onMouseEnter={() => setCursor("View", "view")}
+          onMouseEnter={() => setCursor(t("cursor.view"), "view")}
           className="focus-ring relative order-1 block aspect-[4/3] overflow-hidden rounded-2xl lg:order-2 lg:col-span-6"
           style={{ transformStyle: "preserve-3d" }}
         >
@@ -84,7 +84,7 @@ export default function ProjectCard({ project, index }) {
           <h3 className="text-3xl font-medium tracking-tight sm:text-4xl">
             <Link
               to={`/project/${project.slug}`}
-              onMouseEnter={() => setCursor("View", "view")}
+              onMouseEnter={() => setCursor(t("cursor.view"), "view")}
               onMouseLeave={clearCursor}
               className="focus-ring transition-colors duration-300 hover:text-[var(--accent-1)]"
             >
@@ -92,7 +92,7 @@ export default function ProjectCard({ project, index }) {
             </Link>
           </h3>
           <p className="mt-4 max-w-md text-base leading-relaxed text-[var(--text-muted)]">
-            {project.description}
+            {tx(project.description)}
           </p>
 
           <div className="mt-6 flex flex-wrap gap-2">
@@ -109,7 +109,7 @@ export default function ProjectCard({ project, index }) {
           <div className="mt-8 flex flex-wrap items-center gap-6">
             <Link
               to={`/project/${project.slug}`}
-              onMouseEnter={() => setCursor("View", "view")}
+              onMouseEnter={() => setCursor(t("cursor.view"), "view")}
               onMouseLeave={clearCursor}
               className="focus-ring group/link inline-flex items-center gap-1.5 text-sm font-medium"
             >
@@ -127,7 +127,7 @@ export default function ProjectCard({ project, index }) {
                 href={project.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                onMouseEnter={() => setCursor("Open", "label")}
+                onMouseEnter={() => setCursor(t("cursor.open"), "label")}
                 onMouseLeave={clearCursor}
                 className="focus-ring inline-flex items-center gap-1.5 text-sm text-[var(--text-faint)] transition-colors hover:text-[var(--accent-1)]"
               >

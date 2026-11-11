@@ -4,6 +4,7 @@ import { useScrollReveal } from "../../hooks/useScrollReveal";
 import { useCursor } from "../../context/CursorContext";
 import { useTheme } from "../../context/ThemeContext";
 import { useContent } from "../../context/ContentContext";
+import { useLanguage } from "../../context/LanguageContext";
 import { GithubIcon } from "../ui/BrandIcons";
 import SectionHeading from "../ui/SectionHeading";
 import { site } from "../../data/site";
@@ -66,6 +67,7 @@ export default function GithubActivity() {
   const { setCursor, clearCursor } = useCursor();
   const { theme } = useTheme();
   const { settings } = useContent();
+  const { t } = useLanguage();
 
   const username =
     settings.githubUsername || site.githubUsername || site.socials.github?.split("/").filter(Boolean).pop();
@@ -110,16 +112,16 @@ export default function GithubActivity() {
         <div data-reveal className="flex flex-wrap items-end justify-between gap-6">
           <SectionHeading
             index="07"
-            label="GitHub"
-            title="Code, committed daily."
-            description="A live look at what I've been building — pulled straight from GitHub, not a screenshot."
+            label={t("github.label")}
+            title={t("github.title")}
+            description={t("github.description")}
           />
 
           <a
             href={`https://github.com/${username}`}
             target="_blank"
             rel="noopener noreferrer"
-            onMouseEnter={() => setCursor("Open", "label")}
+            onMouseEnter={() => setCursor(t("cursor.open"), "label")}
             onMouseLeave={clearCursor}
             className="focus-ring group mb-1 inline-flex items-center gap-2 text-sm text-[var(--text-faint)] transition-colors duration-300 hover:text-[var(--text)]"
           >
@@ -171,22 +173,22 @@ export default function GithubActivity() {
               </div>
 
               <div className="flex items-center gap-6">
-                <StatItem icon={BookMarked} value={profile?.public_repos} label="Repos" />
-                <StatItem icon={Users} value={profile?.followers} label="Followers" />
-                <StatItem icon={GitFork} value={profile?.public_gists} label="Gists" />
+                <StatItem icon={BookMarked} value={profile?.public_repos} label={t("github.repos")} />
+                <StatItem icon={Users} value={profile?.followers} label={t("github.followers")} />
+                <StatItem icon={GitFork} value={profile?.public_gists} label={t("github.gists")} />
               </div>
             </div>
           )}
 
           {status === "error" && (
             <p className="text-sm text-[var(--text-faint)]">
-              Couldn't reach GitHub right now.{" "}
+              {t("github.unreachable")}{" "}
               <button
                 type="button"
                 onClick={load}
                 className="focus-ring inline-flex items-center gap-1 text-[var(--text)] underline-offset-4 hover:underline"
               >
-                <RefreshCw size={12} /> Try again
+                <RefreshCw size={12} /> {t("github.retry")}
               </button>
             </p>
           )}
@@ -197,7 +199,7 @@ export default function GithubActivity() {
                 <div className="overflow-x-auto">
                   <img
                     src={heatmapUrl(username, accentHex)}
-                    alt={`${username}'s GitHub contribution graph`}
+                    alt={`${t("github.graphAlt")} ${username}`}
                     loading="lazy"
                     onError={() => setHeatmapFailed(true)}
                     className="h-auto min-w-[640px]"
@@ -205,7 +207,7 @@ export default function GithubActivity() {
                 </div>
               ) : (
                 <p className="text-sm text-[var(--text-faint)]">
-                  Contribution graph is unavailable right now — check the profile link above instead.
+                  {t("github.graphUnavailable")}
                 </p>
               )}
             </div>

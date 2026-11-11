@@ -20,6 +20,15 @@ const sectionLabels = {
   form: "Formulir kontak",
   accounts: "Kartu akun",
   footer: "Footer",
+  meta: "Judul tab & deskripsi pencarian",
+  cursor: "Teks kursor (saat hover)",
+  a11y: "Label aksesibilitas",
+  projects: "Halaman Project",
+  certs: "About — Sertifikat",
+  skills: "About — Skills",
+  journey: "About — Perjalanan",
+  github: "About — GitHub",
+  lab: "About — Beyond Code",
 };
 
 function TextRow({ row, saved, onSave }) {

@@ -38,7 +38,7 @@ export default function AccountCard({ account }) {
       href={url}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
-      onMouseEnter={() => setCursor("Open", "label")}
+      onMouseEnter={() => setCursor(t("cursor.open"), "label")}
       onMouseLeave={clearCursor}
       style={{ "--brand": color }}
       className="account-card focus-ring group relative flex items-center gap-4 overflow-hidden rounded-xl border border-[var(--border)] p-4 transition-colors duration-300"

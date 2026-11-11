@@ -4,10 +4,29 @@ import { useScrollReveal } from "../../hooks/useScrollReveal";
 import { useCursor } from "../../context/CursorContext";
 import SectionHeading from "../ui/SectionHeading";
 import { beyondCode } from "../../data/beyondCode";
+import { useLanguage } from "../../context/LanguageContext";
+import { bi } from "../../i18n/localize";
 
 const ACCENTS = ["#e8836a", "#f0c14b", "#6ea8c9", "#a58bd6", "#7fb88a"];
 const seededRotation = (id, spread = 3) => (((id * 37) % (spread * 2 + 1)) - spread);
 const clamp = (n, min = 0, max = 1) => Math.max(min, Math.min(max, n));
+
+// `status` di data dipakai buat logika (Playing, Backlog, dst), jadi nilainya
+// tetap bahasa Inggris. Yang tampil di layar diterjemahkan lewat peta ini.
+const STATUS_LABELS = {
+  Playing: bi("Playing", "Lagi dimainkan"),
+  Gamelist: bi("Gamelist", "Daftar gim"),
+  Reading: bi("Reading", "Lagi dibaca"),
+  Readlist: bi("Readlist", "Daftar baca"),
+  "Write movie reviews": bi("Write movie reviews", "Nulis ulasan film"),
+  Backlog: bi("Backlog", "Antrean"),
+  Completed: bi("Completed", "Tamat"),
+  Watched: bi("Watched", "Sudah ditonton"),
+  Watchlist: bi("Watchlist", "Daftar tonton"),
+  Rewatch: bi("Rewatch", "Tonton ulang"),
+  Soon: bi("Soon", "Segera"),
+};
+const statusLabel = (status, tx) => tx(STATUS_LABELS[status]) || status;
 
 /* ---------------------------------- icons --------------------------------- */
 
@@ -29,10 +48,11 @@ function Icon({ name, className = "h-4 w-4" }) {
 
 function ThemeToggle({ theme, onToggle }) {
   const isDark = theme === "dark";
+  const { t } = useLanguage();
   return (
     <button
       onClick={onToggle}
-      aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+      aria-label={isDark ? t("a11y.toLight") : t("a11y.toDark")}
       className="group relative flex h-9 w-16 items-center rounded-full border border-[var(--border)] bg-[var(--surface-1)] px-1 transition-colors duration-300 hover:border-[var(--border-strong)]"
     >
       <span
@@ -48,6 +68,7 @@ function ThemeToggle({ theme, onToggle }) {
 /* --------------------------------- pin note --------------------------------- */
 
 function PickForMeNote({ onRoll, rolling, pickLabel }) {
+  const { t } = useLanguage();
   return (
     <button
       onClick={onRoll}
@@ -62,10 +83,10 @@ function PickForMeNote({ onRoll, rolling, pickLabel }) {
       <span className={`block ${rolling ? "animate-[wiggle_0.5s_ease-in-out]" : ""}`}>
         {pickLabel ? (
           <>
-            tonight: <span className="text-[var(--text-primary)]">{pickLabel}</span>
+            {t("lab.pickTonight")} <span className="text-[var(--text-primary)]">{pickLabel}</span>
           </>
         ) : (
-          "pick something for me →"
+          t("lab.pickIdle")
         )}
       </span>
     </button>
@@ -75,6 +96,7 @@ function PickForMeNote({ onRoll, rolling, pickLabel }) {
 /* ------------------------------ top music list ------------------------------ */
 
 function TrackRow({ track, index, picked, isOpen, onToggle }) {
+  const { t } = useLanguage();
   const ref = useMagnetic(0.03);
 
   return (
@@ -125,7 +147,7 @@ function TrackRow({ track, index, picked, isOpen, onToggle }) {
             />
           ) : (
             <p className="bx-font-mono px-1 py-3 text-[11px] text-[var(--text-secondary)]">
-              No Spotify link yet.
+              {t("lab.noSpotify")}
             </p>
           )}
         </div>
@@ -182,6 +204,7 @@ function useCountUp(target, active, duration = 900) {
 }
 
 function GameCartridge({ game, picked }) {
+  const { t, tx } = useLanguage();
   const ref = useMagnetic(0.06);
   const { setCursor, clearCursor } = useCursor();
   const [open, setOpen] = useState(false);
@@ -204,7 +227,7 @@ function GameCartridge({ game, picked }) {
       )}
       <button
         onClick={() => setOpen((o) => !o)}
-        onMouseEnter={() => { setHovered(true); setCursor("Peek", "view"); }}
+        onMouseEnter={() => { setHovered(true); setCursor(t("cursor.peek"), "view"); }}
         onMouseLeave={() => { setHovered(false); clearCursor(); }}
         className={`group relative flex aspect-[3/4] w-full flex-col justify-between overflow-hidden rounded-xl border-2 p-4 text-left shadow-sm transition-shadow duration-300 hover:shadow-lg ${picked ? "animate-[pick-glow_1.4s_ease-in-out]" : ""}`}
         style={{
@@ -218,18 +241,18 @@ function GameCartridge({ game, picked }) {
         )}
         {isPlaying && (
           <span className="bx-font-mono absolute right-0 top-3 z-10 rounded-l-full bg-white/90 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-black">
-            playing
+            {t("lab.playing")}
           </span>
         )}
         {game.status === "Completed" && (
           <span className="absolute right-3 top-3 z-10 text-white/80">✓</span>
         )}
 
-        <span className="bx-font-mono relative z-10 text-[9px] uppercase tracking-widest text-white/50">{game.status}</span>
+        <span className="bx-font-mono relative z-10 text-[9px] uppercase tracking-widest text-white/50">{statusLabel(game.status, tx)}</span>
 
         <div className="relative z-10">
           <h3 className="bx-font-display text-base font-semibold leading-tight text-white">{game.title}</h3>
-          {isPlaying && <p className="mt-1 text-[11px] text-white/60">{hours}h played</p>}
+          {isPlaying && <p className="mt-1 text-[11px] text-white/60">{hours}{t("lab.hoursUnit")} {t("lab.played")}</p>}
           <div className="mt-2 h-[3px] w-full overflow-hidden rounded-full bg-white/15">
             <div className="h-full rounded-full bg-white/80 transition-[width] duration-700" style={{ width: `${completion}%` }} />
           </div>
@@ -241,9 +264,9 @@ function GameCartridge({ game, picked }) {
         style={{ maxHeight: open ? "9rem" : "0px" }}
       >
         <div className="bx-font-mono p-4 text-[11px] leading-relaxed text-[var(--text-secondary)]">
-          <p className="text-[var(--text-primary)]">{game.genre ?? "Genre unknown"}</p>
-          <p className="mt-1">{game.note ?? "No notes on this one yet."}</p>
-          <p className="mt-2 text-[10px] opacity-70">last played · {game.lastPlayed ?? "—"}</p>
+          <p className="text-[var(--text-primary)]">{game.genre || t("lab.genreUnknown")}</p>
+          <p className="mt-1">{tx(game.note) || t("lab.noNotes")}</p>
+          <p className="mt-2 text-[10px] opacity-70">{t("lab.lastPlayed")} · {game.lastPlayed || "—"}</p>
         </div>
       </div>
     </div>
@@ -253,6 +276,7 @@ function GameCartridge({ game, picked }) {
 /* -------------------------------- movie ticket -------------------------------- */
 
 function MovieTicket({ movie, picked }) {
+  const { t, tx } = useLanguage();
   const ref = useMagnetic(0.06);
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -281,7 +305,7 @@ function MovieTicket({ movie, picked }) {
           style={{ background: hasImage ? `url(${movie.image}) center/cover no-repeat` : movie.poster }}
         >
           {hasImage && <div className="absolute inset-0 bg-black/30" aria-hidden="true" />}
-          <span className="bx-font-mono relative z-10 text-[9px] uppercase tracking-widest text-white/50">{movie.status}</span>
+          <span className="bx-font-mono relative z-10 text-[9px] uppercase tracking-widest text-white/50">{statusLabel(movie.status, tx)}</span>
           <div className="relative z-10">
             <h3 className="bx-font-display truncate text-sm font-semibold leading-tight text-white">{movie.title}</h3>
             <div className="mt-1 flex items-center gap-2">
@@ -297,7 +321,7 @@ function MovieTicket({ movie, picked }) {
           </div>
         </div>
         <div className="flex w-9 shrink-0 items-center justify-center border-l border-dashed border-black/20 bg-black/10">
-          <span className="bx-font-mono [writing-mode:vertical-rl] text-[8px] uppercase tracking-[0.2em] text-white/70">admit one</span>
+          <span className="bx-font-mono [writing-mode:vertical-rl] text-[8px] uppercase tracking-[0.2em] text-white/70">{t("lab.admitOne")}</span>
         </div>
       </button>
 
@@ -306,7 +330,7 @@ function MovieTicket({ movie, picked }) {
         style={{ maxHeight: open ? "6rem" : "0px" }}
       >
         <div className="bx-font-mono p-3 text-[11px] leading-relaxed text-[var(--text-secondary)]">
-          <p>{movie.note ?? "No notes on this one yet."}</p>
+          <p>{tx(movie.note) || t("lab.noNotes")}</p>
         </div>
       </div>
     </div>
@@ -316,6 +340,7 @@ function MovieTicket({ movie, picked }) {
 /* -------------------------------- hobby polaroid ------------------------------ */
 
 function HobbyPolaroid({ hobby, index, picked }) {
+  const { tx } = useLanguage();
   const ref = useMagnetic(0.05);
   const [open, setOpen] = useState(false);
   const facts = hobby.facts && hobby.facts.length ? hobby.facts : [hobby.blurb];
@@ -351,19 +376,19 @@ function HobbyPolaroid({ hobby, index, picked }) {
           style={{ background: hasImage ? undefined : color }}
         >
           {hasImage ? (
-            <img src={hobby.image} alt={hobby.label} className="h-full w-full object-cover" />
+            <img src={hobby.image} alt={tx(hobby.label)} className="h-full w-full object-cover" />
           ) : (
             hobby.icon
           )}
         </div>
         <div className="mt-2.5">
-          <h4 className="bx-font-display text-sm font-semibold text-[var(--text-primary)]">{hobby.label}</h4>
+          <h4 className="bx-font-display text-sm font-semibold text-[var(--text-primary)]">{tx(hobby.label)}</h4>
           <p
             key={factIndex}
             className="mt-1 animate-[fade-slide_0.25s_ease-out] overflow-hidden text-xs leading-relaxed text-[var(--text-secondary)] transition-all duration-300"
             style={{ maxHeight: open ? "4rem" : "0px", opacity: open ? 1 : 0 }}
           >
-            {facts[factIndex]}
+            {tx(facts[factIndex])}
           </p>
           {open && facts.length > 1 && (
             <div className="mt-1.5 flex gap-1">
@@ -381,6 +406,7 @@ function HobbyPolaroid({ hobby, index, picked }) {
 /* ------------------------------------ stat strip ------------------------------ */
 
 function StatStrip({ games, movies, topTrack }) {
+  const { t } = useLanguage();
   const [inView, setInView] = useState(false);
   const totalHours = useMemo(() => games.reduce((sum, g) => sum + (g.hours || 0), 0), [games]);
   const backlogCount = useMemo(() => games.filter((g) => g.status === "Backlog").length, [games]);
@@ -394,13 +420,13 @@ function StatStrip({ games, movies, topTrack }) {
       className="bx-font-mono relative mt-8 inline-flex flex-wrap items-center gap-x-5 gap-y-1.5 rounded-sm border border-[var(--border)] bg-[var(--surface-1)] px-5 py-3 text-[11px] uppercase tracking-wide text-[var(--text-secondary)]"
       style={{ clipPath: "polygon(0% 2%,2% 0%,98% 1%,100% 3%,99% 97%,97% 100%,1% 99%,0% 96%)" }}
     >
-      <span><span className="text-[var(--text-primary)]">{hours}h</span> logged</span>
+      <span><span className="text-[var(--text-primary)]">{hours}{t("lab.hoursUnit")}</span> {t("lab.logged")}</span>
       <span className="opacity-30">·</span>
-      <span><span className="text-[var(--text-primary)]">{backlogCount}</span> in backlog</span>
+      <span><span className="text-[var(--text-primary)]">{backlogCount}</span> {t("lab.inBacklog")}</span>
       <span className="opacity-30">·</span>
-      <span><span className="text-[var(--text-primary)]">{watchlistCount}</span> queued to watch</span>
+      <span><span className="text-[var(--text-primary)]">{watchlistCount}</span> {t("lab.queued")}</span>
       <span className="opacity-30">·</span>
-      <span className="normal-case tracking-normal">on repeat: <span className="text-[var(--text-primary)]">{topTrack}</span></span>
+      <span className="normal-case tracking-normal">{t("lab.onRepeat")} <span className="text-[var(--text-primary)]">{topTrack}</span></span>
     </div>
   );
 }
@@ -410,6 +436,7 @@ function StatStrip({ games, movies, topTrack }) {
 export default function BeyondCode({ theme, onThemeToggle }) {
   const containerRef = useScrollReveal();
   const { topMusic, games, movies, hobbies } = beyondCode;
+  const { t, tx } = useLanguage();
 
   const [rolling, setRolling] = useState(false);
   const [picked, setPicked] = useState(null); // { type: 'game'|'movie'|'hobby'|'music', id }
@@ -419,8 +446,8 @@ export default function BeyondCode({ theme, onThemeToggle }) {
     if (picked.type === "game") return games.find((g) => g.id === picked.id)?.title;
     if (picked.type === "movie") return movies.find((m) => m.id === picked.id)?.title;
     if (picked.type === "music") return topMusic.find((t) => t.id === picked.id)?.track;
-    return hobbies.find((h) => h.id === picked.id)?.label;
-  }, [picked, games, movies, hobbies, topMusic]);
+    return tx(hobbies.find((h) => h.id === picked.id)?.label);
+  }, [picked, games, movies, hobbies, topMusic, tx]);
 
   useEffect(() => {
     if (!picked) return;
@@ -466,9 +493,9 @@ export default function BeyondCode({ theme, onThemeToggle }) {
         <div data-reveal className="flex flex-wrap items-start justify-between gap-6">
           <SectionHeading
             index="10"
-            label="Beyond code"
-            title="Life outside the editor."
-            description="Playlists on loop, games half-finished, movies queued up, and whatever else keeps the other half of my brain occupied."
+            label={t("lab.label")}
+            title={t("lab.title")}
+            description={t("lab.description")}
           />
           <div className="flex items-center gap-3">
             <PickForMeNote onRoll={handleRoll} rolling={rolling} pickLabel={pickedLabel} />
@@ -479,12 +506,12 @@ export default function BeyondCode({ theme, onThemeToggle }) {
         <StatStrip games={games} movies={movies} topTrack={topMusic[0]?.track ?? "—"} />
 
         <div className="mt-10">
-          <p className="bx-font-mono mb-4 text-[10px] uppercase tracking-widest text-[var(--text-secondary)]">top 10 music</p>
+          <p className="bx-font-mono mb-4 text-[10px] uppercase tracking-widest text-[var(--text-secondary)]">{t("lab.topMusic")}</p>
           <TopMusicList tracks={topMusic} picked={picked} />
         </div>
 
         <div className="mt-12">
-          <p className="bx-font-mono mb-4 text-[10px] uppercase tracking-widest text-[var(--text-secondary)]">the shelf</p>
+          <p className="bx-font-mono mb-4 text-[10px] uppercase tracking-widest text-[var(--text-secondary)]">{t("lab.shelf")}</p>
           <div className="bx-shelf -mx-6 flex gap-5 overflow-x-auto px-6 pb-4 sm:mx-0 sm:px-0">
             {games.map((game) => (
               <GameCartridge key={game.id} game={game} picked={picked?.type === "game" && picked.id === game.id} />
@@ -493,7 +520,7 @@ export default function BeyondCode({ theme, onThemeToggle }) {
         </div>
 
         <div className="mt-12">
-          <p className="bx-font-mono mb-4 text-[10px] uppercase tracking-widest text-[var(--text-secondary)]">the ticket stand</p>
+          <p className="bx-font-mono mb-4 text-[10px] uppercase tracking-widest text-[var(--text-secondary)]">{t("lab.tickets")}</p>
           <div className="bx-shelf -mx-6 flex gap-5 overflow-x-auto px-6 pb-4 sm:mx-0 sm:px-0">
             {movies.map((movie) => (
               <MovieTicket key={movie.id} movie={movie} picked={picked?.type === "movie" && picked.id === movie.id} />
@@ -502,7 +529,7 @@ export default function BeyondCode({ theme, onThemeToggle }) {
         </div>
 
         <div className="mt-14">
-          <p className="bx-font-mono mb-6 text-[10px] uppercase tracking-widest text-[var(--text-secondary)]">the corkboard</p>
+          <p className="bx-font-mono mb-6 text-[10px] uppercase tracking-widest text-[var(--text-secondary)]">{t("lab.corkboard")}</p>
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
             {hobbies.map((hobby, i) => (
               <HobbyPolaroid key={hobby.id} hobby={hobby} index={i} picked={picked?.type === "hobby" && picked.id === hobby.id} />

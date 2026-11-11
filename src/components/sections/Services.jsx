@@ -21,7 +21,7 @@ function ServiceRow({ service, isOpen, onToggle, isDark }) {
           onClick={onToggle}
           aria-expanded={isOpen}
           aria-controls={panelId}
-          onMouseEnter={() => setCursor(isOpen ? "Close" : "Open", "label")}
+          onMouseEnter={() => setCursor(isOpen ? t("cursor.close") : t("cursor.open"), "label")}
           onMouseLeave={clearCursor}
           className="focus-ring group flex w-full items-start justify-between gap-6 py-7 text-left"
         >

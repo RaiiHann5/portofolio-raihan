@@ -115,7 +115,7 @@ export default function Navbar() {
           <ThemeToggle />
           <button
             type="button"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? t("a11y.closeMenu") : t("a11y.openMenu")}
             aria-expanded={open}
             onClick={() => setOpen((o) => !o)}
             className="focus-ring flex h-9 w-9 flex-col items-center justify-center gap-1.5"

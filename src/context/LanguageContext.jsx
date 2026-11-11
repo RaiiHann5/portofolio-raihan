@@ -8,6 +8,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import { translate } from "../i18n/translations";
+import { localize } from "../i18n/localize";
 import { subscribeOverrides, getOverrides } from "../i18n/overrides";
 
 const LanguageContext = createContext(null);
@@ -30,6 +31,11 @@ export function LanguageProvider({ children }) {
     if (typeof window === "undefined") return;
     window.localStorage.setItem(STORAGE_KEY, lang);
     document.documentElement.lang = lang;
+    // Judul tab dan deskripsi meta ikut berganti bahasa, bukan cuma isi halaman.
+    document.title = translate("meta.title", lang);
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute("content", translate("meta.description", lang));
   }, [lang]);
 
   const setLanguage = useCallback((next) => {
@@ -51,9 +57,13 @@ export function LanguageProvider({ children }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const t = useCallback((path) => translate(path, lang), [lang, overrides]);
 
+  // tx() buat data yang bentuknya { en, id } (proyek, timeline, template, dst).
+  // String biasa dikembalikan apa adanya.
+  const tx = useCallback((value) => localize(value, lang), [lang]);
+
   const value = useMemo(
-    () => ({ lang, setLanguage, toggleLanguage, t, targetLang: TARGET_LANG, sourceLang: DEFAULT_LANG }),
-    [lang, setLanguage, toggleLanguage, t]
+    () => ({ lang, setLanguage, toggleLanguage, t, tx, targetLang: TARGET_LANG, sourceLang: DEFAULT_LANG }),
+    [lang, setLanguage, toggleLanguage, t, tx]
   );
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;

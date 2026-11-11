@@ -61,7 +61,7 @@ export default function About() {
                 // Foto asli — akan otomatis fallback ke placeholder gradient kalau gagal load
                 <img
                   src={PROFILE_IMAGE_SRC}
-                  alt="Profile photo"
+                  alt={t("a11y.profilePhoto")}
                   onError={() => setImgError(true)}
                   draggable={false}
                   className="absolute inset-0 h-full w-full object-cover"

@@ -108,7 +108,7 @@ export default function FeaturedWork() {
                 to={`/project/${project.slug}`}
                 onMouseEnter={() => {
                   setActiveIndex(i);
-                  setCursor("View", "view");
+                  setCursor(t("cursor.view"), "view");
                 }}
                 onMouseLeave={() => {
                   setActiveIndex(null);
@@ -143,7 +143,7 @@ export default function FeaturedWork() {
 
                 {isLiveDemo(project.demo) && (
                   <span className="hidden shrink-0 font-mono text-xs uppercase tracking-[0.18em] text-[var(--text-faint)] sm:block">
-                    live
+                    {t("work.live")}
                   </span>
                 )}
 
@@ -161,7 +161,7 @@ export default function FeaturedWork() {
         <div data-reveal className="mt-10">
           <Link
             to="/project"
-            onMouseEnter={() => setCursor("All", "label")}
+            onMouseEnter={() => setCursor(t("cursor.all"), "label")}
             onMouseLeave={clearCursor}
             className="focus-ring group inline-flex items-center gap-2 text-sm font-medium"
           >

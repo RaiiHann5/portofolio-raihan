@@ -1,3 +1,4 @@
+import { bi } from "../i18n/localize";
 // Tiap skill punya warna brand-nya sendiri, dipakai buat glow/border pas hover.
 // Skill dengan array warna (Figma) = ikonnya emang multicolor,
 // dipakai buat efek conic-gradient dot di pill.
@@ -27,32 +28,32 @@ export const DEFAULT_SKILL_COLOR = "#8B8B8B";
 export const skillGroups = [
   {
     label: "Frontend",
-    note: "Core craft",
+    note: bi("Core craft", "Keahlian inti"),
     skills: ["React", "JavaScript", "TypeScript", "CSS3", "Tailwind CSS"],
   },
   {
     label: "Mobile",
-    note: "Android & cross-platform",
+    note: bi("Android & cross-platform", "Android & lintas platform"),
     skills: ["Flutter", "Kotlin", "Firebase"],
   },
   {
     label: "Database",
-    note: "Motion & feel",
+    note: bi("Data & storage", "Data & penyimpanan"),
     skills: ["MySql", "MongoDB", "PostgreSQL", "Supabase"],
   },
   {
     label: "Backend",
-    note: "Server & data",
+    note: bi("Server & data", "Server & data"),
     skills: ["Node.js", "PHP", "Laravel", "Python", "MongoDB"],
   },
   {
-    label: "Design",
-    note: "Visual & prototyping",
+    label: bi("Design", "Desain"),
+    note: bi("Visual & prototyping", "Visual & prototipe"),
     skills: ["Figma"],
   },
   {
     label: "Tools",
-    note: "Daily drivers",
+    note: bi("Daily drivers", "Andalan harian"),
     skills: ["Git", "Github"],
   },
 ];
@@ -66,7 +67,7 @@ export const technicalLevels = [
   { name: "React", level: 80 },
   { name: "Tailwind CSS", level: 85 },
   { name: "PHP & Laravel", level: 70 },
-  { name: "UI Design (Figma)", level: 75 },
+  { name: bi("UI Design (Figma)", "Desain UI (Figma)"), level: 75 },
   { name: "Git & GitHub", level: 70 },
 ];
 

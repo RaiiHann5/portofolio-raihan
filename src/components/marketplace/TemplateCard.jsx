@@ -12,7 +12,7 @@ const idrFormatter = new Intl.NumberFormat("id-ID", {
 
 export default function TemplateCard({ template }) {
   const { setCursor, clearCursor } = useCursor();
-  const { t } = useLanguage();
+  const { t, tx } = useLanguage();
   const [imgError, setImgError] = useState(false);
 
   return (
@@ -54,7 +54,7 @@ export default function TemplateCard({ template }) {
           </Link>
         </h3>
         <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--text-muted)]">
-          {template.description}
+          {tx(template.description)}
         </p>
 
         <div className="mt-4 flex flex-wrap gap-2">
@@ -79,7 +79,7 @@ export default function TemplateCard({ template }) {
                 href={template.buy}
                 target="_blank"
                 rel="noopener noreferrer"
-                onMouseEnter={() => setCursor("Buy", "label")}
+                onMouseEnter={() => setCursor(t("cursor.buy"), "label")}
                 onMouseLeave={clearCursor}
                 className="focus-ring inline-flex items-center gap-1 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--accent-1)]"
               >
@@ -89,7 +89,7 @@ export default function TemplateCard({ template }) {
 
             <Link
               to={`/marketplace/${template.slug}`}
-              onMouseEnter={() => setCursor("Open", "label")}
+              onMouseEnter={() => setCursor(t("cursor.open"), "label")}
               onMouseLeave={clearCursor}
               className="focus-ring inline-flex items-center gap-1 text-sm font-medium transition-colors hover:text-[var(--accent-1)]"
             >

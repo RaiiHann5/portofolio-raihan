@@ -205,7 +205,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={status === "sending"}
-          onMouseEnter={() => setCursor("Send", "label")}
+          onMouseEnter={() => setCursor(t("cursor.send"), "label")}
           onMouseLeave={clearCursor}
           className="focus-ring inline-flex items-center gap-2 rounded-full bg-[var(--text)] px-7 py-3.5 text-sm font-medium text-[var(--bg)] transition-opacity duration-300 hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
         >

@@ -30,7 +30,7 @@ function FlagGB() {
 }
 
 export default function LanguageToggle() {
-  const { lang, toggleLanguage, targetLang } = useLanguage();
+  const { lang, toggleLanguage, targetLang, t } = useLanguage();
   const { setCursor, clearCursor } = useCursor();
   const isID = lang === targetLang;
 
@@ -40,7 +40,7 @@ export default function LanguageToggle() {
       onClick={toggleLanguage}
       onMouseEnter={() => setCursor("", "default")}
       onMouseLeave={clearCursor}
-      aria-label={`Switch site language to ${isID ? "English" : "Indonesian"}`}
+      aria-label={isID ? t("a11y.langToEn") : t("a11y.langToId")}
       aria-pressed={isID}
       className="notranslate focus-ring relative flex h-9 w-16 items-center rounded-full border border-[var(--border-strong)] px-1 transition-colors"
     >

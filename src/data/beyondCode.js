@@ -1,3 +1,4 @@
+import { bi } from "../i18n/localize";
 //shelf
 import GhostofTsushima from "../assets/ghostoftsushima.jpg";
 import Batman from "../assets/batman.jpg";
@@ -210,7 +211,7 @@ export const movies = [
     poster: "#a8482e",
     image: Obsession,
     rating: 10,
-    note: "A story that completely pulled me in. The tension, emotions, and characters made it unforgettable.",
+    note: bi("A story that completely pulled me in. The tension, emotions, and characters made it unforgettable.", "Cerita yang benar-benar menarik saya masuk. Ketegangan, emosi, dan karakternya bikin film ini sulit dilupakan."),
   },
   {
     id: 2,
@@ -220,7 +221,7 @@ export const movies = [
     poster: "#8a6a3f",
     image: Odyssey,
     rating: 0,
-    note: "One of the most anticipated space adventures. Can't wait to experience the journey and mystery behind it.",
+    note: bi("One of the most anticipated space adventures. Can't wait to experience the journey and mystery behind it.", "Salah satu petualangan luar angkasa yang paling ditunggu. Nggak sabar merasakan perjalanan dan misteri di baliknya."),
   },
   {
     id: 3,
@@ -230,7 +231,7 @@ export const movies = [
     poster: "#7a2f3f",
     image: Se7en,
     rating: 9,
-    note: "A dark psychological thriller with an unforgettable atmosphere and one of the strongest endings in cinema.",
+    note: bi("A dark psychological thriller with an unforgettable atmosphere and one of the strongest endings in cinema.", "Thriller psikologis yang gelap dengan atmosfer tak terlupakan dan salah satu ending terkuat di dunia perfilman."),
   },
   {
     id: 4,
@@ -240,7 +241,7 @@ export const movies = [
     poster: "#3a4a7a",
     image: TheBatman,
     rating: 10,
-    note: "A beautifully dark take on Batman with incredible cinematography, mood, and detective vibes.",
+    note: bi("A beautifully dark take on Batman with incredible cinematography, mood, and detective vibes.", "Interpretasi Batman yang gelap dan indah, dengan sinematografi, mood, dan nuansa detektif yang luar biasa."),
   },
   {
     id: 5,
@@ -250,7 +251,7 @@ export const movies = [
     poster: "#3a4a7a",
     image: SpiderMan,
     rating: 0,
-    note: "Looking forward to seeing a new chapter of Spider-Man and where the story goes next.",
+    note: bi("Looking forward to seeing a new chapter of Spider-Man and where the story goes next.", "Menantikan babak baru Spider-Man dan ke mana ceritanya melangkah selanjutnya."),
   },
   {
     id: 6,
@@ -260,7 +261,7 @@ export const movies = [
     poster: "#3a4a7a",
     image: ProjectHailMary,
     rating: 0,
-    note: "A sci-fi adventure filled with space exploration, survival, and an exciting mystery to uncover.",
+    note: bi("A sci-fi adventure filled with space exploration, survival, and an exciting mystery to uncover.", "Petualangan sci-fi penuh eksplorasi luar angkasa, bertahan hidup, dan misteri seru untuk diungkap."),
   },
   {
     id: 7,
@@ -270,7 +271,7 @@ export const movies = [
     poster: "#3a4a7a",
     image: Heat,
     rating: 9,
-    note: "A legendary crime thriller with intense performances, smart writing, and one of the best rivalries in film.",
+    note: bi("A legendary crime thriller with intense performances, smart writing, and one of the best rivalries in film.", "Thriller kriminal legendaris dengan akting yang intens, penulisan yang cerdas, dan salah satu rivalitas terbaik di dunia film."),
   },
   {
     id: 8,
@@ -280,7 +281,7 @@ export const movies = [
     poster: "#3a4a7a",
     image: InglouriousBasterds,
     rating: 10,
-    note: "Tarantino's unique storytelling at its best. Sharp dialogue, memorable characters, and unforgettable scenes.",
+    note: bi("Tarantino's unique storytelling at its best. Sharp dialogue, memorable characters, and unforgettable scenes.", "Gaya bercerita khas Tarantino di titik terbaiknya. Dialog tajam, karakter memorable, dan adegan yang tak terlupakan."),
   },
 ];
 
@@ -288,29 +289,29 @@ export const hobbies = [
   {
     id: 1,
     icon: "🎨",
-    label: "Visual Craft",
-    blurb: "Where imagination meets structure — turning simple ideas into meaningful visuals.",
+    label: bi("Visual Craft", "Karya Visual"),
+    blurb: bi("Where imagination meets structure — turning simple ideas into meaningful visuals.", "Tempat imajinasi bertemu struktur — mengubah ide sederhana jadi visual yang bermakna."),
     image: Design,
   },
   {
     id: 2,
     icon: "🎥",
-    label: "Cinematic Worlds",
-    blurb: "Exploring stories, emotions, and creative perspectives through films.",
+    label: bi("Cinematic Worlds", "Dunia Sinematik"),
+    blurb: bi("Exploring stories, emotions, and creative perspectives through films.", "Menjelajahi cerita, emosi, dan sudut pandang kreatif lewat film."),
     image: WatchMovies,
   },
   {
     id: 3,
     icon: "📖",
-    label: "Quiet Pages",
-    blurb: "A quiet space for learning, curiosity, and discovering new perspectives.",
+    label: bi("Quiet Pages", "Halaman Sunyi"),
+    blurb: bi("A quiet space for learning, curiosity, and discovering new perspectives.", "Ruang tenang untuk belajar, penasaran, dan menemukan sudut pandang baru."),
     image: Reading,
   },
   {
     id: 4,
     icon: "🎵",
-    label: "Soundscapes",
-    blurb: "A soundtrack for every moment, from deep focus to late-night creativity.",
+    label: bi("Soundscapes", "Lanskap Suara"),
+    blurb: bi("A soundtrack for every moment, from deep focus to late-night creativity.", "Soundtrack untuk setiap momen, dari fokus mendalam sampai kreativitas larut malam."),
     image: Soundscapes,
   },
 ];

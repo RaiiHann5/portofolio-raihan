@@ -2,11 +2,13 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionHeading from "../ui/SectionHeading";
+import { useLanguage } from "../../context/LanguageContext";
 import { timeline } from "../../data/experience";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Experience() {
+  const { t, tx } = useLanguage();
   const sectionRef = useRef(null);
   const lineRef = useRef(null);
 
@@ -55,9 +57,9 @@ export default function Experience() {
       <div className="mx-auto max-w-[1400px]">
         <SectionHeading
           index="05"
-          label="Journey"
-          title="How I got here."
-          description="A short, honest timeline — no shortcuts, just consistent work."
+          label={t("journey.label")}
+          title={t("journey.title")}
+          description={t("journey.description")}
         />
 
         <div className="relative mt-20 pl-8 sm:pl-12">
@@ -69,8 +71,8 @@ export default function Experience() {
           />
 
           <div className="flex flex-col gap-16">
-            {timeline.map((item) => (
-              <div key={item.year} className="timeline-item relative">
+            {timeline.map((item, i) => (
+              <div key={i} className="timeline-item relative">
                 <div
                   className="absolute -left-8 top-1 h-3.5 w-3.5 rounded-full border-2 sm:-left-12"
                   style={{ borderColor: "var(--accent-1)", background: "var(--bg)" }}
@@ -79,12 +81,12 @@ export default function Experience() {
                   <span className="eyebrow w-16 shrink-0">{item.year}</span>
                   <div className="max-w-2xl">
                     <div className="mb-2 flex items-center gap-3">
-                      <h3 className="text-xl font-medium sm:text-2xl">{item.title}</h3>
+                      <h3 className="text-xl font-medium sm:text-2xl">{tx(item.title)}</h3>
                       <span className="rounded-full border border-[var(--border)] px-3 py-0.5 text-xs text-[var(--text-faint)]">
-                        {item.tag}
+                        {tx(item.tag)}
                       </span>
                     </div>
-                    <p className="text-base leading-relaxed text-[var(--text-muted)]">{item.body}</p>
+                    <p className="text-base leading-relaxed text-[var(--text-muted)]">{tx(item.body)}</p>
                   </div>
                 </div>
               </div>

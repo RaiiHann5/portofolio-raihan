@@ -23,7 +23,7 @@ export default function TemplateDetail() {
   const containerRef = useScrollReveal({ y: 24, stagger: 0.07 });
   const { theme } = useTheme();
   const { setCursor, clearCursor } = useCursor();
-  const { t } = useLanguage();
+  const { t, tx } = useLanguage();
 
   if (!template) {
     if (loading) return null;
@@ -42,7 +42,7 @@ export default function TemplateDetail() {
       <div className="mx-auto max-w-[1400px]">
         <Link
           to="/marketplace"
-          onMouseEnter={() => setCursor("Back", "label")}
+          onMouseEnter={() => setCursor(t("cursor.back"), "label")}
           onMouseLeave={clearCursor}
           className="focus-ring group inline-flex items-center gap-2 text-sm text-[var(--text-faint)] transition-colors duration-300 hover:text-[var(--text)]"
         >
@@ -69,7 +69,7 @@ export default function TemplateDetail() {
                 {t("detail.overview")}
               </h2>
               <p className="mt-5 max-w-[68ch] text-base leading-relaxed text-[var(--text-muted)]">
-                {template.overview}
+                {tx(template.overview)}
               </p>
             </section>
 
@@ -81,14 +81,14 @@ export default function TemplateDetail() {
                 <ul className="mt-8 flex flex-col">
                   {template.features.map((feature) => (
                     <li
-                      key={feature.title}
+                      key={tx(feature.title)}
                       className="flex flex-col gap-2 border-t border-[var(--border)] py-6 last:border-b"
                     >
                       <h3 className="text-base font-medium tracking-tight">
-                        {feature.title}
+                        {tx(feature.title)}
                       </h3>
                       <p className="max-w-[62ch] text-sm leading-relaxed text-[var(--text-muted)]">
-                        {feature.body}
+                        {tx(feature.body)}
                       </p>
                     </li>
                   ))}
@@ -110,7 +110,7 @@ export default function TemplateDetail() {
                     {template.title}
                   </h1>
                   <p className="text-sm leading-relaxed text-[var(--text-muted)]">
-                    {template.description}
+                    {tx(template.description)}
                   </p>
                 </div>
 
@@ -126,7 +126,7 @@ export default function TemplateDetail() {
                       target="_blank"
                       rel="noopener noreferrer"
                       variant="solid"
-                      cursorLabel="Buy"
+                      cursorLabel={t("cursor.buy")}
                       className="w-full"
                     >
                       {t("marketplace.buyNow")}
@@ -145,7 +145,7 @@ export default function TemplateDetail() {
                       target="_blank"
                       rel="noopener noreferrer"
                       variant="outline"
-                      cursorLabel="Preview"
+                      cursorLabel={t("cursor.preview")}
                       className="w-full"
                     >
                       {t("marketplace.preview")}
@@ -189,13 +189,13 @@ export default function TemplateDetail() {
                   </h2>
                   <ul className="mt-5 flex flex-col gap-3">
                     {template.includes.map((item) => (
-                      <li key={item} className="flex items-start gap-3 text-sm text-[var(--text-muted)]">
+                      <li key={tx(item)} className="flex items-start gap-3 text-sm text-[var(--text-muted)]">
                         <Check
                           size={15}
                           strokeWidth={2.4}
                           className="mt-0.5 shrink-0 text-[var(--accent-1)]"
                         />
-                        {item}
+                        {tx(item)}
                       </li>
                     ))}
                   </ul>
@@ -208,7 +208,7 @@ export default function TemplateDetail() {
                     <dt className="font-mono text-xs uppercase tracking-[0.16em] text-[var(--text-faint)]">
                       {t("detail.pages")}
                     </dt>
-                    <dd className="text-sm">{template.pages}</dd>
+                    <dd className="text-sm">{tx(template.pages)}</dd>
                   </div>
                 )}
                 {template.license && (
@@ -216,7 +216,7 @@ export default function TemplateDetail() {
                     <dt className="font-mono text-xs uppercase tracking-[0.16em] text-[var(--text-faint)]">
                       {t("detail.license")}
                     </dt>
-                    <dd className="text-sm leading-relaxed">{template.license}</dd>
+                    <dd className="text-sm leading-relaxed">{tx(template.license)}</dd>
                   </div>
                 )}
               </dl>

@@ -13,7 +13,7 @@ export default function Process() {
   const { t } = useLanguage();
 
   const waReady = hasWhatsapp();
-  const href = contactLink(t("process.prefill"));
+  const href = contactLink(t("process.prefill"), t("process.emailSubject"));
 
   return (
     <section
@@ -87,7 +87,7 @@ export default function Process() {
               target={waReady ? "_blank" : undefined}
               rel={waReady ? "noopener noreferrer" : undefined}
               variant="solid"
-              cursorLabel={waReady ? "Chat" : "Email"}
+              cursorLabel={waReady ? t("cursor.chat") : t("cursor.email")}
             >
               {waReady ? t("process.ctaPrimary") : t("process.ctaPrimaryFallback")}
               <ArrowUpRight size={16} strokeWidth={2.2} aria-hidden />
@@ -95,7 +95,7 @@ export default function Process() {
 
             <Link
               to="/find-me"
-              onMouseEnter={() => setCursor("Open", "label")}
+              onMouseEnter={() => setCursor(t("cursor.open"), "label")}
               onMouseLeave={clearCursor}
               className="focus-ring text-sm text-[var(--text-faint)] transition-colors duration-300 hover:text-[var(--accent-1)]"
             >

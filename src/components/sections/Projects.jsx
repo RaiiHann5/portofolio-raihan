@@ -10,7 +10,7 @@ import { useLanguage } from "../../context/LanguageContext";
 export default function Projects() {
   const containerRef = useScrollReveal({ y: 36 });
   const { projects } = useContent();
-  const { t } = useLanguage();
+  const { t, tx } = useLanguage();
   const [query, setQuery] = useState("");
   const [tech, setTech] = useState("All");
 
@@ -31,12 +31,12 @@ export default function Projects() {
     return projects.filter((p) => {
       if (tech !== "All" && !p.stack.includes(tech)) return false;
       if (!q) return true;
-      const haystack = [p.title, p.description, p.type, p.year, ...p.stack]
+      const haystack = [p.title, tx(p.description), tx(p.type), p.year, ...p.stack]
         .join(" ")
         .toLowerCase();
       return haystack.includes(q);
     });
-  }, [projects, query, tech]);
+  }, [projects, query, tech, tx]);
 
   return (
     <section id="work" ref={containerRef} className="relative px-6 py-28 sm:px-10 sm:py-36">
@@ -44,9 +44,9 @@ export default function Projects() {
         <div data-reveal>
           <SectionHeading
             index="03"
-            label="Selected work"
-            title="Featured projects."
-            description="A handful of projects where design and engineering met somewhere in the middle."
+            label={t("projects.label")}
+            title={t("projects.title")}
+            description={t("projects.description")}
           />
         </div>
 

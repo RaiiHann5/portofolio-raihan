@@ -65,9 +65,9 @@ export function hasWhatsapp() {
  * Link chat WhatsApp dengan pesan pembuka yang udah keisi.
  * Fallback ke mailto kalau nomornya belum diganti.
  */
-export function contactLink(message) {
+export function contactLink(message, subject = "Project inquiry") {
   if (hasWhatsapp()) {
     return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;
   }
-  return `mailto:${site.email}?subject=${encodeURIComponent("Project inquiry")}&body=${encodeURIComponent(message)}`;
+  return `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
 }

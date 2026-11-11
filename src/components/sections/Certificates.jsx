@@ -25,6 +25,7 @@ function issuerColor(issuer) {
 function CertificateCard({ cert }) {
   const magneticRef = useMagnetic(0.04);
   const { setCursor, clearCursor } = useCursor();
+  const { t } = useLanguage();
   const [copied, setCopied] = useState(false);
   const hasImage = Boolean(cert.image);
   const hasLink = Boolean(cert.credentialUrl);
@@ -112,19 +113,19 @@ function CertificateCard({ cert }) {
               href={cert.credentialUrl}
               target="_blank"
               rel="noopener noreferrer"
-              onMouseEnter={() => setCursor("Verify", "label")}
+              onMouseEnter={() => setCursor(t("cursor.verify"), "label")}
               onMouseLeave={clearCursor}
               className="focus-ring group/link inline-flex items-center gap-1.5 text-xs font-medium"
             >
               <span className="relative">
-                Verify
+                {t("certs.verify")}
                 <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-[var(--accent-1)] transition-all duration-300 group-hover/link:w-full" />
               </span>
               <ExternalLink size={12} strokeWidth={2.2} />
             </a>
           ) : (
             <span className="inline-flex items-center gap-1.5 text-xs text-[var(--text-faint)]">
-              <Award size={12} /> No link yet
+              <Award size={12} /> {t("certs.noLink")}
             </span>
           )}
 
@@ -132,12 +133,12 @@ function CertificateCard({ cert }) {
             <button
               type="button"
               onClick={copyId}
-              onMouseEnter={() => setCursor(copied ? "Copied" : "Copy ID", "label")}
+              onMouseEnter={() => setCursor(copied ? t("cursor.copied") : t("cursor.copyId"), "label")}
               onMouseLeave={clearCursor}
               className="focus-ring inline-flex items-center gap-1 rounded-full border border-[var(--border)] px-2.5 py-1 font-mono text-[10px] text-[var(--text-faint)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--text)]"
             >
               {copied ? <Check size={11} className="text-[var(--accent-1)]" /> : <Copy size={11} />}
-              {copied ? "Copied" : "ID"}
+              {copied ? t("certs.copied") : "ID"}
             </button>
           )}
         </div>
@@ -183,9 +184,9 @@ export default function Certificates() {
         <div data-reveal>
           <SectionHeading
             index="08"
-            label="Certificates"
-            title="Skills, verified."
-            description="A short list of the courses and certifications behind the tools I use — click a card to check the credential."
+            label={t("certs.label")}
+            title={t("certs.title")}
+            description={t("certs.description")}
           />
         </div>
 

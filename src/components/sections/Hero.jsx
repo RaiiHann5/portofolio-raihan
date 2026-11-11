@@ -135,7 +135,7 @@ export default function Hero() {
               {t("hero.line2Pre")}{" "}
               <em
                 className="hero-glow-word not-italic"
-                onMouseEnter={() => setCursor("Hi", "label")}
+                onMouseEnter={() => setCursor(t("cursor.hi"), "label")}
                 onMouseLeave={clearCursor}
               >
                 {t("hero.line2Word")}
@@ -159,7 +159,7 @@ export default function Hero() {
             <MagneticButton
               as="button"
               variant="outline"
-              cursorLabel="View"
+              cursorLabel={t("cursor.view")}
               onClick={() => navigate("/project")}
             >
               {t("hero.ctaWork")}
@@ -168,7 +168,7 @@ export default function Hero() {
             <MagneticButton
               as="button"
               variant="outline"
-              cursorLabel="Say hi"
+              cursorLabel={t("cursor.sayHi")}
               onClick={() => navigate("/find-me")}
             >
               {t("hero.ctaContact")}
@@ -192,10 +192,10 @@ export default function Hero() {
               lebih sering dipakai daripada form di halaman terpisah. */}
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
             <a
-              href={contactLink(t("process.prefill"))}
+              href={contactLink(t("process.prefill"), t("process.emailSubject"))}
               target={hasWhatsapp() ? "_blank" : undefined}
               rel={hasWhatsapp() ? "noopener noreferrer" : undefined}
-              onMouseEnter={() => setCursor("Chat", "label")}
+              onMouseEnter={() => setCursor(t("cursor.chat"), "label")}
               onMouseLeave={clearCursor}
               className="focus-ring group inline-flex items-center gap-2 text-sm text-[var(--text)]"
             >
@@ -236,7 +236,7 @@ export default function Hero() {
         <div className="flex items-center gap-2 text-sm">
           <span
             className="focus-ring inline-flex cursor-pointer items-center gap-2"
-            onMouseEnter={() => setCursor("Scroll", "label")}
+            onMouseEnter={() => setCursor(t("cursor.scroll"), "label")}
             onMouseLeave={clearCursor}
             onClick={() => navigate("/project")}
           >

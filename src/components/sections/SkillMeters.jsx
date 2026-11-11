@@ -101,7 +101,7 @@ function Panel({ Icon, title, note, children }) {
  * baris: baris lain meredup dan titik di ujung bar menyala.
  */
 export default function SkillMeters() {
-  const { t } = useLanguage();
+  const { t, tx } = useLanguage();
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
 
@@ -130,7 +130,7 @@ export default function SkillMeters() {
       <Panel Icon={Code2} title={t("profile.skillTech")} note={t("profile.skillNote")}>
         <ul className="dim-siblings flex flex-col gap-6">
           {technicalLevels.map((s, i) => (
-            <Meter key={s.name} name={s.name} level={s.level} visible={visible} delay={i * 70} />
+            <Meter key={i} name={tx(s.name)} level={s.level} visible={visible} delay={i * 70} />
           ))}
         </ul>
       </Panel>

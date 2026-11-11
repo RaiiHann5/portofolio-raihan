@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useMagnetic } from "../../hooks/useMagnetic";
 import { useScrollReveal } from "../../hooks/useScrollReveal";
+import { useLanguage } from "../../context/LanguageContext";
 import SectionHeading from "../ui/SectionHeading";
 import SkillPill from "./SkillPill";
 import SkillMeters from "./SkillMeters";
@@ -20,6 +21,7 @@ function SkillCard({ group, index }) {
   const cardRef = useRef(null);
   const pillWrapRef = useRef(null);
   const accent = ACCENTS[index % ACCENTS.length];
+  const { t, tx } = useLanguage();
 
   const setRefs = (node) => {
     cardRef.current = node;
@@ -127,11 +129,11 @@ function SkillCard({ group, index }) {
               0{index + 1}
             </span>
           </span>
-          <span className="text-[11px] text-[var(--text-faint)] sm:text-xs">{group.note}</span>
+          <span className="text-[11px] text-[var(--text-faint)] sm:text-xs">{tx(group.note)}</span>
         </div>
 
         <h3 className="mb-4 text-xl font-medium transition-transform duration-300 group-hover:translate-x-1 sm:mb-6 sm:text-2xl">
-          {group.label}
+          {tx(group.label)}
         </h3>
 
         <div ref={pillWrapRef} className="flex flex-wrap gap-2 sm:gap-3">
@@ -155,7 +157,7 @@ function SkillCard({ group, index }) {
       />
 
       <span className="pointer-events-none absolute bottom-6 right-6 z-10 text-[11px] text-[var(--text-faint)] opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-active:opacity-100 sm:bottom-10 sm:right-10 sm:text-xs">
-        {group.skills.length} {group.skills.length === 1 ? "tool" : "tools"}
+        {group.skills.length} {group.skills.length === 1 ? t("skills.tool") : t("skills.tools")}
       </span>
     </div>
   );
@@ -163,6 +165,7 @@ function SkillCard({ group, index }) {
 
 export default function Skills() {
   const containerRef = useScrollReveal();
+  const { t } = useLanguage();
 
   return (
     <section id="skills" ref={containerRef} className="relative px-4 py-20 sm:px-6 sm:py-28 md:px-10 md:py-36">
@@ -178,9 +181,9 @@ export default function Skills() {
         <div data-reveal>
           <SectionHeading
             index="03"
-            label="Skills"
-            title="Tools I reach for."
-            description="A focused set of technologies I use daily to design and build interactive products."
+            label={t("skills.label")}
+            title={t("skills.title")}
+            description={t("skills.description")}
           />
         </div>
 
@@ -188,7 +191,7 @@ export default function Skills() {
             di breakpoint manapun, termasuk pas jumlah grup ganjil/genap ganti-ganti nanti. */}
         <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-16 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {skillGroups.map((group, i) => (
-            <div key={group.label} data-reveal style={{ perspective: "1000px" }}>
+            <div key={i} data-reveal style={{ perspective: "1000px" }}>
               <SkillCard group={group} index={i} />
             </div>
           ))}

@@ -50,7 +50,7 @@ export default function ProjectDetail() {
   const containerRef = useScrollReveal({ y: 24, stagger: 0.07 });
   const { theme } = useTheme();
   const { setCursor, clearCursor } = useCursor();
-  const { t } = useLanguage();
+  const { t, tx } = useLanguage();
 
   // Jangan buru-buru mengalihkan selagi data masih dimuat dari database,
   // kalau tidak tautan langsung ke halaman detail akan terlempar balik
@@ -68,7 +68,7 @@ export default function ProjectDetail() {
       <div className="mx-auto max-w-[1400px]">
         <Link
           to="/project"
-          onMouseEnter={() => setCursor("Back", "label")}
+          onMouseEnter={() => setCursor(t("cursor.back"), "label")}
           onMouseLeave={clearCursor}
           className="focus-ring group inline-flex items-center gap-2 text-sm text-[var(--text-faint)] transition-colors duration-300 hover:text-[var(--text)]"
         >
@@ -82,7 +82,7 @@ export default function ProjectDetail() {
 
         <header className="mt-10 flex flex-col gap-6">
           <div data-reveal className="flex flex-wrap items-center gap-3">
-            <span className="eyebrow text-[var(--accent-1)]">{project.type}</span>
+            <span className="eyebrow text-[var(--accent-1)]">{tx(project.type)}</span>
             <span aria-hidden className="h-3 w-px bg-[var(--border)]" />
             <span className="eyebrow text-[var(--text-faint)]">{project.year}</span>
           </div>
@@ -98,7 +98,7 @@ export default function ProjectDetail() {
             data-reveal
             className="max-w-[62ch] text-base leading-relaxed text-[var(--text-muted)] sm:text-lg"
           >
-            {project.description}
+            {tx(project.description)}
           </p>
 
           {(project.demo || project.repo || project.docsUrl) && (
@@ -110,7 +110,7 @@ export default function ProjectDetail() {
                   target="_blank"
                   rel="noopener noreferrer"
                   variant="solid"
-                  cursorLabel="Open"
+                  cursorLabel={t("cursor.open")}
                 >
                   {t("detail.liveDemo")}
                   <ArrowUpRight size={16} strokeWidth={2.2} />
@@ -123,7 +123,7 @@ export default function ProjectDetail() {
                   target="_blank"
                   rel="noopener noreferrer"
                   variant="outline"
-                  cursorLabel="Code"
+                  cursorLabel={t("cursor.code")}
                 >
                   {t("detail.sourceCode")}
                   <ArrowUpRight size={16} strokeWidth={2.2} />
@@ -136,7 +136,7 @@ export default function ProjectDetail() {
                   target="_blank"
                   rel="noopener noreferrer"
                   variant="outline"
-                  cursorLabel="Docs"
+                  cursorLabel={t("cursor.docs")}
                 >
                   {t("detail.docs")}
                   <ArrowUpRight size={16} strokeWidth={2.2} />
@@ -161,7 +161,7 @@ export default function ProjectDetail() {
                 {t("detail.overview")}
               </h2>
               <p className="mt-5 max-w-[68ch] text-base leading-relaxed text-[var(--text-muted)]">
-                {project.overview}
+                {tx(project.overview)}
               </p>
             </section>
 
@@ -173,7 +173,7 @@ export default function ProjectDetail() {
                       {t("detail.problem")}
                     </h2>
                     <p className="mt-5 text-base leading-relaxed text-[var(--text-muted)]">
-                      {project.problem}
+                      {tx(project.problem)}
                     </p>
                   </section>
                 )}
@@ -183,7 +183,7 @@ export default function ProjectDetail() {
                       {t("detail.goal")}
                     </h2>
                     <p className="mt-5 text-base leading-relaxed text-[var(--text-muted)]">
-                      {project.goal}
+                      {tx(project.goal)}
                     </p>
                   </section>
                 )}
@@ -198,14 +198,14 @@ export default function ProjectDetail() {
                 <ul className="mt-8 flex flex-col">
                   {project.features.map((feature) => (
                     <li
-                      key={feature.title}
+                      key={tx(feature.title)}
                       className="flex flex-col gap-2 border-t border-[var(--border)] py-6 last:border-b"
                     >
                       <h3 className="text-base font-medium tracking-tight">
-                        {feature.title}
+                        {tx(feature.title)}
                       </h3>
                       <p className="max-w-[62ch] text-sm leading-relaxed text-[var(--text-muted)]">
-                        {feature.body}
+                        {tx(feature.body)}
                       </p>
                     </li>
                   ))}
@@ -228,8 +228,8 @@ export default function ProjectDetail() {
               </section>
 
               <dl data-reveal className="mt-10">
-                <MetaRow label={t("detail.role")} value={project.role} />
-                <MetaRow label={t("detail.type")} value={project.type} />
+                <MetaRow label={t("detail.role")} value={tx(project.role)} />
+                <MetaRow label={t("detail.type")} value={tx(project.type)} />
                 <MetaRow label={t("detail.year")} value={project.year} />
               </dl>
             </div>
@@ -239,7 +239,7 @@ export default function ProjectDetail() {
         {nextProject && (
           <Link
             to={`/project/${nextProject.slug}`}
-            onMouseEnter={() => setCursor("Next", "view")}
+            onMouseEnter={() => setCursor(t("cursor.next"), "view")}
             onMouseLeave={clearCursor}
             className="focus-ring group mt-24 flex items-center justify-between gap-6 border-t border-[var(--border)] pt-10"
           >

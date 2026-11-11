@@ -1,10 +1,12 @@
 import { Sun, Moon } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
 import { useCursor } from "../../context/CursorContext";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
   const { setCursor, clearCursor } = useCursor();
+  const { t } = useLanguage();
   const isLight = theme === "light";
 
   return (
@@ -13,7 +15,7 @@ export default function ThemeToggle() {
       onClick={toggleTheme}
       onMouseEnter={() => setCursor("", "default")}
       onMouseLeave={clearCursor}
-      aria-label={`Switch to ${isLight ? "dark" : "light"} mode`}
+      aria-label={isLight ? t("a11y.toDark") : t("a11y.toLight")}
       aria-pressed={isLight}
       className="focus-ring relative flex h-9 w-16 items-center rounded-full border border-[var(--border-strong)] px-1 transition-colors"
     >

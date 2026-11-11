@@ -138,7 +138,7 @@ export default function Contact() {
               type="button"
               onClick={handleCopy}
               variant="outline"
-              cursorLabel={copied ? "Copied" : "Copy"}
+              cursorLabel={copied ? t("cursor.copied") : t("cursor.copy")}
               className="w-fit"
             >
               {site.email}
@@ -151,7 +151,7 @@ export default function Contact() {
 
             <a
               href={`mailto:${site.email}`}
-              onMouseEnter={() => setCursor("Send", "label")}
+              onMouseEnter={() => setCursor(t("cursor.send"), "label")}
               onMouseLeave={clearCursor}
               className="focus-ring group inline-flex w-fit items-center gap-1.5 text-sm text-[var(--text-faint)] transition-colors duration-300 hover:text-[var(--accent-1)]"
             >
