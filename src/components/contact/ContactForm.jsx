@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { Send, Check, AlertCircle, Loader2 } from "lucide-react";
 import { site } from "../../data/site";
+import { supabase } from "../../lib/supabase";
 import { useLanguage } from "../../context/LanguageContext";
 import { useCursor } from "../../context/CursorContext";
 
@@ -16,10 +17,12 @@ export default function ContactForm() {
   const [values, setValues] = useState(EMPTY);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const [savedToInbox, setSavedToInbox] = useState(false);
   const honeypotRef = useRef(null);
 
   const endpoint = site.formEndpoint;
-  const usesMailto = !endpoint;
+  // Pesan yang tersimpan di kotak masuk admin tidak perlu membuka aplikasi email.
+  const usesMailto = !endpoint && !savedToInbox;
 
   function update(field, value) {
     setValues((v) => ({ ...v, [field]: value }));
@@ -46,6 +49,24 @@ export default function ContactForm() {
     if (honeypotRef.current?.value) return;
 
     if (!validate()) return;
+
+    // Jalur utama: simpan ke kotak pesan di database (dibaca di /admin/messages).
+    // Kalau gagal, jatuh ke Formspree atau mailto seperti sebelumnya.
+    if (supabase) {
+      setStatus("sending");
+      const { error } = await supabase.from("messages").insert({
+        kind: "kontak",
+        name: values.name.trim(),
+        email: values.email.trim(),
+        message: values.message.trim(),
+      });
+      if (!error) {
+        setSavedToInbox(true);
+        setStatus("sent");
+        setValues(EMPTY);
+        return;
+      }
+    }
 
     // Tanpa endpoint Formspree, isian tetap kepakai — cuma dikirim lewat
     // aplikasi email user. Lebih baik daripada tombol yang gak ngapa-ngapain.

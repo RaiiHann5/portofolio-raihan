@@ -11,6 +11,7 @@ const empty = {
   title: "",
   issuer: "",
   category: "pelatihan",
+  documentation: [],
   date: new Date().getFullYear().toString(),
   credential_id: "",
   credential_url: "",
@@ -55,12 +56,13 @@ export default function AdminCertificates() {
 
           <SelectInput
             label="Kategori"
-            hint="Dipakai untuk filter di halaman About Me."
+            hint="Dipakai untuk filter di halaman About Me dan Sertifikat & Prestasi."
             value={draft.category}
             onChange={(v) => set({ category: v })}
             options={[
               { value: "pelatihan", label: "Pelatihan (mis. Codingcamp, kursus)" },
               { value: "lomba", label: "Penghargaan / partisipasi lomba" },
+              { value: "prestasi", label: "Prestasi (juara, penghargaan sekolah)" },
             ]}
           />
 
@@ -101,6 +103,14 @@ export default function AdminCertificates() {
             hint="Opsional. Tanpa ini, kartunya menampilkan ikon penerbit sebagai gantinya."
             value={draft.image}
             onChange={(v) => set({ image: v })}
+          />
+
+          <ImageInput
+            label="Dokumentasi kegiatan"
+            hint="Opsional. Foto saat acara, lomba, atau penerimaan penghargaan. Tampil di galeri halaman Sertifikat & Prestasi."
+            multiple
+            value={draft.documentation}
+            onChange={(v) => set({ documentation: v })}
           />
 
           <StringListInput

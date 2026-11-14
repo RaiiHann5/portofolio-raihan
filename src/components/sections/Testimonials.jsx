@@ -30,7 +30,7 @@ function Avatar({ name, photo }) {
   );
 }
 
-function TestimonialList({ items }) {
+export function TestimonialList({ items, showHeading = true }) {
   const containerRef = useScrollReveal({ y: 24, stagger: 0.08 });
   const { t } = useLanguage();
 
@@ -38,20 +38,28 @@ function TestimonialList({ items }) {
     <section
       id="testimonials"
       ref={containerRef}
-      className="relative px-6 py-24 sm:px-10 sm:py-32"
+      className={`relative px-6 sm:px-10 ${showHeading ? "py-24 sm:py-32" : "pb-24 pt-10 sm:pb-32"}`}
     >
       <div className="mx-auto max-w-[1400px]">
-        <p data-reveal className="eyebrow mb-6">
-          {t("testimonials.label")}
-        </p>
-        <h2
-          data-reveal
-          className="font-display max-w-[20ch] text-4xl font-medium leading-[1.06] sm:text-5xl"
-        >
-          {t("testimonials.title")}
-        </h2>
+        {showHeading && (
+          <>
+            <p data-reveal className="eyebrow mb-6">
+              {t("testimonials.label")}
+            </p>
+            <h2
+              data-reveal
+              className="font-display max-w-[20ch] text-4xl font-medium leading-[1.06] sm:text-5xl"
+            >
+              {t("testimonials.title")}
+            </h2>
+          </>
+        )}
 
-        <ul className="mt-12 grid list-none grid-cols-1 gap-5 p-0 sm:mt-16 md:grid-cols-2 lg:grid-cols-3">
+        <ul
+          className={`grid list-none grid-cols-1 gap-5 p-0 md:grid-cols-2 lg:grid-cols-3 ${
+            showHeading ? "mt-12 sm:mt-16" : ""
+          }`}
+        >
           {items.map((item) => (
             <SpotlightCard
               as="li"
@@ -78,6 +86,11 @@ function TestimonialList({ items }) {
                   <p className="truncate text-sm font-medium">{item.name}</p>
                   {item.role && (
                     <p className="truncate text-xs text-[var(--text-faint)]">{item.role}</p>
+                  )}
+                  {item.category && !showHeading && (
+                    <p className="mt-0.5 truncate font-mono text-[10px] uppercase tracking-wider text-[var(--accent-1)]">
+                      {t(`testi.${item.category}`)}
+                    </p>
                   )}
                 </div>
               </div>

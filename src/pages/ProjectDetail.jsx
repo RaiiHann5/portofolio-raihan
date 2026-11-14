@@ -212,6 +212,51 @@ export default function ProjectDetail() {
                 </ul>
               </section>
             )}
+
+            {(project.processImages?.length > 0 || project.processNotes) && (
+              <section data-reveal className="mt-16">
+                <h2 className="font-display text-2xl font-medium tracking-tight">
+                  {t("detail2.process")}
+                </h2>
+                {project.processNotes && (
+                  <p className="mt-6 max-w-[62ch] whitespace-pre-line text-sm leading-relaxed text-[var(--text-muted)]">
+                    {project.processNotes}
+                  </p>
+                )}
+                {project.processImages?.length > 0 && (
+                  <div className="mt-8">
+                    <Gallery images={project.processImages} title={t("detail2.process")} />
+                  </div>
+                )}
+              </section>
+            )}
+
+            {project.feedback?.length > 0 && (
+              <section data-reveal className="mt-16">
+                <h2 className="font-display text-2xl font-medium tracking-tight">
+                  {t("detail2.feedback")}
+                </h2>
+                <ul className="mt-8 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2">
+                  {project.feedback
+                    .filter((f) => f.message)
+                    .map((f, i) => (
+                      <li
+                        key={i}
+                        className="rounded-2xl border border-[var(--border)] p-6"
+                        style={{ background: "var(--card-bg)" }}
+                      >
+                        <p className="text-sm leading-relaxed text-[var(--text)]">“{f.message}”</p>
+                        <p className="mt-4 text-sm font-medium">
+                          {f.name}
+                          {f.role && (
+                            <span className="font-normal text-[var(--text-faint)]"> · {f.role}</span>
+                          )}
+                        </p>
+                      </li>
+                    ))}
+                </ul>
+              </section>
+            )}
           </div>
 
           <aside className="lg:col-span-4 lg:col-start-9">

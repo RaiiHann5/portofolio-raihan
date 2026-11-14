@@ -1,0 +1,38 @@
+warning: in the working copy of 'src/components/layout/ThemeToggle.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/sections/Experience.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/sections/Projects.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/sections/SkillMeters.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/sections/Skills.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/data/experience.js', LF will be replaced by CRLF the next time Git touches it
+ src/components/contact/AccountCard.jsx      |   2 [32m+[m[31m-[m
+ src/components/contact/ContactForm.jsx      |   2 [32m+[m[31m-[m
+ src/components/layout/LanguageToggle.jsx    |   4 [32m+[m[31m-[m
+ src/components/layout/Navbar.jsx            |   2 [32m+[m[31m-[m
+ src/components/layout/ThemeToggle.jsx       |   4 [32m+[m[31m-[m
+ src/components/marketplace/TemplateCard.jsx |   8 [32m+[m[31m-[m
+ src/components/sections/About.jsx           |   2 [32m+[m[31m-[m
+ src/components/sections/Certificates.jsx    |  17 [32m++[m[31m--[m
+ src/components/sections/Contact.jsx         |   4 [32m+[m[31m-[m
+ src/components/sections/Experience.jsx      |  18 [32m++[m[31m--[m
+ src/components/sections/FeaturedWork.jsx    |   6 [32m+[m[31m-[m
+ src/components/sections/GithubActivity.jsx  |  24 [32m+++[m[31m---[m
+ src/components/sections/Hero.jsx            |  12 [32m+[m[31m--[m
+ src/components/sections/Lab.jsx             |  87 [32m++++++++++++[m[31m-------[m
+ src/components/sections/Process.jsx         |   6 [32m+[m[31m-[m
+ src/components/sections/ProjectCard.jsx     |  12 [32m+[m[31m--[m
+ src/components/sections/Projects.jsx        |  12 [32m+[m[31m--[m
+ src/components/sections/Services.jsx        |   2 [32m+[m[31m-[m
+ src/components/sections/SkillMeters.jsx     |   4 [32m+[m[31m-[m
+ src/components/sections/Skills.jsx          |  17 [32m++[m[31m--[m
+ src/context/LanguageContext.jsx             |  14 [32m++[m[31m-[m
+ src/data/beyondCode.js                      |  33 [32m+++[m[31m----[m
+ src/data/experience.js                      |  50 [32m+++++++[m[31m----[m
+ src/data/projects.js                        |  81 [32m+++++++++[m[31m---------[m
+ src/data/site.js                            |   4 [32m+[m[31m-[m
+ src/data/skills.js                          |  17 [32m++[m[31m--[m
+ src/data/templates.js                       |  67 [32m++++++++[m[31m-------[m
+ src/i18n/translations.js                    | 128 [32m++++++++++++++++++++++++++++[m
+ src/pages/ProjectDetail.jsx                 |  32 [32m+++[m[31m----[m
+ src/pages/TemplateDetail.jsx                |  26 [32m+++[m[31m---[m
+ src/pages/admin/AdminText.jsx               |   9 [32m++[m
+ 31 files changed, 456 insertions(+), 250 deletions(-)

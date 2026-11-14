@@ -10,6 +10,8 @@ import CustomCursor from "./components/layout/CustomCursor";
 import ScrollToTop from "./components/layout/ScrollToTop";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
+import BackToTop from "./components/layout/BackToTop";
+import PageTransition from "./components/layout/PageTransition";
 import Home from "./pages/Home";
 import AboutMe from "./pages/AboutMe";
 import Project from "./pages/Project";
@@ -17,6 +19,13 @@ import Marketplace from "./pages/Marketplace";
 import FindMe from "./pages/FindMe";
 import ProjectDetail from "./pages/ProjectDetail";
 import TemplateDetail from "./pages/TemplateDetail";
+import CV from "./pages/CV";
+import Experience from "./pages/Experience";
+import CertificatesPage from "./pages/CertificatesPage";
+import TestimonialsPage from "./pages/TestimonialsPage";
+import Blog from "./pages/Blog";
+import BlogDetail from "./pages/BlogDetail";
+import Kesan from "./pages/Kesan";
 
 // Panel admin dimuat terpisah dan hanya saat dibuka. Pengunjung biasa
 // tidak pernah mengunduh formulir, katalog ikon, maupun pustaka Supabase.
@@ -31,6 +40,9 @@ const AdminText = lazy(() => import("./pages/admin/AdminText"));
 const AdminSections = lazy(() => import("./pages/admin/AdminSections"));
 const AdminSettings = lazy(() => import("./pages/admin/AdminSettings"));
 const AdminVisibility = lazy(() => import("./pages/admin/AdminVisibility"));
+const AdminMessages = lazy(() => import("./pages/admin/AdminMessages"));
+const AdminPosts = lazy(() => import("./pages/admin/AdminPosts"));
+const AdminExperiences = lazy(() => import("./pages/admin/AdminExperiences"));
 
 function AdminFallback() {
   return (
@@ -53,7 +65,9 @@ function App() {
                   <CustomCursor />
                   <ScrollToTop />
                   <Navbar />
+                  <BackToTop />
                   <main>
+                    <PageTransition>
                     <Suspense fallback={<AdminFallback />}>
                       <Routes>
                         <Route path="/" element={<Home />} />
@@ -63,9 +77,19 @@ function App() {
                         <Route path="/marketplace" element={<Marketplace />} />
                         <Route path="/marketplace/:slug" element={<TemplateDetail />} />
                         <Route path="/find-me" element={<FindMe />} />
+                        <Route path="/cv" element={<CV />} />
+                        <Route path="/pengalaman" element={<Experience />} />
+                        <Route path="/sertifikat" element={<CertificatesPage />} />
+                        <Route path="/testimoni" element={<TestimonialsPage />} />
+                        <Route path="/blog" element={<Blog />} />
+                        <Route path="/blog/:slug" element={<BlogDetail />} />
+                        <Route path="/kesan-pesan" element={<Kesan />} />
 
                         <Route path="/admin" element={<AdminLogin />} />
                         <Route path="/admin" element={<AdminLayout />}>
+                          <Route path="messages" element={<AdminMessages />} />
+                          <Route path="posts" element={<AdminPosts />} />
+                          <Route path="experiences" element={<AdminExperiences />} />
                           <Route path="projects" element={<AdminProjects />} />
                           <Route path="templates" element={<AdminTemplates />} />
                           <Route path="certificates" element={<AdminCertificates />} />
@@ -78,6 +102,7 @@ function App() {
                         </Route>
                       </Routes>
                     </Suspense>
+                    </PageTransition>
                   </main>
                   <Footer />
                 </div>

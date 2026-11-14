@@ -3,10 +3,12 @@ import {
   TextInput,
   TextArea,
   ImageInput,
+  SelectInput,
   Toggle,
 } from "../../components/admin/Fields";
 
 const empty = {
+  category: "pengguna",
   name: "",
   role: "",
   message: "",
@@ -41,6 +43,19 @@ export default function AdminTestimonials() {
       )}
       renderForm={(draft, set) => (
         <div className="flex flex-col gap-5">
+          <SelectInput
+            label="Kategori"
+            hint="Dipakai untuk filter di halaman Testimoni."
+            value={draft.category}
+            onChange={(v) => set({ category: v })}
+            options={[
+              { value: "guru", label: "Guru pembimbing" },
+              { value: "teman", label: "Teman" },
+              { value: "pengguna", label: "Pengguna" },
+              { value: "plk", label: "Tempat PLK" },
+            ]}
+          />
+
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <TextInput
               label="Nama"

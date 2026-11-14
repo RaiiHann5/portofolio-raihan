@@ -40,4 +40,22 @@
     <loc>https://your-domain.vercel.app/project/englishpath</loc>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://your-domain.vercel.app/cv</loc>
+  </url>
+  <url>
+    <loc>https://your-domain.vercel.app/pengalaman</loc>
+  </url>
+  <url>
+    <loc>https://your-domain.vercel.app/sertifikat</loc>
+  </url>
+  <url>
+    <loc>https://your-domain.vercel.app/testimoni</loc>
+  </url>
+  <url>
+    <loc>https://your-domain.vercel.app/blog</loc>
+  </url>
+  <url>
+    <loc>https://your-domain.vercel.app/kesan-pesan</loc>
+  </url>
 </urlset>

@@ -8,6 +8,9 @@ import {
   Type,
   LayoutTemplate,
   Eye,
+  Inbox,
+  BookOpen,
+  Briefcase,
   Settings as SettingsIcon,
   LogOut,
   ExternalLink,
@@ -15,6 +18,9 @@ import {
 import { useAuth } from "../../context/AuthContext";
 
 const navItems = [
+  { to: "/admin/messages", label: "Pesan masuk", Icon: Inbox },
+  { to: "/admin/posts", label: "Blog", Icon: BookOpen },
+  { to: "/admin/experiences", label: "Pengalaman", Icon: Briefcase },
   { to: "/admin/projects", label: "Proyek", Icon: FolderKanban },
   { to: "/admin/templates", label: "Marketplace", Icon: ShoppingBag },
   { to: "/admin/certificates", label: "Sertifikat", Icon: Award },

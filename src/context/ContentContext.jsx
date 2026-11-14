@@ -58,6 +58,9 @@ function normalizeProject(row) {
     demo: row.demo || "",
     repo: row.repo || "",
     docsUrl: row.docs_url || "",
+    feedback: Array.isArray(row.feedback) ? row.feedback : [],
+    processImages: Array.isArray(row.process_images) ? row.process_images : [],
+    processNotes: row.process_notes || "",
     image: row.image || null,
     gallery: Array.isArray(row.gallery) ? row.gallery : [],
     stack: Array.isArray(row.stack) ? row.stack : [],
@@ -74,8 +77,9 @@ function normalizeCertificate(row) {
     date: row.date || "",
     credentialId: row.credential_id || "",
     credentialUrl: row.credential_url || "",
-    category: row.category === "lomba" ? "lomba" : "pelatihan",
+    category: ["lomba", "prestasi"].includes(row.category) ? row.category : "pelatihan",
     image: row.image || "",
+    documentation: Array.isArray(row.documentation) ? row.documentation : [],
     skills: Array.isArray(row.skills) ? row.skills : [],
   };
 }
@@ -87,6 +91,43 @@ function normalizeTestimonial(row) {
     role: row.role || "",
     message: row.message || "",
     photo: row.photo || "",
+    category: ["guru", "teman", "pengguna", "plk"].includes(row.category) ? row.category : "pengguna",
+  };
+}
+
+function normalizePost(row) {
+  return {
+    id: row.id,
+    slug: toSlug(row.slug) || row.id,
+    title: row.title,
+    excerpt: row.excerpt || "",
+    content: row.content || "",
+    cover: row.cover || "",
+    tags: Array.isArray(row.tags) ? row.tags : [],
+    createdAt: row.created_at,
+  };
+}
+
+function normalizeExperience(row) {
+  return {
+    id: row.id,
+    category: ["plk", "organisasi", "lomba"].includes(row.category) ? row.category : "organisasi",
+    title: row.title,
+    role: row.role || "",
+    period: row.period || "",
+    description: row.description || "",
+    image: row.image || "",
+  };
+}
+
+function normalizeKesan(row) {
+  return {
+    id: row.id,
+    name: row.name,
+    relation: row.relation || "",
+    message: row.message || "",
+    rating: row.rating || null,
+    createdAt: row.created_at,
   };
 }
 
@@ -118,6 +159,9 @@ export function ContentProvider({ children }) {
   const [templates, setTemplates] = useState(staticTemplates);
   const [certificates, setCertificates] = useState(staticCertificates);
   const [testimonials, setTestimonials] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [experiences, setExperiences] = useState([]);
+  const [kesan, setKesan] = useState([]);
   const [links, setLinks] = useState({
     social: staticSocials.map((s) => ({ ...s, icon: brands[s.brand] })),
     hire: staticHire.map((s) => ({ ...s, icon: brands[s.brand] })),
@@ -130,7 +174,7 @@ export function ContentProvider({ children }) {
     if (!supabase) return;
 
     try {
-      const [projectRes, templateRes, certRes, testimonialRes, linkRes, textRes, sectionRes, settingRes] =
+      const [projectRes, templateRes, certRes, testimonialRes, linkRes, textRes, sectionRes, settingRes, postRes, expRes, kesanRes] =
         await Promise.all([
           supabase.from("projects").select("*").eq("published", true).order("position"),
           supabase.from("templates").select("*").eq("published", true).order("position"),
@@ -140,6 +184,14 @@ export function ContentProvider({ children }) {
           supabase.from("site_text").select("*"),
           supabase.from("sections").select("*").eq("published", true).order("position"),
           supabase.from("settings").select("*"),
+          supabase.from("posts").select("*").eq("published", true).order("position"),
+          supabase.from("experiences").select("*").eq("published", true).order("position"),
+          supabase
+            .from("messages")
+            .select("id,name,relation,message,rating,created_at")
+            .eq("kind", "kesan")
+            .eq("approved", true)
+            .order("created_at", { ascending: false }),
         ]);
 
       // Tabel yang masih kosong sengaja TIDAK menimpa data statis. Ini
@@ -150,6 +202,12 @@ export function ContentProvider({ children }) {
       if (certRes.data?.length) setCertificates(certRes.data.map(normalizeCertificate));
       // Tabel testimoni tidak punya data statis; kosong = section tersembunyi.
       if (testimonialRes.data) setTestimonials(testimonialRes.data.map(normalizeTestimonial));
+
+      // Tabel baru: kalau belum dibuat di database, responsnya galat dan
+      // `data` kosong, jadi halaman tetap tampil dengan keadaan kosong.
+      if (postRes.data) setPosts(postRes.data.map(normalizePost));
+      if (expRes.data) setExperiences(expRes.data.map(normalizeExperience));
+      if (kesanRes.data) setKesan(kesanRes.data.map(normalizeKesan));
 
       if (linkRes.data?.length) {
         const grouped = {};
@@ -192,6 +250,9 @@ export function ContentProvider({ children }) {
       templates,
       certificates,
       testimonials,
+      posts,
+      experiences,
+      kesan,
       links,
       sections,
       settings,
@@ -203,12 +264,13 @@ export function ContentProvider({ children }) {
       sectionsFor: (page) => sections.filter((s) => s.page === page),
       getProject: (slug) => projects.find((p) => p.slug === slug),
       getTemplate: (slug) => templates.find((t) => t.slug === slug),
+      getPost: (slug) => posts.find((p) => p.slug === slug),
       getNextProject: (slug) => {
         const i = projects.findIndex((p) => p.slug === slug);
         return i === -1 ? null : projects[(i + 1) % projects.length];
       },
     }),
-    [projects, templates, certificates, testimonials, links, sections, settings, loading, load]
+    [projects, templates, certificates, testimonials, posts, experiences, kesan, links, sections, settings, loading, load]
   );
 
   return <ContentContext.Provider value={value}>{children}</ContentContext.Provider>;

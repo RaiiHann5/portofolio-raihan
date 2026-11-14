@@ -157,6 +157,7 @@ export default function Certificates() {
   const categoryOptions = [
     { value: "all", label: t("filters.all") },
     { value: "lomba", label: t("filters.certLomba") },
+    { value: "prestasi", label: t("filters.certPrestasi") },
     { value: "pelatihan", label: t("filters.certPelatihan") },
   ];
 

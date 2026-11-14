@@ -9,6 +9,57 @@ import {
 } from "../../components/admin/Fields";
 
 /** Ubah judul jadi slug URL: huruf kecil, tanpa simbol, spasi jadi tanda hubung. */
+/** Editor kecil untuk daftar feedback pengguna: [{ name, role, message }]. */
+function FeedbackInput({ value = [], onChange }) {
+  const update = (i, patch) =>
+    onChange(value.map((item, idx) => (idx === i ? { ...item, ...patch } : item)));
+  return (
+    <div className="flex flex-col gap-3">
+      <p className="text-sm font-medium">Feedback pengguna</p>
+      <p className="-mt-2 text-xs text-[var(--text-faint)]">
+        Komentar dari orang yang sudah mencoba proyek ini. Tampil di halaman detail proyek.
+      </p>
+      {value.map((item, i) => (
+        <div key={i} className="flex flex-col gap-3 rounded-lg border border-[var(--border)] p-4">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <TextInput
+              label={`Nama #${i + 1}`}
+              value={item.name || ""}
+              onChange={(v) => update(i, { name: v })}
+            />
+            <TextInput
+              label={`Peran / asal #${i + 1}`}
+              placeholder="Guru, teman, pengguna…"
+              value={item.role || ""}
+              onChange={(v) => update(i, { role: v })}
+            />
+          </div>
+          <TextArea
+            label={`Isi feedback #${i + 1}`}
+            rows={3}
+            value={item.message || ""}
+            onChange={(v) => update(i, { message: v })}
+          />
+          <button
+            type="button"
+            onClick={() => onChange(value.filter((_, idx) => idx !== i))}
+            className="focus-ring self-start text-xs text-[var(--text-faint)] hover:text-[#f87171]"
+          >
+            Hapus feedback ini
+          </button>
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={() => onChange([...value, { name: "", role: "", message: "" }])}
+        className="focus-ring self-start rounded-full border border-[var(--border)] px-4 py-2 text-xs transition-colors hover:border-[var(--accent-1)]"
+      >
+        + Tambah feedback
+      </button>
+    </div>
+  );
+}
+
 function slugify(text) {
   return text
     .toLowerCase()
@@ -33,6 +84,9 @@ const empty = {
   docs_url: "",
   image: "",
   gallery: [],
+  process_images: [],
+  process_notes: "",
+  feedback: [],
   stack: [],
   features: [],
   gradient: "linear-gradient(135deg, #26203a, #0a0a0b)",
@@ -152,6 +206,24 @@ export default function AdminProjects() {
             value={draft.image}
             onChange={(v) => set({ image: v })}
           />
+
+          <ImageInput
+            label="Dokumentasi proses pengerjaan"
+            hint="Opsional. Foto/screenshot proses: sketsa, wireframe, commit, rapat tim, tahap pengembangan."
+            multiple
+            value={draft.process_images}
+            onChange={(v) => set({ process_images: v })}
+          />
+
+          <TextArea
+            label="Catatan proses pengerjaan"
+            hint="Opsional. Ceritakan singkat tahapan dan kendala yang kamu hadapi."
+            rows={4}
+            value={draft.process_notes}
+            onChange={(v) => set({ process_notes: v })}
+          />
+
+          <FeedbackInput value={draft.feedback} onChange={(v) => set({ feedback: v })} />
 
           <ImageInput
             label="Galeri"
