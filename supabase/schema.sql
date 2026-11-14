@@ -271,12 +271,18 @@ create policy "anyone can send message" on public.messages
     and char_length(coalesce(relation, '')) <= 100
     and (rating is null or rating between 1 and 5)
     and is_read = false
-    and approved = false
   );
 
+-- Kesan langsung tampil untuk semua pengunjung. Admin menghapus yang tidak pantas.
 drop policy if exists "public read approved kesan" on public.messages;
-create policy "public read approved kesan" on public.messages
-  for select using (kind = 'kesan' and approved);
+drop policy if exists "public read kesan" on public.messages;
+create policy "public read kesan" on public.messages
+  for select using (kind = 'kesan');
+
+-- Pengunjung hanya boleh membaca kolom publik. Email dan status baca tetap
+-- rahasia (hanya admin yang login yang bisa membacanya).
+revoke select on public.messages from anon;
+grant select (id, kind, name, relation, message, rating, created_at) on public.messages to anon;
 
 drop policy if exists "admin all messages" on public.messages;
 create policy "admin all messages" on public.messages

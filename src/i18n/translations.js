@@ -660,8 +660,8 @@ export const translations = {
     label: { en: "Impressions & messages", id: "Kesan & pesan" },
     title: { en: "Leave a note.", id: "Tinggalkan kesan." },
     description: {
-      en: "Seen my work? Tell me what you thought, or send a message. Impressions appear below once I approve them.",
-      id: "Sudah lihat karya saya? Ceritakan kesanmu atau kirim pesan. Kesan akan tampil di bawah setelah saya setujui.",
+      en: "Seen my work? Tell me what you thought. Your note appears below for everyone to see, so please keep it polite.",
+      id: "Sudah lihat karya saya? Ceritakan kesanmu. Tulisanmu akan tampil di bawah dan bisa dibaca semua pengunjung, jadi tolong gunakan bahasa yang sopan.",
     },
     name: { en: "Your name", id: "Nama kamu" },
     relation: { en: "Who are you? (optional)", id: "Kamu siapa? (opsional)" },
@@ -680,8 +680,8 @@ export const translations = {
     },
     sentTitle: { en: "Thank you!", id: "Terima kasih!" },
     sentBody: {
-      en: "Your note was sent. It will show up below after I review it.",
-      id: "Pesanmu sudah terkirim. Akan tampil di bawah setelah saya tinjau.",
+      en: "Your note was sent and now appears below.",
+      id: "Pesanmu sudah terkirim dan sekarang tampil di bawah.",
     },
     another: { en: "Send another", id: "Kirim lagi" },
     listTitle: { en: "What visitors said", id: "Kata pengunjung" },

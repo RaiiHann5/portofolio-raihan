@@ -22,7 +22,7 @@ function Stars({ value }) {
 
 /** Formulir kesan & pesan + daftar kesan yang sudah disetujui admin. */
 export default function Kesan() {
-  const { kesan } = useContent();
+  const { kesan, reload } = useContent();
   const { t, lang } = useLanguage();
   const [values, setValues] = useState(EMPTY);
   const [errors, setErrors] = useState({});
@@ -66,6 +66,7 @@ export default function Kesan() {
     }
     setValues(EMPTY);
     setStatus("sent");
+    reload?.(); // muat ulang supaya kesan baru langsung terlihat di daftar
   }
 
   return (

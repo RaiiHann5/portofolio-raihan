@@ -190,7 +190,6 @@ export function ContentProvider({ children }) {
             .from("messages")
             .select("id,name,relation,message,rating,created_at")
             .eq("kind", "kesan")
-            .eq("approved", true)
             .order("created_at", { ascending: false }),
         ]);
 

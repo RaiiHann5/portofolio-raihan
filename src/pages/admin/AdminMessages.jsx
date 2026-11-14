@@ -5,8 +5,6 @@ import {
   Trash2,
   Mail,
   MailOpen,
-  CheckCircle2,
-  EyeOff,
   Star,
 } from "lucide-react";
 import { useCollection } from "../../hooks/useCollection";
@@ -68,8 +66,9 @@ export default function AdminMessages() {
           )}
         </h2>
         <p className="mt-2 max-w-[60ch] text-sm leading-relaxed text-[var(--text-muted)]">
-          Pesan dari form di Temui Saya dan halaman Kesan & Pesan. Kesan hanya tampil di situs
-          setelah kamu klik "Setujui".
+          Pesan dari form di Temui Saya (hanya kamu yang bisa baca) dan halaman Kesan & Pesan.
+          Kesan langsung tampil di situs untuk semua pengunjung, jadi hapus yang tidak pantas
+          lewat tombol "Hapus".
         </p>
       </div>
 
@@ -121,12 +120,8 @@ export default function AdminMessages() {
                       {m.kind}
                     </span>
                     {m.kind === "kesan" && (
-                      <span
-                        className={`ml-2 font-mono text-[10px] uppercase ${
-                          m.approved ? "text-[var(--accent-1)]" : "text-[var(--text-faint)]"
-                        }`}
-                      >
-                        {m.approved ? "tampil di situs" : "belum disetujui"}
+                      <span className="ml-2 font-mono text-[10px] uppercase text-[var(--accent-1)]">
+                        tampil di situs
                       </span>
                     )}
                   </p>
@@ -155,20 +150,6 @@ export default function AdminMessages() {
                   {m.is_read ? <Mail size={13} /> : <MailOpen size={13} />}
                   {m.is_read ? "Tandai belum dibaca" : "Tandai sudah dibaca"}
                 </button>
-
-                {m.kind === "kesan" && (
-                  <button
-                    type="button"
-                    disabled={busy === m.id}
-                    onClick={() =>
-                      run(m.id, () => update(m.id, { approved: !m.approved, is_read: true }))
-                    }
-                    className="focus-ring inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] px-3.5 py-1.5 text-xs transition-colors hover:border-[var(--accent-1)] disabled:opacity-50"
-                  >
-                    {m.approved ? <EyeOff size={13} /> : <CheckCircle2 size={13} />}
-                    {m.approved ? "Sembunyikan dari situs" : "Setujui & tampilkan"}
-                  </button>
-                )}
 
                 {m.email && (
                   <a

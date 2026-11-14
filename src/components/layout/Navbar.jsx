@@ -345,7 +345,17 @@ export default function Navbar() {
       )}
 
       <style>{`
+        /* Background navbar selalu gelap di dua mode, jadi semua teks di dalamnya
+           dipaksa putih. Variabel tema ditimpa di sini supaya logo, link,
+           tombol tema/bahasa, dropdown, dan menu HP ikut terang di light mode. */
         .nav-glass {
+          --text: #ffffff;
+          --text-muted: rgba(255, 255, 255, 0.74);
+          --text-faint: rgba(255, 255, 255, 0.5);
+          --border: rgba(255, 255, 255, 0.14);
+          --border-strong: rgba(255, 255, 255, 0.28);
+          --surface-2: rgba(255, 255, 255, 0.1);
+          color: #ffffff;
           background: color-mix(in srgb, #05060f 45%, transparent);
           backdrop-filter: blur(18px) saturate(140%);
           -webkit-backdrop-filter: blur(18px) saturate(140%);
