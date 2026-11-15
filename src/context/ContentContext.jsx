@@ -95,6 +95,17 @@ function normalizeTestimonial(row) {
   };
 }
 
+function normalizeTool(row) {
+  return {
+    id: row.id,
+    group: (row.group_name || "").trim() || "Tools",
+    name: row.name,
+    icon: row.icon || "",
+    iconSlug: String(row.icon_slug || "").toLowerCase().replace(/[^a-z0-9]/g, ""),
+    color: /^#[0-9a-f]{6}$/i.test(row.color || "") ? row.color : "",
+  };
+}
+
 function normalizePost(row) {
   return {
     id: row.id,
@@ -159,6 +170,7 @@ export function ContentProvider({ children }) {
   const [templates, setTemplates] = useState(staticTemplates);
   const [certificates, setCertificates] = useState(staticCertificates);
   const [testimonials, setTestimonials] = useState([]);
+  const [tools, setTools] = useState([]);
   const [posts, setPosts] = useState([]);
   const [experiences, setExperiences] = useState([]);
   const [kesan, setKesan] = useState([]);
@@ -174,7 +186,7 @@ export function ContentProvider({ children }) {
     if (!supabase) return;
 
     try {
-      const [projectRes, templateRes, certRes, testimonialRes, linkRes, textRes, sectionRes, settingRes, postRes, expRes, kesanRes] =
+      const [projectRes, templateRes, certRes, testimonialRes, linkRes, textRes, sectionRes, settingRes, postRes, expRes, kesanRes, toolRes] =
         await Promise.all([
           supabase.from("projects").select("*").eq("published", true).order("position"),
           supabase.from("templates").select("*").eq("published", true).order("position"),
@@ -191,6 +203,7 @@ export function ContentProvider({ children }) {
             .select("id,name,relation,message,rating,created_at")
             .eq("kind", "kesan")
             .order("created_at", { ascending: false }),
+          supabase.from("tools").select("*").eq("published", true).order("position"),
         ]);
 
       // Tabel yang masih kosong sengaja TIDAK menimpa data statis. Ini
@@ -204,6 +217,7 @@ export function ContentProvider({ children }) {
 
       // Tabel baru: kalau belum dibuat di database, responsnya galat dan
       // `data` kosong, jadi halaman tetap tampil dengan keadaan kosong.
+      if (toolRes.data) setTools(toolRes.data.map(normalizeTool));
       if (postRes.data) setPosts(postRes.data.map(normalizePost));
       if (expRes.data) setExperiences(expRes.data.map(normalizeExperience));
       if (kesanRes.data) setKesan(kesanRes.data.map(normalizeKesan));
@@ -249,6 +263,7 @@ export function ContentProvider({ children }) {
       templates,
       certificates,
       testimonials,
+      tools,
       posts,
       experiences,
       kesan,
@@ -269,7 +284,7 @@ export function ContentProvider({ children }) {
         return i === -1 ? null : projects[(i + 1) % projects.length];
       },
     }),
-    [projects, templates, certificates, testimonials, posts, experiences, kesan, links, sections, settings, loading, load]
+    [projects, templates, certificates, testimonials, tools, posts, experiences, kesan, links, sections, settings, loading, load]
   );
 
   return <ContentContext.Provider value={value}>{children}</ContentContext.Provider>;

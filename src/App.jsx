@@ -43,6 +43,7 @@ const AdminVisibility = lazy(() => import("./pages/admin/AdminVisibility"));
 const AdminMessages = lazy(() => import("./pages/admin/AdminMessages"));
 const AdminPosts = lazy(() => import("./pages/admin/AdminPosts"));
 const AdminExperiences = lazy(() => import("./pages/admin/AdminExperiences"));
+const AdminTools = lazy(() => import("./pages/admin/AdminTools"));
 
 function AdminFallback() {
   return (
@@ -90,6 +91,7 @@ function App() {
                           <Route path="messages" element={<AdminMessages />} />
                           <Route path="posts" element={<AdminPosts />} />
                           <Route path="experiences" element={<AdminExperiences />} />
+                          <Route path="tools" element={<AdminTools />} />
                           <Route path="projects" element={<AdminProjects />} />
                           <Route path="templates" element={<AdminTemplates />} />
                           <Route path="certificates" element={<AdminCertificates />} />

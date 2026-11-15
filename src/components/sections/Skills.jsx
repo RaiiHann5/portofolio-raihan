@@ -1,11 +1,12 @@
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useMagnetic } from "../../hooks/useMagnetic";
 import { useScrollReveal } from "../../hooks/useScrollReveal";
 import { useLanguage } from "../../context/LanguageContext";
+import { useContent } from "../../context/ContentContext";
 import SectionHeading from "../ui/SectionHeading";
 import SkillPill from "./SkillPill";
 import SkillMeters from "./SkillMeters";
-import { skillGroups } from "../../data/skills";
+import { skillGroups, SKILL_ICON_SLUGS, GROUP_NOTES } from "../../data/skills";
 
 const ACCENTS = [
   { from: "#FF6B6B", to: "#FFD93D" },
@@ -139,13 +140,13 @@ function SkillCard({ group, index }) {
         <div ref={pillWrapRef} className="flex flex-wrap gap-2 sm:gap-3">
           {group.skills.map((skill, i) => (
             <div
-              key={skill}
+              key={skill.id ?? `${skill.name}-${i}`}
               data-pill
               data-reveal
               style={{ transitionDelay: `${i * 40}ms` }}
               className="transition-transform duration-150 ease-out"
             >
-              <SkillPill name={skill} />
+              <SkillPill name={skill.name} icon={skill.icon} iconSlug={skill.iconSlug} color={skill.color} />
             </div>
           ))}
         </div>
@@ -166,6 +167,27 @@ function SkillCard({ group, index }) {
 export default function Skills() {
   const containerRef = useScrollReveal();
   const { t } = useLanguage();
+  const { tools } = useContent();
+
+  // Tools dari database (diatur lewat admin). Kalau tabelnya masih kosong,
+  // pakai daftar bawaan di data/skills.js supaya section tidak pernah kosong.
+  const groups = useMemo(() => {
+    if (!tools.length) {
+      return skillGroups.map((g) => ({
+        label: g.label,
+        note: g.note,
+        skills: g.skills.map((name) => ({ name, iconSlug: SKILL_ICON_SLUGS[name] || "" })),
+      }));
+    }
+    const map = new Map();
+    tools.forEach((tool) => {
+      if (!map.has(tool.group)) {
+        map.set(tool.group, { label: tool.group, note: GROUP_NOTES[tool.group] || "", skills: [] });
+      }
+      map.get(tool.group).skills.push(tool);
+    });
+    return [...map.values()];
+  }, [tools]);
 
   return (
     <section id="skills" ref={containerRef} className="relative px-4 py-20 sm:px-6 sm:py-28 md:px-10 md:py-36">
@@ -190,7 +212,7 @@ export default function Skills() {
         {/* Grid rata 1 / 2 / 3 kolom — semua card sama besar, nggak ada yang gantung
             di breakpoint manapun, termasuk pas jumlah grup ganjil/genap ganti-ganti nanti. */}
         <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-16 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-          {skillGroups.map((group, i) => (
+          {groups.map((group, i) => (
             <div key={i} data-reveal style={{ perspective: "1000px" }}>
               <SkillCard group={group} index={i} />
             </div>

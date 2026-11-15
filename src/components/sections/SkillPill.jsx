@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { SKILL_COLORS, DEFAULT_SKILL_COLOR } from "../../data/skills";
 
-function resolveColor(name) {
-  const color = SKILL_COLORS[name] || DEFAULT_SKILL_COLOR;
+function resolveColor(name, custom) {
+  // Warna dari admin menang; kalau kosong pakai warna brand bawaan.
+  const color = custom || SKILL_COLORS[name] || DEFAULT_SKILL_COLOR;
   if (Array.isArray(color)) {
     return {
       isMulti: true,
@@ -23,9 +25,45 @@ function getTextColor(hex) {
   return brightness > 150 ? "#0A0A0A" : "#FFFFFF";
 }
 
-export default function SkillPill({ name }) {
-  const { isMulti, solid, background } = resolveColor(name);
+/**
+ * Ikon tool: gambar upload dari admin (ditaruh di chip putih supaya selalu
+ * kelihatan di atas warna apa pun), atau ikon Simple Icons berdasarkan slug,
+ * diwarnai sama dengan teks pill supaya kontrasnya aman.
+ */
+function ToolIcon({ icon, slug, textColor }) {
+  const [broken, setBroken] = useState(false);
+  if (broken) return null;
+  if (icon) {
+    return (
+      <img
+        src={icon}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        onError={() => setBroken(true)}
+        className="relative mr-2 h-5 w-5 shrink-0 rounded-[5px] bg-white/90 object-contain p-[2px]"
+      />
+    );
+  }
+  if (slug) {
+    return (
+      <img
+        src={`https://cdn.simpleicons.org/${slug}/${textColor.replace("#", "")}`}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        onError={() => setBroken(true)}
+        className="relative mr-2 h-4 w-4 shrink-0"
+      />
+    );
+  }
+  return null;
+}
+
+export default function SkillPill({ name, icon = "", iconSlug = "", color = "" }) {
+  const { isMulti, solid, background } = resolveColor(name, color);
   const textColor = isMulti ? "#FFFFFF" : getTextColor(solid);
+  const hasIcon = Boolean(icon || iconSlug);
 
   return (
     <span
@@ -51,7 +89,11 @@ export default function SkillPill({ name }) {
       />
 
       {/* Dot conic muter khusus buat Figma, biar multicolor-nya tetap kebaca sebagai gerakan, bukan cuma gradient statis */}
-      {isMulti && (
+      {hasIcon && (
+        <ToolIcon key={icon || iconSlug} icon={icon} slug={iconSlug} textColor={textColor} />
+      )}
+
+      {isMulti && !hasIcon && (
         <span
           className="relative mr-2 h-2 w-2 shrink-0 rounded-full"
           style={{ background: "#FFFFFF", opacity: 0.9 }}

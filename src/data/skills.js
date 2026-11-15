@@ -58,6 +58,36 @@ export const skillGroups = [
   },
 ];
 
+// Slug Simple Icons (https://simpleicons.org) untuk tools bawaan. Dipakai
+// hanya kalau tabel `tools` di database masih kosong. Tools yang dikelola
+// lewat admin menyimpan slug/ikonnya sendiri.
+export const SKILL_ICON_SLUGS = {
+  React: "react",
+  JavaScript: "javascript",
+  TypeScript: "typescript",
+  CSS3: "css",
+  "Tailwind CSS": "tailwindcss",
+  Flutter: "flutter",
+  Kotlin: "kotlin",
+  Firebase: "firebase",
+  MySql: "mysql",
+  MongoDB: "mongodb",
+  PostgreSQL: "postgresql",
+  Supabase: "supabase",
+  "Node.js": "nodedotjs",
+  PHP: "php",
+  Laravel: "laravel",
+  Python: "python",
+  Figma: "figma",
+  Git: "git",
+  Github: "github",
+};
+
+// Catatan kecil di kartu grup, dicari lewat nama grup (bahasa Inggris).
+export const GROUP_NOTES = Object.fromEntries(
+  skillGroups.map((g) => [typeof g.label === "string" ? g.label : g.label.en, g.note])
+);
+
 // Persentase = penilaian diri sendiri, bukan hasil tes. Isi dengan jujur
 // supaya cocok dengan kemampuan sebenarnya saat ditanya. Angka 0–100.
 export const technicalLevels = [
