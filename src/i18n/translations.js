@@ -598,8 +598,8 @@ export const translations = {
     label: { en: "Resume", id: "Resume" },
     title: { en: "Digital CV.", id: "CV Digital." },
     description: {
-      en: "A one-page summary of who I am, what I can do, and where I've worked. Download the PDF or print this page.",
-      id: "Ringkasan satu halaman tentang siapa saya, apa yang saya kuasai, dan di mana saya pernah bekerja. Unduh PDF-nya atau cetak halaman ini.",
+      en: "A one-page summary of who I am, what I can do, and where I've worked. Download the PDF below.",
+      id: "Ringkasan satu halaman tentang siapa saya, apa yang saya kuasai, dan di mana saya pernah bekerja. Unduh PDF-nya di bawah.",
     },
     download: { en: "Download PDF", id: "Unduh PDF" },
     print: { en: "Print", id: "Cetak" },
